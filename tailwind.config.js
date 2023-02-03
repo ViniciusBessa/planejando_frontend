@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   darkMode: "class",
   theme: {
+    minHeight: {
+      section: "500px",
+    },
     extend: {
       colors: {
         primary: {
@@ -17,6 +20,17 @@ module.exports = {
           100: "#badfff",
           50: "#e2f2ff",
         },
+        dark: "#212529",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { top: "8px", opacity: "0%" },
+          "20%, 60%": { top: "36px", opacity: "100%" },
+          "100%": { top: "36px", opacity: "0%" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 8s ease-in-out infinite",
       },
     },
   },

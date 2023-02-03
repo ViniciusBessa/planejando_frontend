@@ -26,10 +26,12 @@ export class GoogleAuthenticationService {
     oauthService.configure(oAuthConfig);
   }
 
-  async initLogin() {
+  async loadDocument() {
     await this.oauthService.loadDiscoveryDocument();
     await this.oauthService.tryLoginImplicitFlow();
+  }
 
+  async initLogin() {
     if (!this.oauthService.hasValidAccessToken()) {
       this.oauthService.initLoginFlow();
     }
@@ -38,18 +40,20 @@ export class GoogleAuthenticationService {
   }
 
   async autoLogin() {
-    await this.oauthService.loadDiscoveryDocument();
-    await this.oauthService.tryLoginImplicitFlow();
-
     if (!this.oauthService.hasValidAccessToken()) return;
 
     const userProfile: any = await this.oauthService.loadUserProfile();
-    this.store.dispatch(
-      AuthActions.loginStart({
-        email: userProfile.info.email,
-        password: userProfile.info.sub,
-        next: null,
-      })
-    );
+    const email = userProfile.info.email;
+    const password = userProfile.info.sub;
+
+    if (email && password) {
+      this.store.dispatch(
+        AuthActions.loginStart({
+          email,
+          password,
+          next: null,
+        })
+      );
+    }
   }
 }

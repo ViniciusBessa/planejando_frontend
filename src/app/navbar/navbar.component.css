@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+  .nav-link {
+    @apply no-underline text-white sm:after:block sm:after:border-b-2 sm:after:scale-0 sm:after:bg-white sm:after:duration-200 sm:after:ease-in-out sm:after:transition-all sm:hover:after:scale-100;
+  }
+}

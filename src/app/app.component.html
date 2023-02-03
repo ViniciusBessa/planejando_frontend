@@ -1,10 +1,13 @@
 <header>
-  <app-navbar></app-navbar>
+  <app-navbar [theme]="theme" (newTheme)="onSetTheme($event)"></app-navbar>
 </header>
-<main class="h-4/5 pt-20 sm:pt-16">
+<main
+  class="pt-16"
+  [ngClass]="{
+    dark: theme === 'dark' || (theme === 'system' && systemThemeIsDark())
+  }"
+>
   <router-outlet></router-outlet>
 </main>
-<footer class="h-1/5">
-  <app-footer></app-footer>
-</footer>
+<app-footer></app-footer>
 <app-error-alert></app-error-alert>

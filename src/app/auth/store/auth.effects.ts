@@ -81,6 +81,7 @@ export class AuthEffects {
       this.$actions.pipe(
         ofType(AuthActions.authSuccess),
         map((authData) => {
+          localStorage.setItem('token', 'Bearer ' + authData.token);
           if (authData.redirect && authData.next) {
             this.router.navigateByUrl(authData.next);
           } else if (authData.redirect) {
@@ -96,7 +97,7 @@ export class AuthEffects {
       this.$actions.pipe(
         ofType(AuthActions.logoutUser),
         map(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/inicio']);
         })
       ),
     { dispatch: false }

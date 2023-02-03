@@ -7,6 +7,7 @@ export const registerStart = createAction(
     name: string;
     email: string;
     password: string;
+    profile_image: string;
     next: string | null;
   }>()
 );

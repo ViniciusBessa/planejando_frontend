@@ -5,7 +5,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
-    path: 'register',
+    path: 'cadastro',
     component: RegisterComponent,
     data: { title: 'Cadastro' },
   },

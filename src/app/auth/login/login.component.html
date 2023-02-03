@@ -1,1 +1,125 @@
-<p>login works!</p>
+<div
+  class="min-h-screen bg-primary-50 dark:bg-dark flex dark:text-white justify-center items-center p-6"
+>
+  <form
+    class="flex flex-col items-center gap-6 bg-white border-white border-2 rounded-3xl w-full shadow-md shadow-gray-300 dark:shadow-gray-700 py-8 px-4 dark:bg-gray-800 sm:px-6 sm:w-5/6 md:w-7/12"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <h1 class="text-center text-3xl font-bold mb-6">Login</h1>
+    <div class="w-full md:w-10/12">
+      <label class="text-gray-600 font-bold dark:text-white" for="email"
+        >E-mail</label
+      >
+      <div
+        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        [ngClass]="{
+          'border-red-600':
+            !form.get('email')!.valid && form.get('email')!.touched
+        }"
+      >
+        <input
+          class="outline-none w-full bg-transparent"
+          type="email"
+          placeholder="Digite o seu e-mail"
+          formControlName="email"
+        />
+      </div>
+      <p
+        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        *ngIf="
+          form.get('email')!.touched &&
+          form.get('email')!.errors &&
+          form.get('email')!.errors!['required']
+        "
+      >
+        Por favor, informe o seu e-mail
+      </p>
+      <p
+        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        *ngIf="
+          form.get('email')!.touched &&
+          form.get('email')!.errors &&
+          form.get('email')!.errors!['email']
+        "
+      >
+        Por favor, informe um e-mail no formato: email@exemplo.com
+      </p>
+    </div>
+    <div class="w-full md:w-10/12">
+      <label class="text-gray-600 font-bold dark:text-white" for="password"
+        >Senha</label
+      >
+      <div
+        class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        [ngClass]="{
+          'border-red-600':
+            !form.get('password')!.valid && form.get('password')!.touched
+        }"
+      >
+        <input
+          class="outline-none w-4/6 bg-transparent"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Digite a sua senha"
+          formControlName="password"
+        />
+        <ng-icon
+          class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+          name="bootstrapEyeFill"
+          size="24"
+          (click)="onTogglePassword()"
+          *ngIf="!showPassword"
+        ></ng-icon>
+        <ng-icon
+          class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+          name="bootstrapEyeSlashFill"
+          size="24"
+          (click)="onTogglePassword()"
+          *ngIf="showPassword"
+        ></ng-icon>
+      </div>
+      <p
+        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        *ngIf="
+          form.get('password')!.touched &&
+          form.get('password')!.errors &&
+          form.get('password')!.errors!['required']
+        "
+      >
+        Por favor, informe a sua senha
+      </p>
+    </div>
+    <button
+      class="bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
+    >
+      Entrar
+    </button>
+    <a
+      class="text-primary-600 font-bold hover:opacity-80"
+      [routerLink]="['/auth', 'recuperar']"
+      >Esqueceu sua senha?</a
+    >
+    <hr class="w-full" />
+    <h1 class="text-center text-xl font-bold">Ou</h1>
+    <div
+      class="flex flex-row justify-center items-center gap-8 rounded-md border-2 border-stone-200 cursor-pointer hover:opacity-80 p-3 w-full sm:gap-10 md:w-9/12"
+      (click)="onLogInWithGoogle()"
+    >
+      <img
+        width="40"
+        height="40"
+        src="assets/google-logo.svg"
+        alt="Logo do Google"
+      />
+      <span class="text-lg font-bold">Entrar com o Google</span>
+    </div>
+    <hr class="w-full" />
+    <p class="font-bold text-gray-700 dark:text-white">
+      Não possui uma conta?<a
+        class="text-primary-700 ml-4 hover:opacity-70"
+        [routerLink]="['/auth', 'cadastro']"
+        >Cadastre-se</a
+      >
+    </p>
+  </form>
+</div>

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import * as AuthActions from './auth/store/auth.actions';
 import { Title } from '@angular/platform-browser';
+import { GoogleAuthenticationService } from './auth/services/google-authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +12,21 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  theme!: string;
+
   constructor(
     private store: Store<fromApp.AppState>,
+    private googleAuthentication: GoogleAuthenticationService,
     private title: Title,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // Trying to auto login with the backend and Google account
     this.store.dispatch(AuthActions.autoLogin());
+    await this.googleAuthentication.loadDocument();
+    await this.googleAuthentication.autoLogin();
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -33,5 +40,19 @@ export class AppComponent {
         this.title.setTitle(pageTitle);
       }
     });
+
+    // Setting the theme
+    const storedTheme = localStorage.getItem('theme');
+    this.onSetTheme(storedTheme);
+  }
+
+  async onSetTheme(newTheme: string | null) {
+    this.theme = newTheme || 'system';
+    localStorage.setItem('theme', this.theme);
+  }
+
+  systemThemeIsDark() {
+    const isSystemThemeDark = window.matchMedia('(prefers-color-scheme: dark)');
+    return isSystemThemeDark;
   }
 }

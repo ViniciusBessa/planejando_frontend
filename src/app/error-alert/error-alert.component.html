@@ -1,1 +1,6 @@
-<p>error-alert works!</p>
+<p
+  class="fixed z-50 animate-fadeIn rounded-md left-1/2 -translate-x-1/2 text-center py-2 px-3 bg-red-600 text-white"
+  *ngIf="errorMessage"
+>
+  {{ errorMessage }}
+</p>
