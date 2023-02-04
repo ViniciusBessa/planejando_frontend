@@ -27,7 +27,7 @@ export class RegisterComponent {
     private store: Store<fromApp.AppState>
   ) {}
 
-  onTogglePassword() {
+  onTogglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
@@ -49,17 +49,13 @@ export class RegisterComponent {
 
   async onRegisterWithGoogle(): Promise<void> {
     const userData = await this.googleAuthentication.initLogin();
-    const email = userData.info.email as string;
-    const password = userData.info.sub as string;
-    const name = userData.info.name as string;
-    const profile_image = userData.picture as string;
 
     this.store.dispatch(
       AuthActions.registerStart({
-        name,
-        email,
-        password,
-        profile_image,
+        name: userData.info.name,
+        email: userData.info.email,
+        password: userData.info.sub,
+        profile_image: userData.picture,
         next: null,
       })
     );

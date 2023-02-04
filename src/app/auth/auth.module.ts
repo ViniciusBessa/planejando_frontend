@@ -9,9 +9,10 @@ import {
   bootstrapEyeFill,
   bootstrapEyeSlashFill,
 } from '@ng-icons/bootstrap-icons';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, PasswordResetComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

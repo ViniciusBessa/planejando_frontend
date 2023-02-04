@@ -22,7 +22,7 @@ export class LoginComponent {
     private store: Store<fromApp.AppState>
   ) {}
 
-  onTogglePassword() {
+  onTogglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
@@ -38,13 +38,11 @@ export class LoginComponent {
 
   async onLogInWithGoogle(): Promise<void> {
     const userData = await this.googleAuthentication.initLogin();
-    const email = userData.info.email as string;
-    const password = userData.info.sub as string;
 
     this.store.dispatch(
       AuthActions.loginStart({
-        email,
-        password,
+        email: userData.info.email,
+        password: userData.info.sub,
         next: null,
       })
     );

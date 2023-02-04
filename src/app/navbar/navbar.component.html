@@ -1,5 +1,5 @@
 <nav
-  class="fixed z-10 top-0 h-16 w-full bg-primary-800 gap-10 px-4 py-2 flex flex-row justify-between text-center sm:p-5"
+  class="fixed z-10 top-0 h-16 w-full bg-primary-800 px-4 py-2 flex flex-row justify-between gap-4 text-center sm:p-5"
 >
   <button class="flex items-center ml-4 sm:hidden" (click)="onToggleNavbar()">
     <ng-icon color="white" name="bootstrapList" size="36"></ng-icon>
@@ -27,7 +27,6 @@
           class="nav-link"
           [routerLink]="['/inicio']"
           routerLinkActive="opacity-70"
-          [routerLinkActiveOptions]="{ exact: true }"
           >Início</a
         >
       </li>
@@ -36,8 +35,40 @@
           class="nav-link"
           [routerLink]="['/planos']"
           routerLinkActive="opacity-70 after:hidden"
-          [routerLinkActiveOptions]="{ exact: true }"
           >Planos</a
+        >
+      </li>
+      <li *ngIf="userIsLoggedIn">
+        <a
+          class="nav-link"
+          [routerLink]="['/dashboard']"
+          routerLinkActive="opacity-70 after:hidden"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Dashboard</a
+        >
+      </li>
+      <li *ngIf="userIsLoggedIn">
+        <a
+          class="nav-link"
+          [routerLink]="['/dashboard/metas']"
+          routerLinkActive="opacity-70 after:hidden"
+          >Metas</a
+        >
+      </li>
+      <li *ngIf="userIsLoggedIn">
+        <a
+          class="nav-link"
+          [routerLink]="['/dashboard/receitas']"
+          routerLinkActive="opacity-70 after:hidden"
+          >Receitas</a
+        >
+      </li>
+      <li *ngIf="userIsLoggedIn">
+        <a
+          class="nav-link"
+          [routerLink]="['/dashboard/despesas']"
+          routerLinkActive="opacity-70 after:hidden"
+          >Despesas</a
         >
       </li>
     </ul>
@@ -45,7 +76,7 @@
       class="flex flex-col mt-auto gap-10 sm:ml-auto sm:flex sm:flex-row sm:mt-0"
       [ngClass]="{ hidden: navbarIsHidden }"
     >
-      <li>
+      <li *ngIf="!userIsLoggedIn">
         <a
           class="nav-link"
           [routerLink]="['/auth', 'login']"
@@ -54,7 +85,7 @@
           >Login</a
         >
       </li>
-      <li>
+      <li *ngIf="!userIsLoggedIn">
         <a
           class="nav-link"
           [routerLink]="['/auth', 'cadastro']"

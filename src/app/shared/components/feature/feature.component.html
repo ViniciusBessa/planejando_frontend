@@ -1,0 +1,13 @@
+<div
+  class="bg-white dark:bg-gray-800 dark:text-white w-60 h-80 flex flex-col items-center justify-between py-10 px-4 gap-10 shadow-md shadow-gray-400 dark:shadow-gray-700 border-2 rounded-md border-gray-100 dark:border-gray-400"
+>
+  <ng-icon
+    class="text-dark dark:text-white"
+    [name]="iconName"
+    size="36"
+  ></ng-icon>
+  <h1 class="text-3xl font-bold">{{ title }}</h1>
+  <p class="text-center text-gray-700 dark:text-gray-300">
+    <ng-content></ng-content>
+  </p>
+</div>

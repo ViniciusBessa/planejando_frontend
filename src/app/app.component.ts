@@ -26,7 +26,6 @@ export class AppComponent {
     // Trying to auto login with the backend and Google account
     this.store.dispatch(AuthActions.autoLogin());
     await this.googleAuthentication.loadDocument();
-    await this.googleAuthentication.autoLogin();
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
