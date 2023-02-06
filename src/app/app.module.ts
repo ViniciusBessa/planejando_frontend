@@ -38,11 +38,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { FeatureComponent } from './shared/components/feature/feature.component';
+import { ContactComponent } from './contact/contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { PlansComponent } from './plans/plans.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ContactComponent,
     Error404Component,
     HomeComponent,
     NavbarComponent,
@@ -59,6 +62,7 @@ import { PlansComponent } from './plans/plans.component';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     OAuthModule.forRoot(),
     NgIconsModule.withIcons({
       bootstrapEyeFill,

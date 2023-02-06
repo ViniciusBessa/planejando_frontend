@@ -1,14 +1,17 @@
 <footer
-  class="bg-primary-900 flex flex-col justify-end p-6 text-center sm:px-10 sm:text-start sm:justify-start md:px-28"
+  class="min-h-footer bg-primary-900 flex flex-col justify-end p-6 text-center sm:px-10 sm:text-start sm:justify-start md:px-28"
 >
-  <ul
-    class="flex flex-col justify-center items-center gap-12 sm:flex-row sm:gap-28"
-  >
+  <ul class="flex flex-col justify-center items-center gap-12 sm:flex-row">
     <li class="h-fit">
       <a class="no-underline text-white" [routerLink]="['/inicio']">Início</a>
     </li>
     <li class="h-fit">
       <a class="no-underline text-white" [routerLink]="['/planos']">Planos</a>
+    </li>
+    <li class="h-fit">
+      <a class="no-underline text-white" [routerLink]="['/contato']"
+        >Fale conosco</a
+      >
     </li>
     <button
       class="text-white bg-orange-500 font-bold p-4 mb-10 rounded hover:opacity-90 sm:mb-0 sm:ml-auto"

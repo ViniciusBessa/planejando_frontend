@@ -5,6 +5,8 @@ module.exports = {
   theme: {
     minHeight: {
       section: "500px",
+      main: "80vh",
+      footer: "20vh",
     },
     extend: {
       colors: {

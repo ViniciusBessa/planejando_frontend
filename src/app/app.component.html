@@ -2,7 +2,7 @@
   <app-navbar [theme]="theme" (newTheme)="onSetTheme($event)"></app-navbar>
 </header>
 <main
-  class="pt-16"
+  class="min-h-main pt-16"
   [ngClass]="{
     dark: theme === 'dark' || (theme === 'system' && systemThemeIsDark())
   }"

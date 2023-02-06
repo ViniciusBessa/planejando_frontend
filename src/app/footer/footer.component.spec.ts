@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { FooterComponent } from './footer.component';
 import { PlansComponent } from '../plans/plans.component';
 import { RegisterComponent } from '../auth/register/register.component';
+import { ContactComponent } from '../contact/contact.component';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -31,6 +32,10 @@ describe('FooterComponent', () => {
           {
             path: 'planos',
             component: PlansComponent,
+          },
+          {
+            path: 'contato',
+            component: ContactComponent,
           },
           {
             path: 'auth/cadastro',
@@ -52,8 +57,6 @@ describe('FooterComponent', () => {
 
   it('should navigate to the home page', fakeAsync(
     inject([Location, Router], (location: Location, router: Router) => {
-      router.navigate(['/auth/login']);
-
       let anchorHome = compiled.querySelectorAll('a')[0] as HTMLAnchorElement;
       anchorHome.click();
       tick();
@@ -64,8 +67,6 @@ describe('FooterComponent', () => {
 
   it('should navigate to the plans page', fakeAsync(
     inject([Location, Router], (location: Location, router: Router) => {
-      router.navigate(['/auth/login']);
-
       let anchorPlans = compiled.querySelectorAll('a')[1] as HTMLAnchorElement;
       anchorPlans.click();
       tick();
@@ -74,10 +75,18 @@ describe('FooterComponent', () => {
     })
   ));
 
+  it('should navigate to the contact page', fakeAsync(
+    inject([Location, Router], (location: Location, router: Router) => {
+      let anchorPlans = compiled.querySelectorAll('a')[2] as HTMLAnchorElement;
+      anchorPlans.click();
+      tick();
+
+      expect(location.path()).toEqual('/contato');
+    })
+  ));
+
   it('should navigate to the register page', fakeAsync(
     inject([Location, Router], (location: Location, router: Router) => {
-      router.navigate(['/auth/login']);
-
       let buttonRegister = compiled.querySelector(
         'button'
       ) as HTMLButtonElement;
