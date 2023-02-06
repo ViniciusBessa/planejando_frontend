@@ -14,7 +14,7 @@
       <div
         class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
         [ngClass]="{
-          'border-red-600':
+          'border-red-600 dark:border-red-600':
             !form.get('email')!.valid && form.get('email')!.touched
         }"
       >
@@ -53,7 +53,7 @@
       <div
         class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
         [ngClass]="{
-          'border-red-600':
+          'border-red-600 dark:border-red-600':
             !form.get('password')!.valid && form.get('password')!.touched
         }"
       >

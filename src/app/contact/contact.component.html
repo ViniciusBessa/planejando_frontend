@@ -17,7 +17,7 @@
       <div
         class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
         [ngClass]="{
-          'border-red-600':
+          'border-red-600 dark:border-red-600':
             !form.get('name')!.valid && form.get('name')!.touched
         }"
       >
@@ -65,7 +65,7 @@
       <div
         class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
         [ngClass]="{
-          'border-red-600':
+          'border-red-600 dark:border-red-600':
             !form.get('email')!.valid && form.get('email')!.touched
         }"
       >
@@ -103,7 +103,7 @@
       <div
         class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
         [ngClass]="{
-          'border-red-600':
+          'border-red-600 dark:border-red-600':
             !form.get('subject')!.valid && form.get('subject')!.touched
         }"
       >
@@ -151,7 +151,7 @@
       <textarea
         class="w-full bg-transparent rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
         [ngClass]="{
-          'border-red-600':
+          'border-red-600 dark:border-red-600':
             !form.get('message')!.valid && form.get('message')!.touched
         }"
         placeholder="Mensagem"
