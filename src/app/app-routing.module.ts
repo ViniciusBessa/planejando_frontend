@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { Error404Component } from './error404/error404.component';
 import { HomeComponent } from './home/home.component';
-import { PlansComponent } from './plans/plans.component';
+import { LoginRequiredGuard } from './shared/guards/login-required.guard';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 const routes: Routes = [
   {
@@ -17,14 +18,15 @@ const routes: Routes = [
     data: { title: 'Início' },
   },
   {
-    path: 'planos',
-    component: PlansComponent,
-    data: { title: 'Planos' },
-  },
-  {
     path: 'contato',
     component: ContactComponent,
     data: { title: 'Contato' },
+  },
+  {
+    path: 'usuario/conta',
+    component: UserAccountComponent,
+    canActivate: [LoginRequiredGuard],
+    data: { title: 'Conta' },
   },
   {
     path: 'auth',

@@ -1,0 +1,355 @@
+<section
+  class="min-h-main flex justify-center items-center dark:text-white bg-primary-50 dark:bg-dark py-10 px-2 sm:p-5"
+>
+  <div
+    class="w-full min-h-userSettings flex flex-col items-center gap-2 rounded-lg bg-white dark:bg-gray-800 md:w-10/12 sm:flex-row md:gap-10"
+  >
+    <div
+      class="w-full sm:w-48 md:w-80 sm:min-h-userSettings flex flex-col justify-center items-center py-10 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-300"
+    >
+      <ng-icon name="bootstrapPersonCircle" size="64"></ng-icon>
+      <h2 class="text-2xl font-bold my-6">{{ user.name }}</h2>
+      <div class="w-full flex flex-row sm:flex-col">
+        <div
+          class="w-full flex flex-row items-center gap-4 px-5 py-3 cursor-pointer hover:bg-primary-800 hover:text-white"
+          [ngClass]="{
+            'bg-primary-900 hover:bg-primary-900 text-white':
+              selectedSection === 'ACCOUNT'
+          }"
+          (click)="onSelectSection('account')"
+        >
+          <ng-icon name="bootstrapHouse" size="20"></ng-icon>
+          <p>Conta</p>
+        </div>
+        <div
+          class="w-full flex flex-row items-center gap-4 px-5 py-3 cursor-pointer hover:bg-primary-800 hover:text-white"
+          [ngClass]="{
+            'bg-primary-900 hover:bg-primary-900 text-white':
+              selectedSection === 'PASSWORD'
+          }"
+          (click)="onSelectSection('password')"
+        >
+          <ng-icon name="bootstrapKeyFill" size="20"></ng-icon>
+          <p>Senha</p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-full flex flex-col justify-center items-center py-10 px-3"
+      *ngIf="selectedSection === 'ACCOUNT'"
+    >
+      <h1 class="text-center text-lg font-bold">Dados</h1>
+      <form
+        class="flex flex-col items-center gap-4 w-full"
+        [formGroup]="nameForm"
+        (ngSubmit)="onUpdateName()"
+      >
+        <div class="w-full">
+          <label class="text-gray-600 font-bold dark:text-white" for="name"
+            >Nome</label
+          >
+          <div
+            class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+            [ngClass]="{
+              'border-red-600 dark:border-red-600':
+                !nameForm.get('name')!.valid && nameForm.get('name')!.touched
+            }"
+          >
+            <input
+              class="outline-none w-full bg-transparent"
+              type="text"
+              placeholder="Digite um nome"
+              formControlName="name"
+              autocomplete="name"
+            />
+          </div>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              nameForm.get('name')!.touched &&
+              nameForm.get('name')!.errors &&
+              nameForm.get('name')!.errors!['required']
+            "
+          >
+            Por favor, informe um nome
+          </p>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              nameForm.get('name')!.touched &&
+              nameForm.get('name')!.errors &&
+              nameForm.get('name')!.errors!['minlength']
+            "
+          >
+            O nome deve ter pelo menos 8 caracteres
+          </p>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              nameForm.get('name')!.touched &&
+              nameForm.get('name')!.errors &&
+              nameForm.get('name')!.errors!['maxlength']
+            "
+          >
+            O nome só pode ter até 40 caracteres
+          </p>
+        </div>
+        <button
+          class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          [disabled]="loading || user.name === nameForm.get('name')!.value"
+        >
+          <span *ngIf="!loading">Atualizar o nome</span>
+          <div
+            class="relative w-3 h-3 rounded-md bg-white dark:bg-dark animate-loadingElastic before:inline-block before:absolute before:top-0 before:-left-4 before:w-3 before:h-3 before:rounded-md before:bg-white dark:before:bg-dark before:animate-loadingElasticBefore after:inline-block after:absolute after:top-0 after:left-4 after:w-3 after:h-3 after:rounded-md after:bg-white dark:after:bg-dark after:animate-loadingElasticAfter"
+            *ngIf="loading"
+          ></div>
+        </button>
+      </form>
+      <form
+        class="flex flex-col items-center gap-4 w-full"
+        [formGroup]="emailForm"
+        (ngSubmit)="onUpdateEmail()"
+      >
+        <div class="w-full">
+          <label class="text-gray-600 font-bold dark:text-white" for="email"
+            >E-mail</label
+          >
+          <div
+            class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+            [ngClass]="{
+              'border-red-600 dark:border-red-600':
+                emailForm.get('email')!.valid && emailForm.get('email')!.touched
+            }"
+          >
+            <input
+              class="outline-none w-full bg-transparent"
+              type="email"
+              placeholder="Digite o seu e-mail"
+              formControlName="email"
+              autocomplete="email"
+            />
+          </div>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              emailForm.get('email')!.touched &&
+              emailForm.get('email')!.errors &&
+              emailForm.get('email')!.errors!['required']
+            "
+          >
+            Por favor, informe o seu e-mail
+          </p>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              emailForm.get('email')!.touched &&
+              emailForm.get('email')!.errors &&
+              emailForm.get('email')!.errors!['email']
+            "
+          >
+            Por favor, informe um e-mail no formato: email@exemplo.com
+          </p>
+        </div>
+        <button
+          class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          [disabled]="loading || user.email === emailForm.get('email')!.value"
+        >
+          <span *ngIf="!loading">Atualizar o e-mail</span>
+          <div
+            class="relative w-3 h-3 rounded-md bg-white dark:bg-dark animate-loadingElastic before:inline-block before:absolute before:top-0 before:-left-4 before:w-3 before:h-3 before:rounded-md before:bg-white dark:before:bg-dark before:animate-loadingElasticBefore after:inline-block after:absolute after:top-0 after:left-4 after:w-3 after:h-3 after:rounded-md after:bg-white dark:after:bg-dark after:animate-loadingElasticAfter"
+            *ngIf="loading"
+          ></div>
+        </button>
+      </form>
+      <h2 class="text-lg font-bold text-center mt-5">Excluir a conta</h2>
+      <form
+        class="flex flex-col items-center gap-4 w-full"
+        [formGroup]="accountDeleteForm"
+        (ngSubmit)="onDeleteAccount()"
+      >
+        <div class="w-full">
+          <label class="text-gray-600 font-bold dark:text-white" for="password"
+            >Senha</label
+          >
+          <div
+            class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+            [ngClass]="{
+              'border-red-600 dark:border-red-600':
+                !accountDeleteForm.get('password')!.valid &&
+                accountDeleteForm.get('password')!.touched
+            }"
+          >
+            <input
+              class="outline-none w-4/6 bg-transparent"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Digite a sua senha"
+              formControlName="password"
+              autocomplete="current-password"
+            />
+            <ng-icon
+              class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+              name="bootstrapEyeFill"
+              size="24"
+              (click)="onTogglePassword()"
+              *ngIf="!showPassword"
+            ></ng-icon>
+            <ng-icon
+              class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+              name="bootstrapEyeSlashFill"
+              size="24"
+              (click)="onTogglePassword()"
+              *ngIf="showPassword"
+            ></ng-icon>
+          </div>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              accountDeleteForm.get('password')!.touched &&
+              accountDeleteForm.get('password')!.errors &&
+              accountDeleteForm.get('password')!.errors!['required']
+            "
+          >
+            Por favor, informe a sua senha
+          </p>
+        </div>
+        <button
+          class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading">Deletar a conta</span>
+          <div
+            class="relative w-3 h-3 rounded-md bg-white dark:bg-dark animate-loadingElastic before:inline-block before:absolute before:top-0 before:-left-4 before:w-3 before:h-3 before:rounded-md before:bg-white dark:before:bg-dark before:animate-loadingElasticBefore after:inline-block after:absolute after:top-0 after:left-4 after:w-3 after:h-3 after:rounded-md after:bg-white dark:after:bg-dark after:animate-loadingElasticAfter"
+            *ngIf="loading"
+          ></div>
+        </button>
+      </form>
+    </div>
+    <div
+      class="w-full flex flex-col gap-5 py-10 px-3"
+      *ngIf="selectedSection === 'PASSWORD'"
+    >
+      <h2 class="text-center text-lg font-bold">Senha</h2>
+      <form
+        class="flex flex-col items-center gap-4 w-full"
+        [formGroup]="passwordForm"
+        (ngSubmit)="onUpdatePassword()"
+      >
+        <div class="w-full">
+          <label class="text-gray-600 font-bold dark:text-white" for="password"
+            >Senha</label
+          >
+          <div
+            class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+            [ngClass]="{
+              'border-red-600 dark:border-red-600':
+                !passwordForm.get('password')!.valid &&
+                passwordForm.get('password')!.touched
+            }"
+          >
+            <input
+              class="outline-none w-4/6 bg-transparent"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Digite uma nova senha"
+              formControlName="password"
+              autocomplete="new-password"
+            />
+            <ng-icon
+              class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+              name="bootstrapEyeFill"
+              size="24"
+              (click)="onTogglePassword()"
+              *ngIf="!showPassword"
+            ></ng-icon>
+            <ng-icon
+              class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+              name="bootstrapEyeSlashFill"
+              size="24"
+              (click)="onTogglePassword()"
+              *ngIf="showPassword"
+            ></ng-icon>
+          </div>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              passwordForm.get('password')!.touched &&
+              passwordForm.get('password')!.errors &&
+              passwordForm.get('password')!.errors!['required']
+            "
+          >
+            Por favor, informe a nova senha
+          </p>
+        </div>
+
+        <div class="w-full">
+          <label
+            class="text-gray-600 font-bold dark:text-white"
+            for="passwordConfirmation"
+            >Confirmação da senha</label
+          >
+          <div
+            class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+            [ngClass]="{
+              'border-red-600 dark:border-red-600':
+                (!passwordForm.get('passwordConfirmation')!.valid ||
+                  (passwordForm.errors &&
+                    passwordForm.errors!['passwordsDontMatch'])) &&
+                passwordForm.get('passwordConfirmation')!.touched
+            }"
+          >
+            <input
+              class="outline-none w-4/6 bg-transparent"
+              [type]="showPasswordConfirmation ? 'text' : 'password'"
+              placeholder="Digite a senha novamente"
+              formControlName="passwordConfirmation"
+              autocomplete="new-password"
+            />
+            <ng-icon
+              class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+              name="bootstrapEyeFill"
+              size="24"
+              (click)="onTogglePasswordConfirmation()"
+              *ngIf="!showPasswordConfirmation"
+            ></ng-icon>
+            <ng-icon
+              class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
+              name="bootstrapEyeSlashFill"
+              size="24"
+              (click)="onTogglePasswordConfirmation()"
+              *ngIf="showPasswordConfirmation"
+            ></ng-icon>
+          </div>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              passwordForm.get('passwordConfirmation')!.touched &&
+              passwordForm.get('passwordConfirmation')!.errors &&
+              passwordForm.get('passwordConfirmation')!.errors!['required']
+            "
+          >
+            Por favor, digite a senha novamente
+          </p>
+          <p
+            class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+            *ngIf="
+              passwordForm.get('passwordConfirmation')!.touched &&
+              passwordForm.errors &&
+              passwordForm.errors!['passwordsDontMatch']
+            "
+          >
+            As senhas digitadas não conferem
+          </p>
+        </div>
+        <button
+          class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading">Entrar</span>
+          <div
+            class="relative w-3 h-3 rounded-md bg-white dark:bg-dark animate-loadingElastic before:inline-block before:absolute before:top-0 before:-left-4 before:w-3 before:h-3 before:rounded-md before:bg-white dark:before:bg-dark before:animate-loadingElasticBefore after:inline-block after:absolute after:top-0 after:left-4 after:w-3 after:h-3 after:rounded-md after:bg-white dark:after:bg-dark after:animate-loadingElasticAfter"
+            *ngIf="loading"
+          ></div>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

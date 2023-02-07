@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NavigationEnd, Route, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
+import * as AuthActions from '../auth/store/auth.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -34,5 +35,9 @@ export class NavbarComponent implements OnInit {
 
   onSetTheme(theme: string): void {
     this.newTheme.emit(theme);
+  }
+
+  onLogout(): void {
+    this.store.dispatch(AuthActions.logoutUser());
   }
 }

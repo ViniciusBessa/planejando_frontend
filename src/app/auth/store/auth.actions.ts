@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserData } from '../models/user.model';
+import { UserData } from '../../shared/models/user.model';
 
 export const registerStart = createAction(
   '[Auth] Register Start',

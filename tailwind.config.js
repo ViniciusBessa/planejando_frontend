@@ -7,8 +7,12 @@ module.exports = {
       section: "500px",
       main: "80vh",
       footer: "20vh",
+      userSettings: "493px",
     },
     extend: {
+      width: {
+        120: "480px",
+      },
       colors: {
         primary: {
           900: "#1a41c0",
@@ -30,9 +34,63 @@ module.exports = {
           "20%, 60%": { top: "36px", opacity: "100%" },
           "100%": { top: "36px", opacity: "0%" },
         },
+        loadingElasticBefore: {
+          "0%": {
+            transform: "scale(1, 1)",
+          },
+          "25%": {
+            transform: "scale(1, 1.5)",
+          },
+          "50%": {
+            transform: "scale(1, 0.67)",
+          },
+          "75%": {
+            transform: "scale(1, 1)",
+          },
+          "100%": {
+            transform: "scale(1, 1)",
+          },
+        },
+        loadingElastic: {
+          "0%": {
+            transform: "scale(1, 1)",
+          },
+          "25%": {
+            transform: "scale(1, 1)",
+          },
+          "50%": {
+            transform: "scale(1, 1.5)",
+          },
+          "75%": {
+            transform: "scale(1, 1)",
+          },
+          "100%": {
+            transform: "scale(1, 1)",
+          },
+        },
+        loadingElasticAfter: {
+          "0%": {
+            transform: "scale(1, 1)",
+          },
+          "25%": {
+            transform: "scale(1, 1)",
+          },
+          "50%": {
+            transform: "scale(1, 0.67)",
+          },
+          "75%": {
+            transform: "scale(1, 1.5)",
+          },
+          "100%": {
+            transform: "scale(1, 1)",
+          },
+        },
       },
       animation: {
         fadeIn: "fadeIn 8s ease-in-out infinite",
+        loadingElastic: "loadingElastic 1s infinite linear",
+        loadingElasticBefore: "loadingElasticBefore 1s infinite linear",
+        loadingElasticAfter: "loadingElasticAfter 1s infinite linear",
       },
     },
   },

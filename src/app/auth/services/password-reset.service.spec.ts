@@ -1,14 +1,13 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { OAuthModule } from 'angular-oauth2-oidc';
-
-import { GoogleAuthenticationService } from './google-authentication.service';
 import * as fromApp from '../../store/app.reducer';
 
-describe('GoogleAuthenticationService', () => {
-  let service: GoogleAuthenticationService;
-  const initialState: fromApp.AppState = {
+import { PasswordResetService } from './password-reset.service';
+
+describe('PasswordResetService', () => {
+  let service: PasswordResetService;
+  let initialState: fromApp.AppState = {
     auth: {
       user: null,
       error: null,
@@ -22,10 +21,10 @@ describe('GoogleAuthenticationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [OAuthModule.forRoot(), HttpClientModule],
+      imports: [HttpClientModule],
       providers: [provideMockStore({ initialState })],
     });
-    service = TestBed.inject(GoogleAuthenticationService);
+    service = TestBed.inject(PasswordResetService);
   });
 
   it('should be created', () => {

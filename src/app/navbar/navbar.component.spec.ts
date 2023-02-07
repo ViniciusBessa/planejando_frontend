@@ -12,13 +12,13 @@ import { ExpensesComponent } from '../dashboard/expenses/expenses.component';
 import { GoalsComponent } from '../dashboard/goals/goals.component';
 import { RevenuesComponent } from '../dashboard/revenues/revenues.component';
 import { HomeComponent } from '../home/home.component';
-import { PlansComponent } from '../plans/plans.component';
 import {
   bootstrapList,
   bootstrapSunFill,
   bootstrapMoonFill,
   bootstrapCaretDownFill,
   bootstrapLaptopFill,
+  bootstrapPersonCircle,
 } from '@ng-icons/bootstrap-icons';
 
 import { NavbarComponent } from './navbar.component';
@@ -29,6 +29,7 @@ import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
 import { OverviewComponent } from '../dashboard/overview/overview.component';
 import { ContactComponent } from '../contact/contact.component';
+import { UserAccountComponent } from '../user-account/user-account.component';
 
 describe('NavbarComponent', () => {
   describe('User Logged In', () => {
@@ -49,6 +50,10 @@ describe('NavbarComponent', () => {
         error: null,
         loading: false,
       },
+      userAccount: {
+        error: null,
+        loading: false,
+      },
     };
 
     beforeEach(async () => {
@@ -59,10 +64,6 @@ describe('NavbarComponent', () => {
             {
               path: 'inicio',
               component: HomeComponent,
-            },
-            {
-              path: 'planos',
-              component: PlansComponent,
             },
             {
               path: 'contato',
@@ -85,6 +86,10 @@ describe('NavbarComponent', () => {
               component: ExpensesComponent,
             },
             {
+              path: 'usuario/conta',
+              component: UserAccountComponent,
+            },
+            {
               path: 'auth/login',
               component: LoginComponent,
             },
@@ -99,6 +104,7 @@ describe('NavbarComponent', () => {
             bootstrapMoonFill,
             bootstrapCaretDownFill,
             bootstrapLaptopFill,
+            bootstrapPersonCircle,
           }),
         ],
         providers: [provideMockStore({ initialState })],
@@ -128,23 +134,11 @@ describe('NavbarComponent', () => {
       })
     ));
 
-    it('should navigate to the plans page', fakeAsync(
-      inject([Location], (location: Location) => {
-        const anchorPlans = compiled.querySelectorAll(
-          'a'
-        )[1] as HTMLAnchorElement;
-        anchorPlans.click();
-        tick();
-
-        expect(location.path()).toEqual('/planos');
-      })
-    ));
-
     it('should navigate to the contact page', fakeAsync(
       inject([Location], (location: Location) => {
         const anchorContact = compiled.querySelectorAll(
           'a'
-        )[2] as HTMLAnchorElement;
+        )[1] as HTMLAnchorElement;
         anchorContact.click();
         tick();
 
@@ -156,7 +150,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorDashboard = compiled.querySelectorAll(
           'a'
-        )[3] as HTMLAnchorElement;
+        )[2] as HTMLAnchorElement;
         anchorDashboard.click();
         tick();
 
@@ -168,7 +162,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorGoals = compiled.querySelectorAll(
           'a'
-        )[4] as HTMLAnchorElement;
+        )[3] as HTMLAnchorElement;
         anchorGoals.click();
         tick();
 
@@ -180,7 +174,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorRevenues = compiled.querySelectorAll(
           'a'
-        )[5] as HTMLAnchorElement;
+        )[4] as HTMLAnchorElement;
         anchorRevenues.click();
         tick();
 
@@ -192,13 +186,39 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorExpenses = compiled.querySelectorAll(
           'a'
-        )[6] as HTMLAnchorElement;
+        )[5] as HTMLAnchorElement;
         anchorExpenses.click();
         tick();
 
         expect(location.path()).toEqual('/dashboard/despesas');
       })
     ));
+
+    it('should navigate to the user account page', fakeAsync(
+      inject([Location], (location: Location) => {
+        const anchorExpenses = compiled.querySelectorAll(
+          'a'
+        )[6] as HTMLAnchorElement;
+        anchorExpenses.click();
+        tick();
+
+        expect(location.path()).toEqual('/usuario/conta');
+      })
+    ));
+
+    it('should log out the user', fakeAsync(() => {
+      spyOn(component, 'onLogout').and.callThrough();
+      spyOn(store, 'dispatch');
+
+      const logOutParagraph = compiled.querySelector(
+        'p'
+      ) as HTMLParagraphElement;
+      logOutParagraph.click();
+      tick();
+
+      expect(component.onLogout).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalled();
+    }));
 
     it('should hide the link to the login page', fakeAsync(
       inject([Location], (location: Location) => {
@@ -226,7 +246,7 @@ describe('NavbarComponent', () => {
       spyOn(component, 'onSetTheme').and.callThrough();
       spyOn(component.newTheme, 'emit');
 
-      const sunIcon = compiled.querySelectorAll('ng-icon')[3] as HTMLElement;
+      const sunIcon = compiled.querySelectorAll('ng-icon')[5] as HTMLElement;
       sunIcon.click();
 
       expect(component.onSetTheme).toHaveBeenCalled();
@@ -238,10 +258,13 @@ describe('NavbarComponent', () => {
     let component: NavbarComponent;
     let fixture: ComponentFixture<NavbarComponent>;
     let compiled: HTMLElement;
-    let store: Store;
     let initialState: fromAuth.AppState = {
       auth: {
         user: null,
+        error: null,
+        loading: false,
+      },
+      userAccount: {
         error: null,
         loading: false,
       },
@@ -255,10 +278,6 @@ describe('NavbarComponent', () => {
             {
               path: 'inicio',
               component: HomeComponent,
-            },
-            {
-              path: 'planos',
-              component: PlansComponent,
             },
             {
               path: 'contato',
@@ -289,7 +308,6 @@ describe('NavbarComponent', () => {
       component.theme = 'light';
       fixture.detectChanges();
       compiled = fixture.nativeElement;
-      store = fixture.debugElement.injector.get(Store);
     });
 
     it('should create', () => {
@@ -308,23 +326,11 @@ describe('NavbarComponent', () => {
       })
     ));
 
-    it('should navigate to the plans page', fakeAsync(
-      inject([Location], (location: Location) => {
-        const anchorPlans = compiled.querySelectorAll(
-          'a'
-        )[1] as HTMLAnchorElement;
-        anchorPlans.click();
-        tick();
-
-        expect(location.path()).toEqual('/planos');
-      })
-    ));
-
     it('should navigate to the contact page', fakeAsync(
       inject([Location], (location: Location) => {
         const anchorContact = compiled.querySelectorAll(
           'a'
-        )[2] as HTMLAnchorElement;
+        )[1] as HTMLAnchorElement;
         anchorContact.click();
         tick();
 
@@ -336,7 +342,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorLogin = compiled.querySelectorAll(
           'a'
-        )[3] as HTMLAnchorElement;
+        )[2] as HTMLAnchorElement;
         anchorLogin.click();
         tick();
 
@@ -348,7 +354,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorRegister = compiled.querySelectorAll(
           'a'
-        )[4] as HTMLAnchorElement;
+        )[3] as HTMLAnchorElement;
         anchorRegister.click();
         tick();
 

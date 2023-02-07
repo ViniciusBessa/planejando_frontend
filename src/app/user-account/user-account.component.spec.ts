@@ -1,20 +1,17 @@
-import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   bootstrapEyeFill,
   bootstrapEyeSlashFill,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import { provideMockStore } from '@ngrx/store/testing';
-import * as fromApp from '../../store/app.reducer';
+import * as fromApp from '../store/app.reducer';
 
-import { PasswordResetComponent } from './password-reset.component';
+import { UserAccountComponent } from './user-account.component';
 
-describe('PasswordResetComponent', () => {
-  let component: PasswordResetComponent;
-  let fixture: ComponentFixture<PasswordResetComponent>;
+describe('UserAccountComponent', () => {
+  let component: UserAccountComponent;
+  let fixture: ComponentFixture<UserAccountComponent>;
   let initialState: fromApp.AppState = {
     auth: {
       user: null,
@@ -29,11 +26,8 @@ describe('PasswordResetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PasswordResetComponent],
+      declarations: [UserAccountComponent],
       imports: [
-        RouterTestingModule.withRoutes([]),
-        HttpClientModule,
-        ReactiveFormsModule,
         NgIconsModule.withIcons({
           bootstrapEyeFill,
           bootstrapEyeSlashFill,
@@ -42,7 +36,7 @@ describe('PasswordResetComponent', () => {
       providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PasswordResetComponent);
+    fixture = TestBed.createComponent(UserAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

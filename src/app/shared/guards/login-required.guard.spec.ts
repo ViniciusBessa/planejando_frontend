@@ -27,6 +27,10 @@ describe('LoginRequiredGuard', () => {
         error: null,
         loading: false,
       },
+      userAccount: {
+        error: null,
+        loading: false,
+      },
     };
 
     beforeEach(() => {
@@ -71,6 +75,10 @@ describe('LoginRequiredGuard', () => {
     const initialState: fromApp.AppState = {
       auth: {
         user: null,
+        error: null,
+        loading: false,
+      },
+      userAccount: {
         error: null,
         loading: false,
       },

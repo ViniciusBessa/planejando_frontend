@@ -35,6 +35,10 @@ describe('RegisterComponent', () => {
       loading: false,
       error: null,
     },
+    userAccount: {
+      error: null,
+      loading: false,
+    },
   };
 
   beforeEach(async () => {

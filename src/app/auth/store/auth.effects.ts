@@ -5,7 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TypedAction } from '@ngrx/store/src/models';
 import { of, catchError, map, mergeMap, tap, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UserData } from '../models/user.model';
+import { UserData } from '../../shared/models/user.model';
 import * as AuthActions from './auth.actions';
 
 const handleError = (
@@ -97,6 +97,7 @@ export class AuthEffects {
       this.$actions.pipe(
         ofType(AuthActions.logoutUser),
         map(() => {
+          localStorage.removeItem('token');
           this.router.navigate(['/inicio']);
         })
       ),

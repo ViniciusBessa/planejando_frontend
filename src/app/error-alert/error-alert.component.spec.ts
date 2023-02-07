@@ -9,6 +9,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { ErrorAlertComponent } from './error-alert.component';
 import * as fromApp from '../store/app.reducer';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ErrorAlertComponent', () => {
   describe('Error occurred', () => {
@@ -21,12 +22,16 @@ describe('ErrorAlertComponent', () => {
         error: new Error('An error occurred'),
         loading: false,
       },
+      userAccount: {
+        error: null,
+        loading: false,
+      },
     };
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         declarations: [ErrorAlertComponent],
-        imports: [StoreModule.forRoot()],
+        imports: [StoreModule.forRoot(), HttpClientModule],
         providers: [provideMockStore({ initialState })],
       }).compileComponents();
 
@@ -73,12 +78,16 @@ describe('ErrorAlertComponent', () => {
         error: null,
         loading: false,
       },
+      userAccount: {
+        error: null,
+        loading: false,
+      },
     };
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         declarations: [ErrorAlertComponent],
-        imports: [StoreModule.forRoot()],
+        imports: [StoreModule.forRoot(), HttpClientModule],
         providers: [provideMockStore({ initialState })],
       }).compileComponents();
 

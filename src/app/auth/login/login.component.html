@@ -23,6 +23,7 @@
           type="email"
           placeholder="Digite o seu e-mail"
           formControlName="email"
+          autocomplete="email"
         />
       </div>
       <p
@@ -62,6 +63,7 @@
           [type]="showPassword ? 'text' : 'password'"
           placeholder="Digite a sua senha"
           formControlName="password"
+          autocomplete="current-password"
         />
         <ng-icon
           class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
@@ -90,9 +92,14 @@
       </p>
     </div>
     <button
-      class="bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
+      class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
+      [disabled]="loading"
     >
-      Entrar
+      <span *ngIf="!loading">Entrar</span>
+      <div
+        class="relative w-3 h-3 rounded-md bg-white dark:bg-dark animate-loadingElastic before:inline-block before:absolute before:top-0 before:-left-4 before:w-3 before:h-3 before:rounded-md before:bg-white dark:before:bg-dark before:animate-loadingElasticBefore after:inline-block after:absolute after:top-0 after:left-4 after:w-3 after:h-3 after:rounded-md after:bg-white dark:after:bg-dark after:animate-loadingElasticAfter"
+        *ngIf="loading"
+      ></div>
     </button>
     <a
       class="text-primary-600 font-bold hover:opacity-80"

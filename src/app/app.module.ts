@@ -21,10 +21,14 @@ import {
   bootstrapBarChartFill,
   bootstrapInboxesFill,
   bootstrapHandIndexThumbFill,
+  bootstrapPersonCircle,
+  bootstrapHouse,
+  bootstrapKeyFill,
 } from '@ng-icons/bootstrap-icons';
 
 import * as fromApp from './store/app.reducer';
 import * as fromAuth from './auth/store/auth.effects';
+import * as fromUserAccount from './user-account/store/user-account.effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,7 +44,7 @@ import { SharedModule } from './shared/shared.module';
 import { FeatureComponent } from './shared/components/feature/feature.component';
 import { ContactComponent } from './contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PlansComponent } from './plans/plans.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 @NgModule({
   declarations: [
@@ -52,13 +56,16 @@ import { PlansComponent } from './plans/plans.component';
     FooterComponent,
     ErrorAlertComponent,
     FeatureComponent,
-    PlansComponent,
+    UserAccountComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([fromAuth.AuthEffects]),
+    EffectsModule.forRoot([
+      fromAuth.AuthEffects,
+      fromUserAccount.UserAccountEffects,
+    ]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     BrowserAnimationsModule,
     HttpClientModule,
@@ -79,6 +86,9 @@ import { PlansComponent } from './plans/plans.component';
       bootstrapBarChartFill,
       bootstrapInboxesFill,
       bootstrapHandIndexThumbFill,
+      bootstrapPersonCircle,
+      bootstrapHouse,
+      bootstrapKeyFill,
     }),
     SharedModule,
   ],

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromApp from 'src/app/store/app.reducer';
@@ -10,7 +10,7 @@ import * as AuthActions from '../store/auth.actions';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required,
@@ -21,11 +21,18 @@ export class RegisterComponent {
     password: new FormControl<string>('', [Validators.required]),
   });
   showPassword: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private googleAuthentication: GoogleAuthenticationService,
     private store: Store<fromApp.AppState>
   ) {}
+
+  ngOnInit(): void {
+    this.store.select('auth').subscribe((state) => {
+      this.loading = state.loading;
+    });
+  }
 
   onTogglePassword(): void {
     this.showPassword = !this.showPassword;

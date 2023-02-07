@@ -36,6 +36,10 @@ describe('LoginComponent', () => {
       loading: false,
       error: null,
     },
+    userAccount: {
+      error: null,
+      loading: false,
+    },
   };
 
   beforeEach(async () => {
