@@ -17,6 +17,7 @@ import {
   bootstrapBarChartFill,
   bootstrapInboxesFill,
   bootstrapHandIndexThumbFill,
+  bootstrapEyeFill,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import { FeatureComponent } from '../shared/components/feature/feature.component';
@@ -42,6 +43,7 @@ describe('HomeComponent', () => {
           },
         ]),
         NgIconsModule.withIcons({
+          bootstrapEyeFill,
           bootstrapShield,
           bootstrapLaptop,
           bootstrapLockFill,

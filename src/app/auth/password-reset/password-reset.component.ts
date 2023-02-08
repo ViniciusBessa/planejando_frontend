@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { PasswordResetService } from '../services/password-reset.service';
 
@@ -98,7 +97,7 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
   }
 
   onResetPassword(): void {
-    if (!this.passwordResetForm || !this.resetToken) return;
+    if (!this.passwordResetForm.valid || !this.resetToken) return;
 
     const { password } = this.passwordResetForm.value;
 

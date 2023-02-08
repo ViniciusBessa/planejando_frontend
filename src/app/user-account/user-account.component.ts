@@ -21,8 +21,7 @@ export class UserAccountComponent implements OnInit {
   user!: UserData;
   loading: boolean = false;
   showPassword: boolean = false;
-  showPasswordConfirmation: boolean = false;
-  selectedSection: UserSettings = UserSettings.Account;
+  selectedSection: UserSettingsSection = UserSettingsSection.Account;
 
   nameForm!: FormGroup;
 
@@ -81,15 +80,14 @@ export class UserAccountComponent implements OnInit {
 
   onSelectSection(section: string): void {
     this.showPassword = false;
-    this.showPasswordConfirmation = false;
 
     switch (section) {
       case 'password':
-        this.selectedSection = UserSettings.Password;
+        this.selectedSection = UserSettingsSection.Password;
         break;
 
       default:
-        this.selectedSection = UserSettings.Account;
+        this.selectedSection = UserSettingsSection.Account;
         break;
     }
   }
@@ -98,14 +96,13 @@ export class UserAccountComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  onTogglePasswordConfirmation(): void {
-    this.showPasswordConfirmation = !this.showPasswordConfirmation;
-  }
-
   onUpdateName(): void {
     if (!this.nameForm.valid) return;
 
     const { name } = this.nameForm.value;
+
+    // If the name provided is equal to the current user's name
+    if (name == this.user.name) return;
 
     this.store.dispatch(UserAccountActions.updateNameStart({ newName: name! }));
   }
@@ -114,6 +111,9 @@ export class UserAccountComponent implements OnInit {
     if (!this.emailForm.valid) return;
 
     const { email } = this.emailForm.value;
+
+    // If the email provided is equal to the current user's email
+    if (email == this.user.email) return;
 
     this.store.dispatch(
       UserAccountActions.updateEmailStart({ newEmail: email! })
@@ -155,7 +155,7 @@ export class UserAccountComponent implements OnInit {
   }
 }
 
-export enum UserSettings {
+export enum UserSettingsSection {
   Account = 'ACCOUNT',
   Password = 'PASSWORD',
 }

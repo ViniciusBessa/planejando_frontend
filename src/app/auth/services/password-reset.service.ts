@@ -63,6 +63,11 @@ export class PasswordResetService {
         next: (result) => {
           this.tokenSubject.next(token);
           this.tokenIsValidSubject.next(result.valid);
+
+          if (!result.valid) {
+            const tokenIsInvalidMessage = `O token ${token} é inválido`;
+            this.errorSubject.next(new Error(tokenIsInvalidMessage));
+          }
         },
         error: (err) => {
           this.errorSubject.next(err);

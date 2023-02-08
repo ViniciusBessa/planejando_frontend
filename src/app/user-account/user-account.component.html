@@ -228,7 +228,7 @@
       class="w-full flex flex-col gap-5 py-10 px-3"
       *ngIf="selectedSection === 'PASSWORD'"
     >
-      <h2 class="text-center text-lg font-bold">Senha</h2>
+      <h2 class="text-center text-lg font-bold">Redefinir a senha</h2>
       <form
         class="flex flex-col items-center gap-4 w-full"
         [formGroup]="passwordForm"
@@ -298,7 +298,7 @@
           >
             <input
               class="outline-none w-4/6 bg-transparent"
-              [type]="showPasswordConfirmation ? 'text' : 'password'"
+              [type]="showPassword ? 'text' : 'password'"
               placeholder="Digite a senha novamente"
               formControlName="passwordConfirmation"
               autocomplete="new-password"
@@ -307,15 +307,15 @@
               class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
               name="bootstrapEyeFill"
               size="24"
-              (click)="onTogglePasswordConfirmation()"
-              *ngIf="!showPasswordConfirmation"
+              (click)="onTogglePassword()"
+              *ngIf="!showPassword"
             ></ng-icon>
             <ng-icon
               class="text-gray-400 cursor-pointer dark:text-white hover:opacity-75 ml-auto"
               name="bootstrapEyeSlashFill"
               size="24"
-              (click)="onTogglePasswordConfirmation()"
-              *ngIf="showPasswordConfirmation"
+              (click)="onTogglePassword()"
+              *ngIf="showPassword"
             ></ng-icon>
           </div>
           <p
