@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TypedAction } from '@ngrx/store/src/models';
-import { of, catchError, map, mergeMap, tap, Observable } from 'rxjs';
+import { of, catchError, map, mergeMap, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserData } from '../../shared/models/user.model';
 import * as AuthActions from './auth.actions';
+import * as DashboardActions from '../../dashboard/store/dashboard.actions';
 
 const handleError = (
   errorResponse: HttpErrorResponse
@@ -76,20 +77,19 @@ export class AuthEffects {
     )
   );
 
-  authSuccess = createEffect(
-    () =>
-      this.$actions.pipe(
-        ofType(AuthActions.authSuccess),
-        map((authData) => {
-          localStorage.setItem('token', 'Bearer ' + authData.token);
-          if (authData.redirect && authData.next) {
-            this.router.navigateByUrl(authData.next);
-          } else if (authData.redirect) {
-            this.router.navigate(['/dashboard']);
-          }
-        })
-      ),
-    { dispatch: false }
+  authSuccess = createEffect(() =>
+    this.$actions.pipe(
+      ofType(AuthActions.authSuccess),
+      map((authData) => {
+        localStorage.setItem('token', 'Bearer ' + authData.token);
+        if (authData.redirect && authData.next) {
+          this.router.navigateByUrl(authData.next);
+        } else if (authData.redirect) {
+          this.router.navigate(['/dashboard']);
+        }
+        return DashboardActions.getAllDataStart();
+      })
+    )
   );
 
   authLogout = createEffect(

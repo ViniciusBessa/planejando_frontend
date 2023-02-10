@@ -29,6 +29,7 @@ import {
 import * as fromApp from './store/app.reducer';
 import * as fromAuth from './auth/store/auth.effects';
 import * as fromUserAccount from './user-account/store/user-account.effects';
+import * as fromDashboard from './dashboard/store/dashboard.effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,6 +66,7 @@ import { UserAccountComponent } from './user-account/user-account.component';
     EffectsModule.forRoot([
       fromAuth.AuthEffects,
       fromUserAccount.UserAccountEffects,
+      fromDashboard.DashboardEffects,
     ]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     BrowserAnimationsModule,

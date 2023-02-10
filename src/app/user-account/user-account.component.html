@@ -2,10 +2,10 @@
   class="min-h-main flex justify-center items-center dark:text-white bg-primary-50 dark:bg-dark py-10 px-2 sm:p-5"
 >
   <div
-    class="w-full min-h-userSettings flex flex-col items-center gap-2 rounded-lg bg-white dark:bg-gray-800 md:w-10/12 sm:flex-row md:gap-10"
+    class="w-full min-h-userSettings flex flex-col items-center rounded-lg bg-white dark:bg-gray-800 md:w-10/12 sm:flex-row md:gap-10"
   >
     <div
-      class="w-full sm:w-48 md:w-80 sm:min-h-userSettings flex flex-col justify-center items-center py-10 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-300"
+      class="w-full sm:w-48 md:w-80 sm:min-h-userSettings flex flex-col justify-center items-center gap-6 py-10 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-300"
     >
       <ng-icon name="bootstrapPersonCircle" size="64"></ng-icon>
       <h2 class="text-2xl font-bold my-6">{{ user.name }}</h2>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div
-      class="w-full flex flex-col justify-center items-center py-10 px-3"
+      class="w-full flex flex-col justify-center items-center gap-8 py-10 px-3"
       *ngIf="selectedSection === 'ACCOUNT'"
     >
       <h1 class="text-center text-lg font-bold">Dados</h1>
@@ -161,7 +161,7 @@
           ></div>
         </button>
       </form>
-      <h2 class="text-lg font-bold text-center mt-5">Excluir a conta</h2>
+      <h2 class="text-lg font-bold text-center">Excluir a conta</h2>
       <form
         class="flex flex-col items-center gap-4 w-full"
         [formGroup]="accountDeleteForm"
@@ -213,7 +213,7 @@
           </p>
         </div>
         <button
-          class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          class="h-9 flex justify-center items-center bg-red-600 dark:bg-red-800 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
           [disabled]="loading"
         >
           <span *ngIf="!loading">Deletar a conta</span>

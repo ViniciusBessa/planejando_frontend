@@ -7,7 +7,7 @@ module.exports = {
       section: "500px",
       main: "80vh",
       footer: "20vh",
-      userSettings: "493px",
+      userSettings: "600px",
     },
     extend: {
       width: {
