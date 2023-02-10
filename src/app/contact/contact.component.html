@@ -8,7 +8,7 @@
     necessárias, o mais rápido possível.
   </p>
   <form
-    class="w-full flex flex-col items-center gap-6 py-8 px-4 sm:px-6"
+    class="w-full flex flex-col items-center gap-6 py-8 px-4 sm:px-6 lg:px-20 xl:px-36"
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
   >
@@ -180,8 +180,10 @@
     </div>
     <button
       class="bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
+      [disabled]="!form.valid"
+      [ngClass]="{ 'bg-opacity-30': !form.valid }"
     >
-      Enviar mensagem
+      Enviar
     </button>
   </form>
 
