@@ -46,6 +46,7 @@ const getHttpParams = (queryParams: {
 function normalizeCategory(category: Category): Category {
   return {
     ...category,
+    id: Number(category.id),
     createdAt: new Date(category.createdAt),
     updatedAt: new Date(category.updatedAt),
   };
@@ -54,6 +55,7 @@ function normalizeCategory(category: Category): Category {
 function normalizeRevenue(revenue: Revenue): Revenue {
   return {
     ...revenue,
+    id: Number(revenue.id),
     value: Number(revenue.value),
     date: new Date(revenue.date),
     createdAt: new Date(revenue.createdAt),
@@ -64,6 +66,7 @@ function normalizeRevenue(revenue: Revenue): Revenue {
 function normalizeGoal(goal: Goal): Goal {
   return {
     ...goal,
+    id: Number(goal.id),
     value: Number(goal.value),
     essentialExpenses: Boolean(goal.essentialExpenses),
     createdAt: new Date(goal.createdAt),
@@ -74,6 +77,7 @@ function normalizeGoal(goal: Goal): Goal {
 function normalizeExpense(expense: Expense): Expense {
   return {
     ...expense,
+    id: Number(expense.id),
     value: Number(expense.value),
     isEssential: Boolean(expense.isEssential),
     date: new Date(expense.date),

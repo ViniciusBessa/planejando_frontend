@@ -130,6 +130,7 @@ export const getExpensesStart = createAction(
     maxDate?: Date;
     categoryId?: number;
     isEssential?: boolean;
+    description?: string;
   }>()
 );
 

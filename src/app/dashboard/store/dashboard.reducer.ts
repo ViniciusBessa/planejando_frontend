@@ -91,10 +91,7 @@ export const dashboardReducer = createReducer(
 
   on(DashboardActions.createGoalSuccess, (state: State, { goal }) => {
     const goals = state.goals;
-
-    // Pushing the new goal
-    goals.push(goal);
-    return { ...state, goals };
+    return { ...state, goals: [...state.goals, goal] };
   }),
 
   on(DashboardActions.updateGoalSuccess, (state: State, { goal }) => {
@@ -128,10 +125,7 @@ export const dashboardReducer = createReducer(
 
   on(DashboardActions.createExpenseSuccess, (state: State, { expense }) => {
     const expenses = state.expenses;
-
-    // Pushing the new expense
-    expenses.push(expense);
-    return { ...state, expenses };
+    return { ...state, expenses: [...state.expenses, expense] };
   }),
 
   on(DashboardActions.updateExpenseSuccess, (state: State, { expense }) => {

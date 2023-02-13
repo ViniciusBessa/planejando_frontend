@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { AnimationState } from '../models/animation-state.enum';
 
 @Component({
   selector: 'app-revenues',
@@ -187,7 +188,7 @@ export class RevenuesComponent implements OnInit, AfterViewInit {
     this.tableDataSource.sort = sort;
   }
 
-  startRowAnimation(state: AnimationState): void {
+  private startRowAnimation(state: AnimationState): void {
     this.animationState = state;
     setTimeout(() => (this.animationState = undefined), 1000);
   }
@@ -224,10 +225,4 @@ export class RevenuesComponent implements OnInit, AfterViewInit {
   get displayedColumns(): string[] {
     return ['id', 'description', 'value', 'date', 'actions'];
   }
-}
-
-enum AnimationState {
-  CREATING = 'CREATING',
-  UPDATING = 'UPDATING',
-  DELETING = 'DELETING',
 }

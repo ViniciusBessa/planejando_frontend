@@ -13,6 +13,8 @@ import {
   bootstrapCaretDownFill,
   bootstrapThreeDotsVertical,
 } from '@ng-icons/bootstrap-icons';
+import { tablerPigMoney, tablerReportMoney } from '@ng-icons/tabler-icons';
+import { matAttachMoney } from '@ng-icons/material-icons/baseline';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatNativeDateModule,
@@ -50,6 +52,9 @@ import { DATE_FORMAT } from './shared/date-format';
       bootstrapSearch,
       bootstrapCaretDownFill,
       bootstrapThreeDotsVertical,
+      tablerPigMoney,
+      tablerReportMoney,
+      matAttachMoney,
     }),
     FormsModule,
     MatDatepickerModule,

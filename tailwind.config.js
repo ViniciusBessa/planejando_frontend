@@ -17,6 +17,9 @@ module.exports = {
         120: "480px",
         "3/10": "30%",
       },
+      height: {
+        dashboardForm: "460px",
+      },
       colors: {
         primary: {
           900: "#1a41c0",

@@ -5,25 +5,27 @@
     <div
       class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white sm:w-5/12 md:w-3/10"
     >
-      <ng-icon class="self-end" name="bootstrapHandIndex" size="32"></ng-icon>
+      <ng-icon class="self-end" name="tablerPigMoney" size="32"></ng-icon>
       <p class="text-3xl">
-        <span class="text-sm">R$ </span>{{ revenuesTotal }}
+        <span class="text-sm">R$ </span
+        >{{ revenuesTotal | currency : "BRL" : "" }}
       </p>
       <p class="text-lg">Receita Total</p>
     </div>
     <div
       class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white sm:w-5/12 md:w-3/10"
     >
-      <ng-icon class="self-end" name="bootstrapHandIndex" size="32"></ng-icon>
+      <ng-icon class="self-end" name="tablerReportMoney" size="32"></ng-icon>
       <p class="text-3xl">{{ revenuesLength }}</p>
       <p class="text-lg">Número de receitas</p>
     </div>
     <div
       class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white sm:w-5/12 md:w-3/10"
     >
-      <ng-icon class="self-end" name="bootstrapHandIndex" size="32"></ng-icon>
+      <ng-icon class="self-end" name="matAttachMoney" size="32"></ng-icon>
       <p class="text-3xl">
-        <span class="text-sm">R$ </span>{{ revenuesAverage }}
+        <span class="text-sm">R$ </span
+        >{{ revenuesAverage | currency : "BRL" : "" }}
       </p>
       <p class="text-lg">Média de receitas</p>
     </div>
@@ -207,24 +209,59 @@
 ></div>
 
 <form
-  class="flex flex-col items-center gap-6 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:text-white bg-white border-white border-2 rounded-3xl w-fit shadow-md shadow-gray-300 dark:shadow-gray-700 py-8 px-4 dark:bg-gray-800 sm:px-6"
+  class="h-dashboardForm overflow-y-auto flex flex-col gap-6 fixed top-80 sm:top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:text-white bg-white border-white border-2 w-fit shadow-md shadow-gray-300 dark:shadow-gray-700 py-5 px-4 dark:bg-gray-800 sm:px-6"
   [formGroup]="editingForm"
   *ngIf="showEditingForm"
   (ngSubmit)="onSubmit()"
 >
-  <h1 class="text-2xl">
+  <h1 class="text-2xl text-center">
     {{ selectedRevenue ? "Editar receita" : "Adicionar receita" }}
   </h1>
-  <div>
+  <div class="w-full">
     <label class="block" for="value">Valor</label>
     <input
-      class="w-64 bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      [ngClass]="{
+        'border-red-600 dark:border-red-600':
+          !editingForm.get('value')!.valid && editingForm.get('value')!.touched
+      }"
       placeholder="Digite o valor da receita"
       currencyMask
       [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
       name="value"
       formControlName="value"
     />
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        editingForm.get('value')!.touched &&
+        editingForm.get('value')!.errors &&
+        editingForm.get('value')!.errors!['required']
+      "
+    >
+      Por favor, informe um valor
+    </p>
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        editingForm.get('value')!.touched &&
+        editingForm.get('value')!.errors &&
+        editingForm.get('value')!.errors!['min']
+      "
+    >
+      O valor precisa ser no mínimo R$ 0,00
+    </p>
+
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        editingForm.get('value')!.touched &&
+        editingForm.get('value')!.errors &&
+        editingForm.get('value')!.errors!['max']
+      "
+    >
+      O valor precisa ser no máximo R$ 999.999.999.999,99
+    </p>
   </div>
 
   <mat-form-field appearance="fill">
@@ -234,14 +271,39 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <div>
+  <div class="w-full">
     <label class="block" for="description">Descrição</label>
     <textarea
-      class="w-64 bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      [ngClass]="{
+        'border-red-600 dark:border-red-600':
+          !editingForm.get('description')!.valid &&
+          editingForm.get('description')!.touched
+      }"
       placeholder="Insira uma descrição para a receita"
       name="description"
       formControlName="description"
     ></textarea>
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        editingForm.get('description')!.touched &&
+        editingForm.get('description')!.errors &&
+        editingForm.get('description')!.errors!['required']
+      "
+    >
+      Por favor, informe uma descrição
+    </p>
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        editingForm.get('description')!.touched &&
+        editingForm.get('description')!.errors &&
+        editingForm.get('description')!.errors!['maxLength']
+      "
+    >
+      A descrição só pode ter até 200 caracteres
+    </p>
   </div>
   <button
     class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
