@@ -16,9 +16,27 @@ export const getAllDataSuccess = createAction(
   }>()
 );
 
+export const getRevenuesStart = createAction(
+  '[Dashboard] Get Revenues Start',
+  props<{
+    minValue?: number;
+    maxValue?: number;
+    minDate?: Date;
+    maxDate?: Date;
+    description?: string;
+  }>()
+);
+
+export const getRevenuesSuccess = createAction(
+  '[Dashboard] Get Revenues Success',
+  props<{
+    revenues: Revenue[];
+  }>()
+);
+
 export const createRevenueStart = createAction(
   '[Dashboard] Create Revenue Start',
-  props<{ value: number }>()
+  props<{ value: number; date?: Date; description: string }>()
 );
 
 export const createRevenueSuccess = createAction(
@@ -28,7 +46,12 @@ export const createRevenueSuccess = createAction(
 
 export const updateRevenueStart = createAction(
   '[Dashboard] Update Revenue Start',
-  props<{ newValue: number; revenueId: number }>()
+  props<{
+    newValue?: number;
+    newDate?: Date;
+    newDescription?: string;
+    revenueId: number;
+  }>()
 );
 
 export const updateRevenueSuccess = createAction(
@@ -44,6 +67,23 @@ export const deleteRevenueStart = createAction(
 export const deleteRevenueSuccess = createAction(
   '[Dashboard] Delete Revenue Success',
   props<{ revenueId: number }>()
+);
+
+export const getGoalsStart = createAction(
+  '[Dashboard] Get Goals Start',
+  props<{
+    minValue?: number;
+    maxValue?: number;
+    categoryId?: number;
+    essentialExpenses?: boolean;
+  }>()
+);
+
+export const getGoalsSuccess = createAction(
+  '[Dashboard] Get Goals Success',
+  props<{
+    goals: Goal[];
+  }>()
 );
 
 export const createGoalStart = createAction(
@@ -81,11 +121,31 @@ export const deleteGoalSuccess = createAction(
   props<{ goalId: number }>()
 );
 
+export const getExpensesStart = createAction(
+  '[Dashboard] Get Expenses Start',
+  props<{
+    minValue?: number;
+    maxValue?: number;
+    minDate?: Date;
+    maxDate?: Date;
+    categoryId?: number;
+    isEssential?: boolean;
+  }>()
+);
+
+export const getExpensesSuccess = createAction(
+  '[Dashboard] Get Expenses Success',
+  props<{
+    expenses: Expense[];
+  }>()
+);
+
 export const createExpenseStart = createAction(
   '[Dashboard] Create Expense Start',
   props<{
     value: number;
     description: string;
+    date?: Date;
     isEssential?: boolean;
     categoryId: number;
   }>()
@@ -101,6 +161,7 @@ export const updateExpenseStart = createAction(
   props<{
     newValue?: number;
     newDescription?: string;
+    newDate?: Date;
     isEssential?: boolean;
     newCategoryId?: number;
     expenseId: number;

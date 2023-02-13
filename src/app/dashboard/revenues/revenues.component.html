@@ -1,1 +1,251 @@
-<p>revenues works!</p>
+<section class="min-h-main flex flex-col gap-10 p-6 bg-primary-50 dark:bg-dark">
+  <div
+    class="flex flex-row flex-wrap justify-center gap-2 w-full sm:gap-3 md:justify-between"
+  >
+    <div
+      class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white sm:w-5/12 md:w-3/10"
+    >
+      <ng-icon class="self-end" name="bootstrapHandIndex" size="32"></ng-icon>
+      <p class="text-3xl">
+        <span class="text-sm">R$ </span>{{ revenuesTotal }}
+      </p>
+      <p class="text-lg">Receita Total</p>
+    </div>
+    <div
+      class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white sm:w-5/12 md:w-3/10"
+    >
+      <ng-icon class="self-end" name="bootstrapHandIndex" size="32"></ng-icon>
+      <p class="text-3xl">{{ revenuesLength }}</p>
+      <p class="text-lg">Número de receitas</p>
+    </div>
+    <div
+      class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white sm:w-5/12 md:w-3/10"
+    >
+      <ng-icon class="self-end" name="bootstrapHandIndex" size="32"></ng-icon>
+      <p class="text-3xl">
+        <span class="text-sm">R$ </span>{{ revenuesAverage }}
+      </p>
+      <p class="text-lg">Média de receitas</p>
+    </div>
+  </div>
+  <div class="flex flex-row flex-wrap gap-3">
+    <div class="flex flex-row flex-wrap gap-2">
+      <div
+        class="flex flex-row items-center gap-4 border-2 border-gray-200 bg-white dark:bg-gray-800 rounded-xl px-4 text-black dark:text-white"
+      >
+        <ng-icon
+          class="text-gray-600 dark:text-white"
+          name="bootstrapSearch"
+          size="24"
+        ></ng-icon>
+        <input
+          class="p-2 bg-transparent outline-none"
+          type="text"
+          placeholder="Procurar"
+          [(ngModel)]="searchQuery"
+        />
+      </div>
+      <button
+        class="py-3 px-5 rounded text-white bg-primary-700 hover:opacity-80"
+        (click)="onGetRevenues()"
+      >
+        Buscar
+      </button>
+    </div>
+    <button
+      class="py-3 px-5 rounded-3xl text-white bg-primary-700 hover:opacity-80 w-full sm:w-fit sm:ml-auto"
+      (click)="onOpenEditingForm()"
+    >
+      Adicionar receita
+    </button>
+  </div>
+
+  <div class="flex flex-row flex-wrap gap-6 justify-center sm:justify-start">
+    <div class="flex flex-col gap-4 relative group cursor-pointer w-56">
+      <button
+        class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
+      >
+        <p class="mb-0">Valor</p>
+        <ng-icon name="bootstrapCaretDownFill" size="16"></ng-icon>
+      </button>
+
+      <div
+        class="flex flex-col gap-2 z-40 absolute top-12 w-full p-3 rounded dark:text-white bg-white dark:bg-gray-800 invisible hover:visible group-focus-within:visible"
+      >
+        <label for="minValue">Valor Mínimo</label>
+        <input
+          class="bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+          placeholder="Digite o valor mínimo"
+          currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+          [(ngModel)]="minValue"
+          name="minValue"
+          (keydown.enter)="onGetRevenues()"
+        />
+
+        <label for="maxValue">Valor Máximo</label>
+        <input
+          class="bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+          placeholder="Digite o valor máximo"
+          currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+          [(ngModel)]="maxValue"
+          name="maxValue"
+          (keydown.enter)="onGetRevenues()"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 relative group cursor-pointer w-56">
+      <button
+        class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
+      >
+        <p>Data</p>
+        <ng-icon name="bootstrapCaretDownFill" size="16"></ng-icon>
+      </button>
+
+      <div
+        class="w-full z-30 absolute top-14 invisible hover:visible group-focus-within:visible"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Escolha o intervalo</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              [(ngModel)]="startDate"
+              matStartDate
+              placeholder="Data inicial"
+            />
+            <input [(ngModel)]="endDate" matEndDate placeholder="Data final" />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker
+            (closed)="onGetRevenues()"
+            #picker
+          ></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col overflow-x-auto">
+    <table
+      mat-table
+      [dataSource]="tableDataSource"
+      matSort
+      class="mat-elevation-z8 min-w-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</th>
+        <td class="break-words max-w-md" mat-cell *matCellDef="let element">
+          {{ element.description }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.value | currency : "BRL" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.date | date : "dd/MM/YYYY" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td class="!z-0" mat-cell *matCellDef="let element; let index = index">
+          <div class="flex flex-col gap-2 py-2">
+            <button
+              class="p-2 bg-primary-800 text-white rounded-lg bg-opacity-90 hover:bg-opacity-100"
+              (click)="onSelectRevenue(index)"
+            >
+              Editar
+            </button>
+            <button
+              class="p-2 bg-red-700 text-white rounded-lg bg-opacity-90 hover:bg-opacity-100"
+              (click)="onDeleteRevenue(element.id)"
+            >
+              Deletar
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        [@rowAnimation]="currentAnimationState"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
+    <mat-paginator
+      class="min-w-table"
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      showFirstLastButtons
+      aria-label="Seleciona uma página de receitas"
+    >
+    </mat-paginator>
+  </div>
+</section>
+
+<div
+  class="w-screen h-screen flex justify-center items-center fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white dark:bg-dark !bg-opacity-40"
+  *ngIf="showEditingForm"
+  (click)="onCloseEditingForm()"
+></div>
+
+<form
+  class="flex flex-col items-center gap-6 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:text-white bg-white border-white border-2 rounded-3xl w-fit shadow-md shadow-gray-300 dark:shadow-gray-700 py-8 px-4 dark:bg-gray-800 sm:px-6"
+  [formGroup]="editingForm"
+  *ngIf="showEditingForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h1 class="text-2xl">
+    {{ selectedRevenue ? "Editar receita" : "Adicionar receita" }}
+  </h1>
+  <div>
+    <label class="block" for="value">Valor</label>
+    <input
+      class="w-64 bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      placeholder="Digite o valor da receita"
+      currencyMask
+      [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+      name="value"
+      formControlName="value"
+    />
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Escolha uma data</mat-label>
+    <input matInput [matDatepicker]="picker" />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div>
+    <label class="block" for="description">Descrição</label>
+    <textarea
+      class="w-64 bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      placeholder="Insira uma descrição para a receita"
+      name="description"
+      formControlName="description"
+    ></textarea>
+  </div>
+  <button
+    class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
+  >
+    Entrar
+  </button>
+</form>

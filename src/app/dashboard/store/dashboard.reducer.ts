@@ -26,10 +26,16 @@ const initialState: State = {
 export const dashboardReducer = createReducer(
   initialState,
 
-  on(DashboardActions.getAllDataStart, (state: State) => ({
-    ...state,
-    loading: true,
-  })),
+  on(
+    DashboardActions.getAllDataStart,
+    DashboardActions.getRevenuesStart,
+    DashboardActions.getGoalsStart,
+    DashboardActions.getExpensesStart,
+    (state: State) => ({
+      ...state,
+      loading: true,
+    })
+  ),
 
   on(
     DashboardActions.getAllDataSuccess,
@@ -43,13 +49,16 @@ export const dashboardReducer = createReducer(
     })
   ),
 
-  on(DashboardActions.createRevenueSuccess, (state: State, { revenue }) => {
-    const revenues = state.revenues;
+  on(DashboardActions.getRevenuesSuccess, (state: State, { revenues }) => ({
+    ...state,
+    revenues,
+    loading: false,
+  })),
 
-    // Pushing the new revenue
-    revenues.push(revenue);
-    return { ...state, revenues };
-  }),
+  on(DashboardActions.createRevenueSuccess, (state: State, { revenue }) => ({
+    ...state,
+    revenues: [...state.revenues, revenue],
+  })),
 
   on(DashboardActions.updateRevenueSuccess, (state: State, { revenue }) => {
     let revenues = state.revenues;
@@ -73,6 +82,12 @@ export const dashboardReducer = createReducer(
     });
     return { ...state, revenues };
   }),
+
+  on(DashboardActions.getGoalsSuccess, (state: State, { goals }) => ({
+    ...state,
+    goals,
+    loading: false,
+  })),
 
   on(DashboardActions.createGoalSuccess, (state: State, { goal }) => {
     const goals = state.goals;
@@ -104,6 +119,12 @@ export const dashboardReducer = createReducer(
     });
     return { ...state, goals };
   }),
+
+  on(DashboardActions.getExpensesSuccess, (state: State, { expenses }) => ({
+    ...state,
+    expenses,
+    loading: false,
+  })),
 
   on(DashboardActions.createExpenseSuccess, (state: State, { expense }) => {
     const expenses = state.expenses;

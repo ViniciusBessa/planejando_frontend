@@ -9,9 +9,13 @@ module.exports = {
       footer: "20vh",
       userSettings: "600px",
     },
+    minWidth: {
+      table: "460px",
+    },
     extend: {
       width: {
         120: "480px",
+        "3/10": "30%",
       },
       colors: {
         primary: {

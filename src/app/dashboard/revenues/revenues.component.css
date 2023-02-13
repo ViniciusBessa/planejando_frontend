@@ -1,0 +1,15 @@
+@tailwind components;
+
+@layer components {
+  ::ng-deep.mat-form-field-ripple {
+    @apply text-primary-600;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    @apply text-primary-600;
+  }
+
+  mat-datepicker-toggle {
+    @apply text-primary-600;
+  }
+}

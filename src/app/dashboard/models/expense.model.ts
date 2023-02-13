@@ -6,6 +6,7 @@ export interface Expense {
   category: Category;
   categoryId: number;
   value: number;
+  date: Date;
   description: string;
   isEssential: boolean;
 

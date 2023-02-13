@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as UserAccountActions from '../user-account/store/user-account.actions';
+import * as DashboardActions from '../dashboard/store/dashboard.actions';
 import { PasswordResetService } from '../auth/services/password-reset.service';
 
 @Component({
@@ -31,6 +32,14 @@ export class ErrorAlertComponent implements OnInit {
         this.errorMessage = state.error.message;
         this.onResetError();
         this.store.dispatch(UserAccountActions.resetError());
+      }
+    });
+
+    this.store.select('dashboard').subscribe((state) => {
+      if (state.error) {
+        this.errorMessage = state.error.message;
+        this.onResetError();
+        this.store.dispatch(DashboardActions.resetError());
       }
     });
 
