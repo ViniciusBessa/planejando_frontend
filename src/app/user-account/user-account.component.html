@@ -2,7 +2,7 @@
   class="min-h-main flex justify-center items-center dark:text-white bg-primary-50 dark:bg-dark py-10 px-2 sm:p-5"
 >
   <div
-    class="w-full min-h-userSettings flex flex-col items-center gap-4 rounded-lg bg-white dark:bg-gray-800 md:w-10/12 sm:flex-row sm:gap-0"
+    class="w-full min-h-userSettings flex flex-col items-center gap-4 sm:rounded-lg sm:bg-white sm:dark:bg-gray-800 md:w-10/12 sm:flex-row sm:gap-0"
   >
     <div
       class="w-full sm:w-48 md:w-80 sm:min-h-userSettings flex flex-col justify-center items-center gap-6 py-10 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-300"
@@ -57,6 +57,7 @@
           >
             <input
               class="outline-none w-full bg-transparent"
+              name="name"
               type="text"
               placeholder="Digite um nome"
               formControlName="name"
@@ -123,6 +124,7 @@
           >
             <input
               class="outline-none w-full bg-transparent"
+              name="email"
               type="email"
               placeholder="Digite o seu e-mail"
               formControlName="email"
@@ -181,6 +183,7 @@
           >
             <input
               class="outline-none w-4/6 bg-transparent"
+              name="password"
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Digite a sua senha"
               formControlName="password"
@@ -248,6 +251,7 @@
           >
             <input
               class="outline-none w-4/6 bg-transparent"
+              name="password"
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Digite uma nova senha"
               formControlName="password"
@@ -298,6 +302,7 @@
           >
             <input
               class="outline-none w-4/6 bg-transparent"
+              name="passwordConfirmation"
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Digite a senha novamente"
               formControlName="passwordConfirmation"

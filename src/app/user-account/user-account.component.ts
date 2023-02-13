@@ -4,7 +4,6 @@ import {
   FormControl,
   Validators,
   ValidationErrors,
-  ValidatorFn,
   AbstractControl,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
