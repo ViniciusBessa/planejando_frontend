@@ -54,6 +54,14 @@ describe('NavbarComponent', () => {
         error: null,
         loading: false,
       },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
+      },
     };
 
     beforeEach(async () => {
@@ -267,6 +275,14 @@ describe('NavbarComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+      },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
       },
     };
 

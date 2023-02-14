@@ -31,6 +31,14 @@ describe('LogoutRequiredGuard', () => {
         error: null,
         loading: false,
       },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
+      },
     };
 
     beforeEach(() => {
@@ -81,6 +89,14 @@ describe('LogoutRequiredGuard', () => {
       userAccount: {
         error: null,
         loading: false,
+      },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
       },
     };
 

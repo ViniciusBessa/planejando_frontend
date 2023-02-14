@@ -59,7 +59,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeFalse();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -83,7 +83,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeFalse();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -107,7 +107,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeFalse();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -130,7 +130,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeFalse();
@@ -154,7 +154,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeFalse();
@@ -177,7 +177,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -201,7 +201,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -225,7 +225,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -248,7 +248,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -272,7 +272,7 @@ describe('ContactComponent', () => {
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
     expect(messageForm.get('name')?.valid).toBeTrue();
     expect(messageForm.get('email')?.valid).toBeTrue();
@@ -292,10 +292,13 @@ describe('ContactComponent', () => {
       message: 'Just a message to test the functionality',
     });
 
+    fixture.detectChanges();
+
     // Submitting the form
     const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
     submitBtn.click();
     tick();
+
     expect(component.onSubmit).toHaveBeenCalled();
     expect(messageForm.valid).toBeTrue();
     expect(messageForm.get('name')?.valid).toBeTrue();

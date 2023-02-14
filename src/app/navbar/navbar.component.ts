@@ -40,4 +40,13 @@ export class NavbarComponent implements OnInit {
   onLogout(): void {
     this.store.dispatch(AuthActions.logoutUser());
   }
+
+  get themeIcon(): string {
+    const themeIcons: { [key: string]: string } = {
+      light: 'bootstrapSunFill',
+      dark: 'bootstrapMoonFill',
+      system: 'bootstrapLaptopFill',
+    };
+    return themeIcons[this.theme];
+  }
 }

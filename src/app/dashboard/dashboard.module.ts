@@ -36,6 +36,8 @@ import {
 import { MatSortModule } from '@angular/material/sort';
 import { getBrazilianPaginatorIntl } from './shared/brazilian-paginator-intl';
 import { DATE_FORMAT } from './shared/date-format';
+import { RevenuesTableComponent } from './revenues/revenues-table/revenues-table.component';
+import { ExpensesTableComponent } from './expenses/expenses-table/expenses-table.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { DATE_FORMAT } from './shared/date-format';
     ExpensesComponent,
     RevenuesComponent,
     OverviewComponent,
+    RevenuesTableComponent,
+    ExpensesTableComponent,
   ],
   imports: [
     CommonModule,
@@ -51,7 +55,6 @@ import { DATE_FORMAT } from './shared/date-format';
       bootstrapHandIndex,
       bootstrapSearch,
       bootstrapCaretDownFill,
-      bootstrapThreeDotsVertical,
       tablerPigMoney,
       tablerReportMoney,
       matAttachMoney,

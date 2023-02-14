@@ -39,6 +39,14 @@ describe('RegisterComponent', () => {
       error: null,
       loading: false,
     },
+    dashboard: {
+      categories: [],
+      revenues: [],
+      expenses: [],
+      goals: [],
+      loading: false,
+      error: null,
+    },
   };
 
   beforeEach(async () => {

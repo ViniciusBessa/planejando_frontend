@@ -17,6 +17,14 @@ describe('PasswordResetService', () => {
       error: null,
       loading: false,
     },
+    dashboard: {
+      categories: [],
+      revenues: [],
+      expenses: [],
+      goals: [],
+      loading: false,
+      error: null,
+    },
   };
 
   beforeEach(() => {

@@ -36,6 +36,14 @@ describe('PasswordResetComponent', () => {
         error: null,
         loading: false,
       },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
+      },
     };
 
     beforeEach(async () => {
@@ -162,6 +170,14 @@ describe('PasswordResetComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+      },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
       },
     };
 
@@ -304,6 +320,14 @@ describe('PasswordResetComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+      },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
       },
     };
 

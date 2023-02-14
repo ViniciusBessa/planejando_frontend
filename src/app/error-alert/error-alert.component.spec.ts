@@ -26,6 +26,14 @@ describe('ErrorAlertComponent', () => {
         error: null,
         loading: false,
       },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
+      },
     };
 
     beforeEach(async () => {
@@ -81,6 +89,14 @@ describe('ErrorAlertComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+      },
+      dashboard: {
+        categories: [],
+        revenues: [],
+        expenses: [],
+        goals: [],
+        loading: false,
+        error: null,
       },
     };
 
