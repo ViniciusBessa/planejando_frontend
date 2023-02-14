@@ -152,6 +152,22 @@ export class UserAccountComponent implements OnInit {
     }
     return null;
   }
+
+  get nameMinLength(): string | undefined {
+    const name = this.nameForm.get('name') as FormControl;
+
+    if (!name.errors) return;
+
+    return name.errors!['minlength'].requiredLength as string;
+  }
+
+  get nameMaxLength(): string | undefined {
+    const name = this.nameForm.get('name') as FormControl;
+
+    if (!name.errors) return;
+
+    return name.errors!['maxlength'].requiredLength as string;
+  }
 }
 
 export enum UserSettingsSection {

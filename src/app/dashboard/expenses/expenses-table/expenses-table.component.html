@@ -139,7 +139,7 @@
         form.get('value')!.errors!['min']
       "
     >
-      O valor precisa ser no mínimo R$ 0,00
+      O valor precisa ser no mínimo {{ valueMin | currency : "BRL" }}
     </p>
 
     <p
@@ -150,7 +150,8 @@
         form.get('value')!.errors!['max']
       "
     >
-      O valor precisa ser no máximo R$ 999.999.999.999,99
+      O valor precisa ser no máximo
+      {{ valueMax | currency : "BRL" : "R$" : "14.2" }}
     </p>
   </div>
 
@@ -191,7 +192,7 @@
         form.get('description')!.errors!['maxLength']
       "
     >
-      A descrição só pode ter até 200 caracteres
+      A descrição só pode ter até {{ descriptionMaxLength }} caracteres
     </p>
   </div>
 

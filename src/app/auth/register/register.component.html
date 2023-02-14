@@ -45,7 +45,8 @@
           form.get('name')!.errors!['minlength']
         "
       >
-        O nome de usuário deve ter pelo menos 8 caracteres
+        O nome de usuário deve ter pelo menos
+        {{ nameMinLength }} caracteres
       </p>
       <p
         class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
@@ -55,7 +56,7 @@
           form.get('name')!.errors!['maxlength']
         "
       >
-        O nome de usuário só pode ter até 40 caracteres
+        O nome de usuário só pode ter até {{ nameMaxLength }} caracteres
       </p>
     </div>
     <div class="w-full md:w-10/12">

@@ -82,7 +82,7 @@
               nameForm.get('name')!.errors!['minlength']
             "
           >
-            O nome deve ter pelo menos 8 caracteres
+            O nome deve ter pelo menos {{ nameMinLength }} caracteres
           </p>
           <p
             class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
@@ -92,7 +92,7 @@
               nameForm.get('name')!.errors!['maxlength']
             "
           >
-            O nome só pode ter até 40 caracteres
+            O nome só pode ter até {{ nameMaxLength }} caracteres
           </p>
         </div>
         <button
@@ -119,7 +119,8 @@
             class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
             [ngClass]="{
               'border-red-600 dark:border-red-600':
-                emailForm.get('email')!.valid && emailForm.get('email')!.touched
+                !emailForm.get('email')!.valid &&
+                emailForm.get('email')!.touched
             }"
           >
             <input

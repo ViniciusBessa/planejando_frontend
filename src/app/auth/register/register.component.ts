@@ -67,4 +67,20 @@ export class RegisterComponent implements OnInit {
       })
     );
   }
+
+  get nameMinLength(): string | undefined {
+    const name = this.form.get('name') as FormControl;
+
+    if (!name.errors) return;
+
+    return name.errors!['minlength'].requiredLength as string;
+  }
+
+  get nameMaxLength(): string | undefined {
+    const name = this.form.get('name') as FormControl;
+
+    if (!name.errors) return;
+
+    return name.errors!['maxlength'].requiredLength as string;
+  }
 }

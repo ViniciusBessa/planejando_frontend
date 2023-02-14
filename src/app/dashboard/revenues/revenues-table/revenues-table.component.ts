@@ -197,4 +197,28 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
   get displayedColumns(): string[] {
     return ['id', 'description', 'value', 'date', 'actions'];
   }
+
+  get valueMin(): string | undefined {
+    const value = this.form.get('value') as FormControl;
+
+    if (!value.errors) return;
+
+    return value.errors!['min'].min as string;
+  }
+
+  get valueMax(): string | undefined {
+    const value = this.form.get('value') as FormControl;
+
+    if (!value.errors) return;
+
+    return value.errors!['max'].max as string;
+  }
+
+  get descriptionMaxLength(): string | undefined {
+    const description = this.form.get('description') as FormControl;
+
+    if (!description.errors) return;
+
+    return description.errors!['maxlength'].requiredLength as string;
+  }
 }
