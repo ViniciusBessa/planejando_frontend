@@ -23,6 +23,11 @@ import * as fromApp from '../../../store/app.reducer';
 
 import { ExpensesTableComponent } from './expenses-table.component';
 import { MatInputModule } from '@angular/material/input';
+import {
+  bootstrapPencilFill,
+  bootstrapTrash3Fill,
+} from '@ng-icons/bootstrap-icons';
+import { NgIconsModule } from '@ng-icons/core';
 
 describe('ExpensesTableComponent', () => {
   let component: ExpensesTableComponent;
@@ -107,6 +112,10 @@ describe('ExpensesTableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ExpensesTableComponent],
       imports: [
+        NgIconsModule.withIcons({
+          bootstrapPencilFill,
+          bootstrapTrash3Fill,
+        }),
         MatFormFieldModule,
         MatDatepickerModule,
         MatNativeDateModule,

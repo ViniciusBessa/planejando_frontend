@@ -26,7 +26,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import localePt from '@angular/common/locales/pt';
 import {
   bootstrapCaretDownFill,
+  bootstrapPencilFill,
   bootstrapSearch,
+  bootstrapTrash3Fill,
 } from '@ng-icons/bootstrap-icons';
 import { formatCurrency, formatDate } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
@@ -106,6 +108,8 @@ describe('ExpensesComponent', () => {
           matAttachMoney,
           bootstrapCaretDownFill,
           bootstrapSearch,
+          bootstrapPencilFill,
+          bootstrapTrash3Fill,
         }),
         MatFormFieldModule,
         MatDatepickerModule,

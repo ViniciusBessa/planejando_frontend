@@ -21,7 +21,9 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   bootstrapCaretDownFill,
+  bootstrapPencilFill,
   bootstrapSearch,
+  bootstrapTrash3Fill,
 } from '@ng-icons/bootstrap-icons';
 import localePt from '@angular/common/locales/pt';
 import { NgIconsModule } from '@ng-icons/core';
@@ -91,6 +93,8 @@ describe('RevenuesComponent', () => {
           matAttachMoney,
           bootstrapCaretDownFill,
           bootstrapSearch,
+          bootstrapPencilFill,
+          bootstrapTrash3Fill,
         }),
         MatFormFieldModule,
         MatDatepickerModule,

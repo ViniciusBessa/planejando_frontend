@@ -1,5 +1,5 @@
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   AbstractControl,
@@ -7,28 +7,25 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { AnimationState } from '../../models/animation-state.enum';
 import { Category } from '../../models/category.model';
-import { Expense } from '../../models/expense.model';
 import * as fromApp from '../../../store/app.reducer';
 import * as DashboardActions from '../../store/dashboard.actions';
+import { Goal } from '../../models/goal.model';
 
 @Component({
-  selector: 'app-expenses-table',
-  templateUrl: './expenses-table.component.html',
-  styleUrls: ['./expenses-table.component.css'],
+  selector: 'app-goal-list',
+  templateUrl: './goal-list.component.html',
+  styleUrls: ['./goal-list.component.css'],
   animations: [
     trigger('rowAnimation', [
-      transition('void => creatingExpense', [
+      transition('void => creatingGoal', [
         style({ position: 'relative', left: '-40px', opacity: 0 }),
         animate(1000, style({ left: '0px', opacity: 1 })),
       ]),
 
-      transition('deletingExpense => void', [
+      transition('deletingGoal => void', [
         style({
           position: 'relative',
           left: '0px',
@@ -37,22 +34,18 @@ import * as DashboardActions from '../../store/dashboard.actions';
         animate(1000, style({ opacity: 0, left: '40px' })),
       ]),
 
-      transition('void => updatingExpense', [
+      transition('void => updatingGoal', [
         style({ opacity: 0 }),
         animate(1000, style({ opacity: 1 })),
       ]),
     ]),
   ],
 })
-export class ExpensesTableComponent implements OnInit, AfterViewInit {
-  expenses: Expense[] = [];
+export class GoalListComponent implements OnInit {
+  goals: Goal[] = [];
   categories: Category[] = [];
-  tableDataSource = new MatTableDataSource<Expense>(this.expenses);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  selectedExpense: Expense | null = null;
+  selectedGoal: Goal | null = null;
   form!: FormGroup;
 
   showForm: boolean = false;
@@ -63,40 +56,34 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.store.select('dashboard').subscribe((state) => {
       this.categories = state.categories;
-      this.expenses = state.expenses;
-      this.tableDataSource.data = this.expenses;
+      this.goals = state.goals;
     });
 
     this.initForm();
   }
 
-  ngAfterViewInit(): void {
-    this.tableDataSource.paginator = this.paginator;
-    this.tableDataSource.sort = this.sort;
-  }
+  onSelectGoal(index: number): void {
+    if (index < 0 || index >= this.goals.length) return;
 
-  onSelectExpense(index: number): void {
-    if (index < 0 || index >= this.expenses.length) return;
-
-    this.selectedExpense = this.expenses[index];
-    this.form.patchValue({ ...this.selectedExpense });
+    this.selectedGoal = this.goals[index];
+    this.form.patchValue({ ...this.selectedGoal });
     this.showForm = true;
   }
 
   onOpenForm(): void {
-    this.selectedExpense = null;
+    this.selectedGoal = null;
     this.showForm = true;
     this.form.reset({
-      isEssential: false,
+      essentialExpenses: false,
       categoryId: this.categories[0].id || 0,
     });
   }
 
   onCloseForm(): void {
-    this.selectedExpense = null;
+    this.selectedGoal = null;
     this.showForm = false;
     this.form.reset({
-      isEssential: false,
+      essentialExpenses: false,
       categoryId: this.categories ? this.categories[0].id : undefined,
     });
   }
@@ -104,25 +91,20 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
   onSubmit(): void {
     if (!this.form.valid) return;
 
-    const { value, date, description, isEssential, categoryId } =
-      this.form.value;
+    const { value, essentialExpenses, categoryId } = this.form.value;
 
-    if (this.selectedExpense) {
-      this.onUpdateExpense(
-        this.selectedExpense.id,
+    if (this.selectedGoal) {
+      this.onUpdateGoal(
+        this.selectedGoal.id,
         (value as number) || undefined,
-        (description as string) || undefined,
-        (date as Date) || undefined,
-        isEssential === 'true',
+        essentialExpenses === 'true',
         Number(categoryId)
       );
     } else {
-      this.onCreateExpense(
+      this.onCreateGoal(
         value as number,
         Number(categoryId),
-        description as string,
-        (date as Date) || undefined,
-        isEssential === 'true'
+        essentialExpenses === 'true'
       );
     }
 
@@ -130,64 +112,48 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
     this.onCloseForm();
   }
 
-  onCreateExpense(
+  onCreateGoal(
     value: number,
     categoryId: number,
-    description: string,
-    date?: Date,
-    isEssential?: boolean
+    essentialExpenses?: boolean
   ): void {
     this.startRowAnimation(AnimationState.CREATING);
 
     this.store.dispatch(
-      DashboardActions.createExpenseStart({
+      DashboardActions.createGoalStart({
         value,
-        date,
-        description,
         categoryId,
-        isEssential,
+        essentialExpenses,
       })
     );
-
-    this.sortTableByDate();
   }
 
-  onUpdateExpense(
-    expenseId: number,
+  onUpdateGoal(
+    goalId: number,
     newValue?: number,
-    newDescription?: string,
-    newDate?: Date,
-    isEssential?: boolean,
+    essentialExpenses?: boolean,
     newCategoryId?: number
   ): void {
     this.startRowAnimation(AnimationState.UPDATING);
 
     this.store.dispatch(
-      DashboardActions.updateExpenseStart({
+      DashboardActions.updateGoalStart({
         newValue,
-        newDescription,
-        newDate,
-        expenseId,
+        goalId,
         newCategoryId,
-        isEssential,
+        essentialExpenses,
       })
     );
   }
 
-  onDeleteExpense(id: number): void {
+  onDeleteGoal(id: number): void {
     this.startRowAnimation(AnimationState.DELETING);
 
     this.store.dispatch(
-      DashboardActions.deleteExpenseStart({
-        expenseId: id,
+      DashboardActions.deleteGoalStart({
+        goalId: id,
       })
     );
-  }
-
-  private sortTableByDate(): void {
-    const sort = this.tableDataSource.sort as MatSort;
-    sort.sort({ id: 'date', start: 'desc', disableClear: true });
-    this.tableDataSource.sort = sort;
   }
 
   private startRowAnimation(state: AnimationState): void {
@@ -222,40 +188,21 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
         this.validCategory.bind(this),
       ]),
 
-      isEssential: new FormControl<boolean>(false),
-
-      date: new FormControl<Date>(new Date()),
-
-      description: new FormControl<string>('', [
-        Validators.required,
-        Validators.maxLength(200),
-      ]),
+      essentialExpenses: new FormControl<boolean>(false),
     });
   }
 
   get currentAnimationState(): string {
     switch (this.animationState) {
       case AnimationState.CREATING:
-        return 'creatingExpense';
+        return 'creatingGoal';
       case AnimationState.UPDATING:
-        return 'updatingExpense';
+        return 'updatingGoal';
       case AnimationState.DELETING:
-        return 'deletingExpense';
+        return 'deletingGoal';
       default:
         return '';
     }
-  }
-
-  get displayedColumns(): string[] {
-    return [
-      'id',
-      'description',
-      'value',
-      'category',
-      'isEssential',
-      'date',
-      'actions',
-    ];
   }
 
   get valueMin(): string | undefined {

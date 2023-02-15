@@ -58,18 +58,28 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td class="!z-0" mat-cell *matCellDef="let element; let index = index">
-          <div class="flex flex-col gap-2 py-2">
+          <div class="flex flex-row gap-4 py-2">
             <button
-              class="p-2 bg-primary-800 text-white rounded-lg bg-opacity-90 hover:bg-opacity-100"
+              class="flex justify-center items-center w-9 h-9 p-2 bg-white text-white rounded-lg hover:bg-green-600 transition-all group"
               (click)="onSelectExpense(index)"
+              title="Editar despesa"
             >
-              Editar
+              <ng-icon
+                class="text-green-600 group-hover:text-white transition-all"
+                name="bootstrapPencilFill"
+                size="22"
+              ></ng-icon>
             </button>
             <button
-              class="p-2 bg-red-700 text-white rounded-lg bg-opacity-90 hover:bg-opacity-100"
+              class="flex justify-center items-center w-9 h-9 p-2 bg-white text-white rounded-lg hover:bg-red-600 transition-all group"
               (click)="onDeleteExpense(element.id)"
+              title="Deletar despesa"
             >
-              Deletar
+              <ng-icon
+                class="text-red-600 group-hover:text-white transition-all"
+                name="bootstrapTrash3Fill"
+                size="22"
+              ></ng-icon>
             </button>
           </div>
         </td>
@@ -157,7 +167,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Escolha uma data</mat-label>
-    <input matInput [matDatepicker]="picker" />
+    <input matInput [matDatepicker]="picker" formControlName="date" />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
@@ -257,7 +267,7 @@
   </div>
 
   <button
-    class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
+    class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
   >
     Entrar
   </button>

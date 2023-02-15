@@ -11,7 +11,8 @@ import {
   bootstrapHandIndex,
   bootstrapSearch,
   bootstrapCaretDownFill,
-  bootstrapThreeDotsVertical,
+  bootstrapTrash3Fill,
+  bootstrapPencilFill,
 } from '@ng-icons/bootstrap-icons';
 import { tablerPigMoney, tablerReportMoney } from '@ng-icons/tabler-icons';
 import { matAttachMoney } from '@ng-icons/material-icons/baseline';
@@ -38,6 +39,7 @@ import { getBrazilianPaginatorIntl } from './shared/brazilian-paginator-intl';
 import { DATE_FORMAT } from './shared/date-format';
 import { RevenuesTableComponent } from './revenues/revenues-table/revenues-table.component';
 import { ExpensesTableComponent } from './expenses/expenses-table/expenses-table.component';
+import { GoalListComponent } from './goals/goal-list/goal-list.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { ExpensesTableComponent } from './expenses/expenses-table/expenses-table
     OverviewComponent,
     RevenuesTableComponent,
     ExpensesTableComponent,
+    GoalListComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +61,8 @@ import { ExpensesTableComponent } from './expenses/expenses-table/expenses-table
       tablerPigMoney,
       tablerReportMoney,
       matAttachMoney,
+      bootstrapPencilFill,
+      bootstrapTrash3Fill,
     }),
     FormsModule,
     MatDatepickerModule,

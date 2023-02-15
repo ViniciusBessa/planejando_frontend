@@ -1,0 +1,175 @@
+<div class="flex flex-col overflow-x-auto gap-5">
+  <button
+    class="py-3 px-5 rounded-3xl text-white bg-primary-700 hover:opacity-80 w-full sm:w-fit"
+    (click)="onOpenForm()"
+  >
+    Adicionar meta
+  </button>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div
+      class="w-full flex flex-col gap-2 rounded-lg bg-white dark:bg-gray-800 p-4"
+      *ngFor="let goal of goals; let index = index"
+    >
+      <h2 class="text-center text-xl dark:text-white">
+        {{ goal.category.title }}
+        {{ goal.essentialExpenses ? "Essencial" : "Não Essencial" }}
+      </h2>
+      <div class="flex flex-row justify-between gap-4 px-2 py-2 rounded">
+        <button
+          class="flex justify-center items-center w-1/2 h-9 p-2 text-white rounded-lg hover:bg-green-600 transition-all group"
+          (click)="onSelectGoal(index)"
+          title="Editar meta"
+        >
+          <ng-icon
+            class="text-green-600 group-hover:text-white transition-all"
+            name="bootstrapPencilFill"
+            size="22"
+          ></ng-icon>
+        </button>
+        <button
+          class="flex justify-center items-center w-1/2 h-9 p-2 text-white rounded-lg hover:bg-red-600 transition-all group"
+          (click)="onDeleteGoal(goal.id)"
+          title="Deletar meta"
+        >
+          <ng-icon
+            class="text-red-600 group-hover:text-white transition-all"
+            name="bootstrapTrash3Fill"
+            size="22"
+          ></ng-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="w-screen h-screen flex flex-col items-center fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white dark:bg-dark !bg-opacity-40"
+  *ngIf="showForm"
+  (click)="onCloseForm()"
+></div>
+
+<form
+  class="h-dashboardForm overflow-y-auto flex flex-col gap-6 fixed top-80 sm:top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:text-white bg-white border-white border-2 w-fit shadow-md shadow-gray-300 dark:shadow-gray-700 py-5 px-4 dark:bg-gray-800 sm:px-6"
+  [formGroup]="form"
+  *ngIf="showForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h1 class="text-2xl text-center">
+    {{ selectedGoal ? "Editar meta" : "Adicionar meta" }}
+  </h1>
+  <div>
+    <label class="block" for="value">Valor</label>
+    <input
+      class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      [ngClass]="{
+        'border-red-600 dark:border-red-600':
+          !form.get('value')!.valid && form.get('value')!.touched
+      }"
+      placeholder="Digite o limite da meta"
+      currencyMask
+      [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+      name="value"
+      formControlName="value"
+    />
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        form.get('value')!.touched &&
+        form.get('value')!.errors &&
+        form.get('value')!.errors!['required']
+      "
+    >
+      Por favor, informe um limite para a meta
+    </p>
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        form.get('value')!.touched &&
+        form.get('value')!.errors &&
+        form.get('value')!.errors!['min']
+      "
+    >
+      O limite precisa ser no mínimo {{ valueMin | currency : "BRL" }}
+    </p>
+
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        form.get('value')!.touched &&
+        form.get('value')!.errors &&
+        form.get('value')!.errors!['max']
+      "
+    >
+      O limite precisa ser no máximo
+      {{ valueMax | currency : "BRL" : "R$" : "14.2" }}
+    </p>
+  </div>
+
+  <div>
+    <label class="block" for="category">Categoria</label>
+    <select
+      class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      name="category"
+      formControlName="categoryId"
+      [ngClass]="{
+        'border-red-600 dark:border-red-600':
+          !form.get('categoryId')!.valid && form.get('categoryId')!.touched
+      }"
+    >
+      <option class="dark:bg-dark" value="" selected disabled hidden>
+        Selecione uma categoria
+      </option>
+      <option
+        class="dark:bg-dark"
+        [value]="category.id"
+        *ngFor="let category of categories"
+      >
+        {{ category.title }}
+      </option>
+    </select>
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        form.get('categoryId')!.touched &&
+        form.get('categoryId')!.errors &&
+        form.get('categoryId')!.errors!['required']
+      "
+    >
+      Por favor, selecione uma categoria
+    </p>
+    <p
+      class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+      *ngIf="
+        form.get('categoryId')!.touched &&
+        form.get('categoryId')!.errors &&
+        form.get('categoryId')!.errors!['invalidCategory']
+      "
+    >
+      Essa categoria é inválida
+    </p>
+  </div>
+
+  <div>
+    <label class="block" for="essentialExpenses">Despesas essenciais</label>
+    <select
+      class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+      name="essentialExpenses"
+      formControlName="essentialExpenses"
+      [ngClass]="{
+        'border-red-600 dark:border-red-600':
+          !form.get('essentialExpenses')!.valid &&
+          form.get('essentialExpenses')!.touched
+      }"
+    >
+      <option selected class="dark:bg-dark" [value]="false">Não</option>
+      <option class="dark:bg-dark" [value]="true">Sim</option>
+    </select>
+  </div>
+
+  <button
+    class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
+  >
+    Entrar
+  </button>
+</form>

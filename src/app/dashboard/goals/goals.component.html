@@ -1,1 +1,176 @@
-<p>goals works!</p>
+<section class="min-h-main flex flex-col gap-10 p-6 bg-primary-50 dark:bg-dark">
+  <div
+    class="grid grid-cols-1 justify-center items-center gap-2 md:grid-cols-2 lg:grid-cols-3"
+  >
+    <div
+      class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white"
+    >
+      <ng-icon class="self-end" name="tablerPigMoney" size="32"></ng-icon>
+      <p class="text-3xl">
+        {{ goalsLength }}
+      </p>
+      <p class="text-lg">Número de metas</p>
+    </div>
+    <div
+      class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white"
+    >
+      <ng-icon class="self-end" name="tablerReportMoney" size="32"></ng-icon>
+      <p class="text-3xl">{{ goalsNotAchieved }}</p>
+      <p class="text-lg">Metas não alcançadas</p>
+    </div>
+    <div
+      class="w-full h-fit flex flex-col bg-primary-800 p-6 rounded-xl text-white"
+    >
+      <ng-icon class="self-end" name="matAttachMoney" size="32"></ng-icon>
+      <p class="text-3xl">
+        {{ goalsInProgress }}
+      </p>
+      <p class="text-lg">Metas em progresso</p>
+    </div>
+  </div>
+
+  <div class="flex flex-row flex-wrap gap-6 justify-center sm:justify-start">
+    <div class="flex flex-col gap-4 relative group cursor-pointer w-56">
+      <button
+        class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
+      >
+        <p class="mb-0">Limite</p>
+        <ng-icon name="bootstrapCaretDownFill" size="16"></ng-icon>
+      </button>
+
+      <div
+        class="flex flex-col gap-2 z-40 absolute top-12 w-full p-3 rounded dark:text-white bg-white dark:bg-gray-800 invisible hover:visible group-focus-within:visible"
+      >
+        <label for="minValue">Limite Mínimo</label>
+        <input
+          class="bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+          placeholder="Digite o limite mínimo"
+          currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+          [(ngModel)]="minValue"
+          name="minValue"
+          (keydown.enter)="onGetGoals()"
+        />
+
+        <label for="maxValue">Limite Máximo</label>
+        <input
+          class="bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+          placeholder="Digite o limite máximo"
+          currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+          [(ngModel)]="maxValue"
+          name="maxValue"
+          (keydown.enter)="onGetGoals()"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 relative group cursor-pointer w-60">
+      <button
+        class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
+      >
+        <p class="mb-0">Despesas Essenciais</p>
+        <ng-icon name="bootstrapCaretDownFill" size="16"></ng-icon>
+      </button>
+
+      <div
+        class="flex flex-col gap-2 z-40 absolute top-12 w-64 p-3 rounded dark:text-white bg-white dark:bg-gray-800 invisible hover:visible group-focus-within:visible"
+      >
+        <select
+          class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+          name="essentialExpenses"
+          [(ngModel)]="essentialExpenses"
+          (change)="onGetGoals()"
+        >
+          <option
+            class="dark:bg-dark"
+            [value]="undefined"
+            selected
+            disabled
+            hidden
+          >
+            Só despesas essenciais
+          </option>
+          <option class="dark:bg-dark" [value]="false">Não</option>
+          <option class="dark:bg-dark" [value]="true">Sim</option>
+          <option class="dark:bg-dark" [value]="undefined">Tanto Faz</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 relative group cursor-pointer w-56">
+      <button
+        class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
+      >
+        <p>Data</p>
+        <ng-icon name="bootstrapCaretDownFill" size="16"></ng-icon>
+      </button>
+
+      <div
+        class="w-full z-30 absolute top-14 invisible hover:visible group-focus-within:visible"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Escolha o intervalo</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              [(ngModel)]="startDate"
+              matStartDate
+              placeholder="Data inicial"
+            />
+            <input [(ngModel)]="endDate" matEndDate placeholder="Data final" />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker
+            (closed)="onGetGoals()"
+            #picker
+          ></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 relative group cursor-pointer w-56">
+      <button
+        class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
+      >
+        <p class="mb-0">Categoria</p>
+        <ng-icon name="bootstrapCaretDownFill" size="16"></ng-icon>
+      </button>
+
+      <div
+        class="flex flex-col gap-2 z-40 absolute top-12 w-64 p-3 rounded dark:text-white bg-white dark:bg-gray-800 invisible hover:visible group-focus-within:visible"
+      >
+        <select
+          class="w-full bg-transparent border-2 border-gray-200 rounded px-3 py-1 outline-none dark:text-white"
+          name="categoryId"
+          [(ngModel)]="categoryId"
+          (change)="onGetGoals()"
+        >
+          <option
+            class="dark:bg-dark"
+            [value]="undefined"
+            selected
+            disabled
+            hidden
+          >
+            Selecione uma categoria
+          </option>
+          <option
+            class="dark:bg-dark"
+            [value]="category.id"
+            *ngFor="let category of categories"
+          >
+            {{ category.title }}
+          </option>
+          <option class="dark:bg-dark" [value]="undefined">
+            Nenhuma categoria
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <app-goal-list></app-goal-list>
+</section>

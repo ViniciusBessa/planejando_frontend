@@ -74,6 +74,8 @@ export const getGoalsStart = createAction(
   props<{
     minValue?: number;
     maxValue?: number;
+    startDate?: Date;
+    endDate?: Date;
     categoryId?: number;
     essentialExpenses?: boolean;
   }>()
