@@ -13,6 +13,9 @@ import {
   bootstrapCaretDownFill,
   bootstrapTrash3Fill,
   bootstrapPencilFill,
+  bootstrapCheck2All,
+  bootstrapXCircleFill,
+  bootstrap123,
 } from '@ng-icons/bootstrap-icons';
 import { tablerPigMoney, tablerReportMoney } from '@ng-icons/tabler-icons';
 import { matAttachMoney } from '@ng-icons/material-icons/baseline';
@@ -40,6 +43,7 @@ import { DATE_FORMAT } from './shared/date-format';
 import { RevenuesTableComponent } from './revenues/revenues-table/revenues-table.component';
 import { ExpensesTableComponent } from './expenses/expenses-table/expenses-table.component';
 import { GoalListComponent } from './goals/goal-list/goal-list.component';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,7 @@ import { GoalListComponent } from './goals/goal-list/goal-list.component';
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    NgxGaugeModule,
     NgIconsModule.withIcons({
       bootstrapHandIndex,
       bootstrapSearch,
@@ -63,6 +68,9 @@ import { GoalListComponent } from './goals/goal-list/goal-list.component';
       matAttachMoney,
       bootstrapPencilFill,
       bootstrapTrash3Fill,
+      bootstrapCheck2All,
+      bootstrapXCircleFill,
+      bootstrap123,
     }),
     FormsModule,
     MatDatepickerModule,

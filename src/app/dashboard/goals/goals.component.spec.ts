@@ -24,10 +24,11 @@ import {
   bootstrapSearch,
   bootstrapTrash3Fill,
   bootstrapPencilFill,
+  bootstrapXCircleFill,
+  bootstrap123,
+  bootstrapCheck2All,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
-import { matAttachMoney } from '@ng-icons/material-icons/baseline';
-import { tablerPigMoney, tablerReportMoney } from '@ng-icons/tabler-icons';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -37,6 +38,7 @@ import localePt from '@angular/common/locales/pt';
 import { GoalsComponent } from './goals.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { GoalListComponent } from './goal-list/goal-list.component';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 describe('GoalsComponent', () => {
   let component: GoalsComponent;
@@ -105,14 +107,15 @@ describe('GoalsComponent', () => {
       declarations: [GoalsComponent, GoalListComponent],
       imports: [
         NgIconsModule.withIcons({
-          tablerPigMoney,
-          tablerReportMoney,
-          matAttachMoney,
           bootstrapCaretDownFill,
           bootstrapSearch,
           bootstrapPencilFill,
           bootstrapTrash3Fill,
+          bootstrapCheck2All,
+          bootstrapXCircleFill,
+          bootstrap123,
         }),
+        NgxGaugeModule,
         BrowserModule,
         MatFormFieldModule,
         MatDatepickerModule,
@@ -151,20 +154,6 @@ describe('GoalsComponent', () => {
     expect(goalsLengthParagraph.innerText).toEqual(goals.length.toString());
   });
 
-  it('should display the number of goals not achieved', () => {
-    const goals = initialState.dashboard.goals;
-    const goalsNotAchieved = goals.filter(
-      (goal) => goal.value < goal.sumExpenses
-    );
-    const goalsAchievedParagraph = compiled.querySelectorAll(
-      'p'
-    )[2] as HTMLParagraphElement;
-
-    expect(goalsAchievedParagraph.innerText).toEqual(
-      goalsNotAchieved.length.toString()
-    );
-  });
-
   it('should display the number of goals on progress', () => {
     const goals = initialState.dashboard.goals;
     const goalsInProgress = goals.filter(
@@ -172,10 +161,24 @@ describe('GoalsComponent', () => {
     );
     const goalsAchievedParagraph = compiled.querySelectorAll(
       'p'
-    )[4] as HTMLParagraphElement;
+    )[2] as HTMLParagraphElement;
 
     expect(goalsAchievedParagraph.innerText).toEqual(
       goalsInProgress.length.toString()
+    );
+  });
+
+  it('should display the number of goals not achieved', () => {
+    const goals = initialState.dashboard.goals;
+    const goalsNotAchieved = goals.filter(
+      (goal) => goal.value < goal.sumExpenses
+    );
+    const goalsAchievedParagraph = compiled.querySelectorAll(
+      'p'
+    )[4] as HTMLParagraphElement;
+
+    expect(goalsAchievedParagraph.innerText).toEqual(
+      goalsNotAchieved.length.toString()
     );
   });
 

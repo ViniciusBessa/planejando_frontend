@@ -30,6 +30,7 @@
     "@ngrx/store-devtools": "^15.2.1",
     "angular-oauth2-oidc": "^15.0.1",
     "ng2-currency-mask": "^13.0.3",
+    "ngx-gauge": "^6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

@@ -19,24 +19,17 @@ import { Goal } from '../../models/goal.model';
   templateUrl: './goal-list.component.html',
   styleUrls: ['./goal-list.component.css'],
   animations: [
-    trigger('rowAnimation', [
-      transition('void => creatingGoal', [
-        style({ position: 'relative', left: '-40px', opacity: 0 }),
-        animate(1000, style({ left: '0px', opacity: 1 })),
+    trigger('goalAnimation', [
+      transition('void => creatingGoal, void => updatingGoal', [
+        style({ opacity: 0 }),
+        animate(1000, style({ opacity: 1 })),
       ]),
 
       transition('deletingGoal => void', [
         style({
-          position: 'relative',
-          left: '0px',
           opacity: 1,
         }),
-        animate(1000, style({ opacity: 0, left: '40px' })),
-      ]),
-
-      transition('void => updatingGoal', [
-        style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 })),
+        animate(1000, style({ opacity: 0 })),
       ]),
     ]),
   ],
@@ -50,6 +43,12 @@ export class GoalListComponent implements OnInit {
 
   showForm: boolean = false;
   animationState?: AnimationState;
+
+  chartThresholdConfig = {
+    '0': { color: 'green' },
+    '50': { color: 'orange' },
+    '90': { color: 'red' },
+  };
 
   constructor(private store: Store<fromApp.AppState>) {}
 
@@ -117,7 +116,7 @@ export class GoalListComponent implements OnInit {
     categoryId: number,
     essentialExpenses?: boolean
   ): void {
-    this.startRowAnimation(AnimationState.CREATING);
+    this.startGoalAnimation(AnimationState.CREATING);
 
     this.store.dispatch(
       DashboardActions.createGoalStart({
@@ -134,7 +133,7 @@ export class GoalListComponent implements OnInit {
     essentialExpenses?: boolean,
     newCategoryId?: number
   ): void {
-    this.startRowAnimation(AnimationState.UPDATING);
+    this.startGoalAnimation(AnimationState.UPDATING);
 
     this.store.dispatch(
       DashboardActions.updateGoalStart({
@@ -147,7 +146,7 @@ export class GoalListComponent implements OnInit {
   }
 
   onDeleteGoal(id: number): void {
-    this.startRowAnimation(AnimationState.DELETING);
+    this.startGoalAnimation(AnimationState.DELETING);
 
     this.store.dispatch(
       DashboardActions.deleteGoalStart({
@@ -156,7 +155,12 @@ export class GoalListComponent implements OnInit {
     );
   }
 
-  private startRowAnimation(state: AnimationState): void {
+  gaugePercentage(goal: Goal): number {
+    const percentage = (goal.sumExpenses / goal.value) * 100;
+    return Number(percentage.toFixed(2));
+  }
+
+  private startGoalAnimation(state: AnimationState): void {
     this.animationState = state;
     setTimeout(() => (this.animationState = undefined), 1000);
   }

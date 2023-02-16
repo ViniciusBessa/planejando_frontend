@@ -29,6 +29,8 @@ export class ExpensesComponent implements OnInit {
       this.expenses = state.expenses;
       this.categories = state.categories;
     });
+
+    this.onGetExpenses();
   }
 
   onGetExpenses(): void {

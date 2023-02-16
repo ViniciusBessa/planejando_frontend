@@ -312,7 +312,7 @@ export class DashboardEffects {
       mergeMap((goalData) => {
         const { goalId } = goalData;
         return this.http
-          .delete<{ goal: Goal }>(`${environment.apiUrl}/goals/${goalData}`)
+          .delete<{ goal: Goal }>(`${environment.apiUrl}/goals/${goalId}`)
           .pipe(
             map(() => DashboardActions.deleteGoalSuccess({ goalId })),
             catchError(handleError.bind(this))

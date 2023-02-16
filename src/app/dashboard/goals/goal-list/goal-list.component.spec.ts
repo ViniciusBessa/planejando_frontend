@@ -21,6 +21,7 @@ import * as fromApp from '../../../store/app.reducer';
 import localePt from '@angular/common/locales/pt';
 
 import { GoalListComponent } from './goal-list.component';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 describe('GoalListComponent', () => {
   let component: GoalListComponent;
@@ -107,6 +108,7 @@ describe('GoalListComponent', () => {
           bootstrapPencilFill,
           bootstrapTrash3Fill,
         }),
+        NgxGaugeModule,
         ReactiveFormsModule,
         CurrencyMaskModule,
         BrowserAnimationsModule,

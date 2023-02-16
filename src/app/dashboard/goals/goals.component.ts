@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { Category } from '../models/category.model';
@@ -10,7 +10,7 @@ import * as DashboardActions from '../store/dashboard.actions';
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.css'],
 })
-export class GoalsComponent {
+export class GoalsComponent implements OnInit {
   goals: Goal[] = [];
   categories: Category[] = [];
 
@@ -28,6 +28,8 @@ export class GoalsComponent {
       this.goals = state.goals;
       this.categories = state.categories;
     });
+
+    this.onGetGoals();
   }
 
   onGetGoals(): void {

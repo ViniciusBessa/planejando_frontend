@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Revenue } from '../models/revenue.model';
 import * as fromApp from '../../store/app.reducer';
@@ -24,6 +24,8 @@ export class RevenuesComponent implements OnInit {
     this.store.select('dashboard').subscribe((state) => {
       this.revenues = state.revenues;
     });
+
+    this.onGetRevenues();
   }
 
   onGetRevenues(): void {
