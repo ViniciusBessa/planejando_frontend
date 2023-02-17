@@ -39,6 +39,7 @@ import { GoalsComponent } from './goals.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { GoalListComponent } from './goal-list/goal-list.component';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('GoalsComponent', () => {
   let component: GoalsComponent;
@@ -106,6 +107,7 @@ describe('GoalsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [GoalsComponent, GoalListComponent],
       imports: [
+        RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
           bootstrapCaretDownFill,
           bootstrapSearch,

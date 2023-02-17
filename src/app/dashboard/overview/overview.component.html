@@ -1,1 +1,224 @@
-<p>overview works!</p>
+<section
+  class="min-h-main flex flex-col gap-10 p-3 bg-primary-50 dark:bg-dark sm:p-6"
+>
+  <div class="grid grid-cols-1 gap-7 md:grid-cols-2 text-center sm:text-start">
+    <div
+      class="w-full flex flex-row flex-wrap justify-center sm:justify-between gap-8 sm:gap-4 p-3 sm:p-6 text-gray-600 dark:text-gray-400 rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-800"
+    >
+      <div>
+        <p class="text-sm">Olá,</p>
+        <p class="text-lg ml-1" *ngIf="user">{{ user.name }}</p>
+      </div>
+      <div>
+        <p class="text-sm">Receita mensal</p>
+        <p
+          class="text-lg text-green-700 dark:text-green-500 font-bold"
+          *ngIf="!isLoading"
+        >
+          {{ monthlyRevenue | currency : "BRL" }}
+        </p>
+        <div
+          class="w-full h-6 rounded-lg animate-loadingRespiration"
+          *ngIf="isLoading && revenues.length === 0"
+        ></div>
+      </div>
+
+      <div>
+        <p class="text-sm">Despesa mensal</p>
+        <p
+          class="text-lg text-red-600 dark:text-red-400 font-bold"
+          *ngIf="!isLoading"
+        >
+          {{ monthlyExpense | currency : "BRL" }}
+        </p>
+        <div
+          class="w-full h-6 rounded-lg animate-loadingRespiration"
+          *ngIf="isLoading && expenses.length === 0"
+        ></div>
+      </div>
+    </div>
+    <div
+      class="w-full flex flex-row flex-wrap justify-center sm:justify-between gap-10 sm:gap-4 p-3 sm:p-6 text-gray-600 dark:text-gray-400 rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-800"
+    >
+      <div>
+        <p class="text-sm">Saldo mensal</p>
+        <p class="text-lg font-bold" *ngIf="!isLoading">
+          {{ monthlyRevenue - monthlyExpense | currency : "BRL" }}
+        </p>
+        <div
+          class="w-full h-6 rounded-lg animate-loadingRespiration"
+          *ngIf="isLoading && expenses.length === 0 && revenues.length === 0"
+        ></div>
+      </div>
+
+      <div
+        class="flex flex-col justify-center items-center sm:ml-auto text-red-600 dark:text-red-400 cursor-pointer hover:opacity-80"
+        [routerLink]="['/dashboard', 'despesas']"
+      >
+        <ng-icon name="bootstrapDashCircleFill" size="24"></ng-icon>
+        <p class="font-bold">Despesas</p>
+      </div>
+
+      <div
+        class="flex flex-col justify-center items-center text-green-700 dark:text-green-500 cursor-pointer hover:opacity-80"
+        [routerLink]="['/dashboard', 'receitas']"
+      >
+        <ng-icon name="bootstrapPlusCircleFill" size="24"></ng-icon>
+        <p class="font-bold">Receitas</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-7 lg:grid-cols-overviewGoals">
+    <div
+      class="w-full flex flex-col gap-6 p-3 sm:p-6 text-gray-600 dark:text-gray-400 rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-800"
+    >
+      <h1 class="text-xl font-bold text-center">Metas mensais</h1>
+
+      <div
+        class="flex flex-row flex-wrap justify-center items-center gap-8 sm:grid sm:grid-cols-overviewGoal sm:gap-12 text-center sm:text-start p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+        *ngFor="let goal of firstTwoGoals; let index = index"
+        [routerLink]="['/dashboard', 'metas']"
+        [queryParams]="{ goalId: index }"
+      >
+        <ngx-gauge
+          class="dark:text-white text-opacity-0"
+          type="arch"
+          [size]="120"
+          [value]="goalGaugePercentage(goal)"
+          label="Despesas"
+          [min]="0"
+          [max]="100"
+          [thick]="12"
+          [thresholds]="chartThresholdConfig"
+          append="%"
+        >
+        </ngx-gauge>
+
+        <div class="text-gray-600 dark:text-gray-400">
+          <h2 class="text-xl text-black dark:text-white">
+            {{ goal.category.title }}
+            {{ goal.essentialExpenses ? "Essencial" : "Não Essencial" }}
+          </h2>
+          <p>Gastos atuais: {{ goal.sumExpenses | currency : "BRL" }}</p>
+          <p>Limite: {{ goal.value | currency : "BRL" }}</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4" *ngIf="isLoading && goals.length === 0">
+        <div
+          class="w-full h-20 rounded-lg animate-loadingRespiration"
+          *ngFor="let _ of [1, 2, 3, 4]"
+        ></div>
+      </div>
+
+      <a
+        class="text-lg text-center opacity-90 hover:opacity-100 mt-auto"
+        [routerLink]="['/dashboard', 'metas']"
+        >Visualizar todas metas</a
+      >
+    </div>
+
+    <div
+      class="w-full flex flex-col gap-6 p-3 sm:p-6 text-gray-600 dark:text-gray-400 rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-800"
+    >
+      <h1 class="text-xl font-bold text-center">Maiores gastos do mês</h1>
+      <div
+        class="flex flex-col justify-center gap-2 text-center sm:text-start sm:gap-4 p-3"
+        *ngFor="let expense of monthlyBiggestExpenses; let index = index"
+      >
+        <h2 class="text-xl text-black dark:text-white">
+          {{ expense.category.title }}
+        </h2>
+        <div
+          class="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-8 sm:grid sm:grid-cols-2"
+        >
+          <p>Despesa mensal: {{ expense.totalExpenses | currency : "BRL" }}</p>
+          <p>
+            Porcentagem do gasto total:
+            {{ getPercentageOfTotalExpenses(expense.totalExpenses) }}%
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="flex flex-col gap-4"
+        *ngIf="isLoading && expenses.length === 0"
+      >
+        <div
+          class="w-full h-16 rounded-lg animate-loadingRespiration"
+          *ngFor="let _ of [1, 2, 3, 4]"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-7 lg:grid-cols-2">
+    <div
+      class="w-full flex flex-col gap-10 p-3 sm:p-6 text-gray-600 dark:text-gray-400 rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-800"
+    >
+      <h1 class="text-xl font-bold text-center">Minhas despesas</h1>
+      <div
+        class="flex flex-row flex-wrap justify-center gap-12 sm:grid sm:grid-cols-3 sm:gap-4 p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+        *ngFor="let expense of firstFiveExpenses; let index = index"
+        [routerLink]="['/dashboard', 'despesas']"
+        [queryParams]="{ expenseId: index }"
+      >
+        <p>{{ expense.category.title }}</p>
+        <p>{{ expense.date | date : "dd/MM/YYYY" }}</p>
+        <p class="text-red-600 dark:text-red-400">
+          {{ expense.value | currency : "BRL" }}
+        </p>
+      </div>
+
+      <div
+        class="flex flex-col gap-4"
+        *ngIf="isLoading && expenses.length === 0"
+      >
+        <div
+          class="w-full h-16 rounded-lg animate-loadingRespiration"
+          *ngFor="let _ of [1, 2, 3, 4]"
+        ></div>
+      </div>
+
+      <a
+        class="text-lg text-center opacity-90 hover:opacity-100 mt-auto"
+        [routerLink]="['/dashboard', 'despesas']"
+        >Visualizar todas despesas</a
+      >
+    </div>
+    <div
+      class="w-full flex flex-col gap-10 p-3 sm:p-6 text-gray-600 dark:text-gray-400 rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-800"
+    >
+      <h1 class="text-xl font-bold text-center">Minhas receitas</h1>
+
+      <div
+        class="flex flex-row flex-wrap justify-center gap-12 sm:grid sm:grid-cols-2 sm:gap-4 p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+        *ngFor="let revenue of firstFiveRevenues; let index = index"
+        [routerLink]="['/dashboard', 'receitas']"
+        [queryParams]="{ revenueId: index }"
+      >
+        <p>{{ revenue.date | date : "dd/MM/YYYY" }}</p>
+        <p class="text-green-700 dark:text-green-500">
+          {{ revenue.value | currency : "BRL" }}
+        </p>
+      </div>
+
+      <div
+        class="flex flex-col gap-4"
+        *ngIf="isLoading && revenues.length === 0"
+      >
+        <div
+          class="w-full h-16 rounded-lg animate-loadingRespiration"
+          *ngFor="let _ of [1, 2, 3, 4]"
+        ></div>
+      </div>
+
+      <a
+        class="text-lg text-center opacity-90 hover:opacity-100 mt-auto"
+        [routerLink]="['/dashboard', 'receitas']"
+        >Visualizar todas receitas</a
+      >
+    </div>
+  </div>
+</section>

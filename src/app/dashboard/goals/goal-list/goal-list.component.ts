@@ -13,6 +13,7 @@ import { Category } from '../../models/category.model';
 import * as fromApp from '../../../store/app.reducer';
 import * as DashboardActions from '../../store/dashboard.actions';
 import { Goal } from '../../models/goal.model';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-goal-list',
@@ -37,6 +38,7 @@ import { Goal } from '../../models/goal.model';
 export class GoalListComponent implements OnInit {
   goals: Goal[] = [];
   categories: Category[] = [];
+  isLoading: boolean = false;
 
   selectedGoal: Goal | null = null;
   form!: FormGroup;
@@ -50,15 +52,27 @@ export class GoalListComponent implements OnInit {
     '90': { color: 'red' },
   };
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(
+    private store: Store<fromApp.AppState>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.store.select('dashboard').subscribe((state) => {
+      this.isLoading = false;
       this.categories = state.categories;
       this.goals = state.goals;
     });
 
     this.initForm();
+
+    this.route.queryParams.subscribe((params: Params) => {
+      const goalId = params['goalId'];
+
+      if (goalId) {
+        this.onSelectGoal(Number(goalId));
+      }
+    });
   }
 
   onSelectGoal(index: number): void {

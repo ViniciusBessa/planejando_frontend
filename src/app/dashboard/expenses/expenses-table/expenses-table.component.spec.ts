@@ -28,6 +28,7 @@ import {
   bootstrapTrash3Fill,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ExpensesTableComponent', () => {
   let component: ExpensesTableComponent;
@@ -112,6 +113,7 @@ describe('ExpensesTableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ExpensesTableComponent],
       imports: [
+        RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
           bootstrapPencilFill,
           bootstrapTrash3Fill,

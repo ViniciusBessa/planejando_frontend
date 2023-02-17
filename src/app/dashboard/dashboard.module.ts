@@ -16,6 +16,8 @@ import {
   bootstrapCheck2All,
   bootstrapXCircleFill,
   bootstrap123,
+  bootstrapDashCircleFill,
+  bootstrapPlusCircleFill,
 } from '@ng-icons/bootstrap-icons';
 import { tablerPigMoney, tablerReportMoney } from '@ng-icons/tabler-icons';
 import { matAttachMoney } from '@ng-icons/material-icons/baseline';
@@ -71,6 +73,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
       bootstrapCheck2All,
       bootstrapXCircleFill,
       bootstrap123,
+      bootstrapDashCircleFill,
+      bootstrapPlusCircleFill,
     }),
     FormsModule,
     MatDatepickerModule,

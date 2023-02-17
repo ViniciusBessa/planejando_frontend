@@ -9,6 +9,7 @@ import { AnimationState } from '../../models/animation-state.enum';
 import { Revenue } from '../../models/revenue.model';
 import * as fromApp from '../../../store/app.reducer';
 import * as DashboardActions from '../../store/dashboard.actions';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-revenues-table',
@@ -51,7 +52,10 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
   showForm: boolean = false;
   animationState?: AnimationState;
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(
+    private store: Store<fromApp.AppState>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.store.select('dashboard').subscribe((state) => {
@@ -60,6 +64,14 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
     });
 
     this.initForm();
+
+    this.route.queryParams.subscribe((params: Params) => {
+      const revenueId = params['revenueId'];
+
+      if (revenueId) {
+        this.onSelectRevenue(Number(revenueId));
+      }
+    });
   }
 
   ngAfterViewInit(): void {

@@ -22,6 +22,7 @@ import localePt from '@angular/common/locales/pt';
 
 import { GoalListComponent } from './goal-list.component';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('GoalListComponent', () => {
   let component: GoalListComponent;
@@ -104,6 +105,7 @@ describe('GoalListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [GoalListComponent],
       imports: [
+        RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
           bootstrapPencilFill,
           bootstrapTrash3Fill,

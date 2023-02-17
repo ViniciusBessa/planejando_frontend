@@ -36,6 +36,7 @@ import { RevenuesTableComponent } from './revenues-table/revenues-table.componen
 import * as fromApp from '../../store/app.reducer';
 
 import { RevenuesComponent } from './revenues.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RevenuesComponent', () => {
   let component: RevenuesComponent;
@@ -87,6 +88,7 @@ describe('RevenuesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [RevenuesComponent, RevenuesTableComponent],
       imports: [
+        RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
           tablerPigMoney,
           tablerReportMoney,

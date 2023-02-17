@@ -33,6 +33,8 @@ import {
 import { formatCurrency, formatDate } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ExpensesComponent', () => {
   let component: ExpensesComponent;
@@ -102,6 +104,7 @@ describe('ExpensesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ExpensesComponent, ExpensesTableComponent],
       imports: [
+        RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
           tablerPigMoney,
           tablerReportMoney,

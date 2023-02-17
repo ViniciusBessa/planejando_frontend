@@ -13,6 +13,10 @@ module.exports = {
       table: "460px",
     },
     extend: {
+      gridTemplateColumns: {
+        overviewGoals: "4fr 5fr",
+        overviewGoal: "2fr 5fr",
+      },
       width: {
         120: "480px",
         "3/10": "30%",
@@ -40,6 +44,11 @@ module.exports = {
           "0%": { top: "8px", opacity: "0%" },
           "20%, 60%": { top: "36px", opacity: "100%" },
           "100%": { top: "36px", opacity: "0%" },
+        },
+        loadingRespiration: {
+          "0%": { backgroundColor: "#CFD4DA" },
+          "50%": { backgroundColor: "#EEEEEE" },
+          "100%": { backgroundColor: "#CFD4DA" },
         },
         loadingElasticBefore: {
           "0%": {
@@ -98,6 +107,7 @@ module.exports = {
         loadingElastic: "loadingElastic 1s infinite linear",
         loadingElasticBefore: "loadingElasticBefore 1s infinite linear",
         loadingElasticAfter: "loadingElasticAfter 1s infinite linear",
+        loadingRespiration: "loadingRespiration 4s ease-in-out infinite",
       },
     },
   },
