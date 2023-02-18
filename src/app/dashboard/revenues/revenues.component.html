@@ -1,4 +1,8 @@
-<section class="min-h-main flex flex-col gap-10 p-6 bg-primary-50 dark:bg-dark">
+<app-sidebar (sectionSelected)="onSectionSelected($event)"></app-sidebar>
+
+<section
+  class="min-h-main flex flex-col gap-10 p-3 sm:p-6 sm:ml-16 bg-primary-50 dark:bg-dark"
+>
   <div
     class="grid grid-cols-1 justify-center items-center gap-2 md:grid-cols-2 lg:grid-cols-3"
   >
@@ -30,7 +34,10 @@
       <p class="text-lg">Média de receitas</p>
     </div>
   </div>
-  <div class="flex flex-row flex-wrap gap-3">
+  <div
+    class="flex flex-row flex-wrap gap-3"
+    [ngClass]="{ 'justify-center': selectedSection === 'CHARTS' }"
+  >
     <div class="flex flex-row flex-wrap gap-2">
       <div
         class="flex flex-row items-center gap-4 border-2 border-gray-200 bg-white dark:bg-gray-800 rounded-xl px-4 text-black dark:text-white"
@@ -56,7 +63,10 @@
     </div>
   </div>
 
-  <div class="flex flex-row flex-wrap gap-6 justify-center sm:justify-start">
+  <div
+    class="flex flex-row flex-wrap gap-6 justify-center"
+    [ngClass]="{ 'sm:justify-start': selectedSection === 'TABLES' }"
+  >
     <div class="flex flex-col gap-4 relative group cursor-pointer w-56">
       <button
         class="flex flex-row items-center justify-between gap-3 px-6 py-2 rounded-xl bg-primary-300 text-white opacity-80 hover:opacity-90"
@@ -126,5 +136,8 @@
     </div>
   </div>
 
-  <app-revenues-table></app-revenues-table>
+  <app-revenues-table *ngIf="selectedSection === 'TABLES'"></app-revenues-table>
+  <app-revenues-graphics
+    *ngIf="selectedSection === 'CHARTS'"
+  ></app-revenues-graphics>
 </section>

@@ -4,6 +4,7 @@ import { Expense } from '../models/expense.model';
 import * as fromApp from '../../store/app.reducer';
 import * as DashboardActions from '../store/dashboard.actions';
 import { Category } from '../models/category.model';
+import { DashboardSection } from '../models/dashboard-sections.enum';
 
 @Component({
   selector: 'app-expenses',
@@ -13,6 +14,7 @@ import { Category } from '../models/category.model';
 export class ExpensesComponent implements OnInit {
   expenses: Expense[] = [];
   categories: Category[] = [];
+  selectedSection: DashboardSection = DashboardSection.TABLES;
 
   minValue?: number;
   maxValue?: number;
@@ -51,6 +53,10 @@ export class ExpensesComponent implements OnInit {
             : undefined,
       })
     );
+  }
+
+  onSectionSelected(event: any): void {
+    this.selectedSection = event;
   }
 
   get expensesTotal(): number {

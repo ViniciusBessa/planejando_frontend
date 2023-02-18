@@ -18,6 +18,8 @@ import {
   bootstrap123,
   bootstrapDashCircleFill,
   bootstrapPlusCircleFill,
+  bootstrapClipboardDataFill,
+  bootstrapBarChartFill,
 } from '@ng-icons/bootstrap-icons';
 import { tablerPigMoney, tablerReportMoney } from '@ng-icons/tabler-icons';
 import { matAttachMoney } from '@ng-icons/material-icons/baseline';
@@ -46,6 +48,11 @@ import { RevenuesTableComponent } from './revenues/revenues-table/revenues-table
 import { ExpensesTableComponent } from './expenses/expenses-table/expenses-table.component';
 import { GoalListComponent } from './goals/goal-list/goal-list.component';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { ExpensesGraphicsComponent } from './expenses/expenses-graphics/expenses-graphics.component';
+import { GoalsGraphicsComponent } from './goals/goals-graphics/goals-graphics.component';
+import { NgChartsModule } from 'ng2-charts';
+import { RevenuesGraphicsComponent } from './revenues/revenues-graphics/revenues-graphics.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -56,10 +63,15 @@ import { NgxGaugeModule } from 'ngx-gauge';
     RevenuesTableComponent,
     ExpensesTableComponent,
     GoalListComponent,
+    ExpensesGraphicsComponent,
+    GoalsGraphicsComponent,
+    RevenuesGraphicsComponent,
+    SidebarComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    NgChartsModule,
     NgxGaugeModule,
     NgIconsModule.withIcons({
       bootstrapHandIndex,
@@ -75,6 +87,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
       bootstrap123,
       bootstrapDashCircleFill,
       bootstrapPlusCircleFill,
+      bootstrapClipboardDataFill,
+      bootstrapBarChartFill,
     }),
     FormsModule,
     MatDatepickerModule,

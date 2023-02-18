@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Revenue } from '../models/revenue.model';
 import * as fromApp from '../../store/app.reducer';
 import * as DashboardActions from '../store/dashboard.actions';
+import { DashboardSection } from '../models/dashboard-sections.enum';
 
 @Component({
   selector: 'app-revenues',
@@ -11,6 +12,7 @@ import * as DashboardActions from '../store/dashboard.actions';
 })
 export class RevenuesComponent implements OnInit {
   revenues: Revenue[] = [];
+  selectedSection: DashboardSection = DashboardSection.TABLES;
 
   minValue?: number;
   maxValue?: number;
@@ -38,6 +40,10 @@ export class RevenuesComponent implements OnInit {
         maxDate: this.endDate || undefined,
       })
     );
+  }
+
+  onSectionSelected(event: any): void {
+    this.selectedSection = event;
   }
 
   get revenuesTotal(): number {

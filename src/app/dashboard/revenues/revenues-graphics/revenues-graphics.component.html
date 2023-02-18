@@ -1,0 +1,47 @@
+<div class="flex flex-col items-center overflow-x-auto gap-5">
+  <div
+    class="w-full md:w-5/6 overflow-x-auto bg-white dark:bg-gray-800 rounded-lg p-5"
+  >
+    <select
+      class="w-fit bg-primary-600 rounded-lg text-white py-2 px-5"
+      [(ngModel)]="selectedYear"
+      (change)="onUpdateGraphics()"
+    >
+      <option [value]="year" *ngFor="let year of validYears">
+        {{ year }}
+      </option>
+    </select>
+    <canvas
+      baseChart
+      class="min-w-barChart min-h-barChart w-full text-3xl"
+      [data]="totalRevenuesChartData"
+      [options]="totalRevenuesChartOptions"
+      [plugins]="chartPlugins"
+      type="bar"
+    >
+    </canvas>
+  </div>
+
+  <div
+    class="w-full md:w-5/6 overflow-x-auto bg-white dark:bg-gray-800 rounded-lg p-5"
+  >
+    <select
+      class="w-fit bg-primary-600 rounded-lg text-white py-2 px-5"
+      [(ngModel)]="selectedYear"
+      (change)="onUpdateGraphics()"
+    >
+      <option [value]="year" *ngFor="let year of validYears">
+        {{ year }}
+      </option>
+    </select>
+    <canvas
+      baseChart
+      class="min-w-barChart min-h-barChart w-full text-3xl"
+      [data]="numberOfRevenuesChartData"
+      [options]="numberOfRevenuesChartOptions"
+      [plugins]="chartPlugins"
+      type="bar"
+    >
+    </canvas>
+  </div>
+</div>

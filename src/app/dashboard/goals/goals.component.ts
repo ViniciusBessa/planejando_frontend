@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { Category } from '../models/category.model';
+import { DashboardSection } from '../models/dashboard-sections.enum';
 import { Goal } from '../models/goal.model';
 import * as DashboardActions from '../store/dashboard.actions';
 
@@ -13,6 +14,7 @@ import * as DashboardActions from '../store/dashboard.actions';
 export class GoalsComponent implements OnInit {
   goals: Goal[] = [];
   categories: Category[] = [];
+  selectedSection: DashboardSection = DashboardSection.TABLES;
 
   minValue?: number;
   maxValue?: number;
@@ -49,6 +51,10 @@ export class GoalsComponent implements OnInit {
             : undefined,
       })
     );
+  }
+
+  onSectionSelected(event: any): void {
+    this.selectedSection = event;
   }
 
   get goalsLength(): number {

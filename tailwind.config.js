@@ -8,9 +8,12 @@ module.exports = {
       main: "80vh",
       footer: "20vh",
       userSettings: "600px",
+      barChart: "360px",
     },
     minWidth: {
       table: "460px",
+      barChart: "720px",
+      pieChart: "200px",
     },
     extend: {
       gridTemplateColumns: {

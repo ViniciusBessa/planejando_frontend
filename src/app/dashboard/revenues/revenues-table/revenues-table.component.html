@@ -1,12 +1,12 @@
-<div class="flex flex-col overflow-x-auto gap-5">
-  <button
-    class="py-3 px-5 rounded-3xl text-white bg-primary-700 hover:opacity-80 w-full sm:w-fit"
-    (click)="onOpenForm()"
-  >
-    Adicionar receita
-  </button>
+<button
+  class="py-3 px-5 mb-6 rounded-3xl text-white bg-primary-700 hover:opacity-80 w-full sm:w-fit"
+  (click)="onOpenForm()"
+>
+  Adicionar receita
+</button>
 
-  <div>
+<div class="overflow-x-auto">
+  <div class="w-fit sm:w-full">
     <table
       mat-table
       [dataSource]="tableDataSource"
@@ -192,6 +192,6 @@
   <button
     class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
   >
-    Entrar
+    {{ selectedRevenue ? "Atualizar" : "Criar" }}
   </button>
 </form>
