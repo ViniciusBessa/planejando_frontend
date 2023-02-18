@@ -34,7 +34,7 @@ export class PasswordResetService {
       .pipe(catchError(this.handleRequestError.bind(this)))
       .subscribe({
         next: (result) => {
-          if (result.resetToken) {
+          if (result && result.resetToken) {
             this.tokenSubject.next(result.resetToken);
             this.tokenIsValidSubject.next(true);
           } else {
