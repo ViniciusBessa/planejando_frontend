@@ -69,6 +69,10 @@ function normalizeGoal(goal: Goal): Goal {
     id: Number(goal.id),
     value: Number(goal.value),
     essentialExpenses: Boolean(goal.essentialExpenses),
+    sumExpenses: goal.sumExpenses.map(({ month, total }) => ({
+      month,
+      total: Number(total),
+    })),
     createdAt: new Date(goal.createdAt),
     updatedAt: new Date(goal.updatedAt),
   };

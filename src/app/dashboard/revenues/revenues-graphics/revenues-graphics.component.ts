@@ -31,7 +31,7 @@ export class RevenuesGraphicsComponent implements OnInit {
     plugins: {
       title: {
         display: true,
-        text: 'Total de despesas por mês',
+        text: 'Total das receitas por mês',
         align: 'center',
       },
       legend: {
@@ -59,7 +59,7 @@ export class RevenuesGraphicsComponent implements OnInit {
     plugins: {
       title: {
         display: true,
-        text: 'Número de despesas por mês',
+        text: 'Número de receitas por mês',
         align: 'center',
       },
       legend: {

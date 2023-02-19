@@ -57,15 +57,23 @@ export class GoalsComponent implements OnInit {
     this.selectedSection = event;
   }
 
+  getGoalTotalExpenses(goal: Goal): number {
+    return goal.sumExpenses.reduce((initial, { total }) => initial + total, 0);
+  }
+
   get goalsLength(): number {
     return this.goals.length;
   }
 
   get goalsNotAchieved(): number {
-    return this.goals.filter((goal) => goal.sumExpenses >= goal.value).length;
+    return this.goals.filter(
+      (goal) => this.getGoalTotalExpenses(goal) >= goal.value
+    ).length;
   }
 
   get goalsInProgress(): number {
-    return this.goals.filter((goal) => goal.sumExpenses < goal.value).length;
+    return this.goals.filter(
+      (goal) => this.getGoalTotalExpenses(goal) < goal.value
+    ).length;
   }
 }

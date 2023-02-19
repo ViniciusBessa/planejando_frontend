@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center overflow-x-auto gap-5">
   <div
-    class="w-full sm:w-1/2 flex flex-col items-center justify-center overflow-x-auto bg-white dark:bg-gray-800 rounded-lg p-5"
+    class="w-full md:w-5/6 overflow-x-auto bg-white dark:bg-gray-800 rounded-lg p-5"
   >
     <select
       class="w-fit self-start bg-primary-600 rounded-lg text-white py-2 px-5"
@@ -13,11 +13,11 @@
     </select>
     <canvas
       baseChart
-      class="min-w-pieChart text-3xl"
-      [data]="goalsTypePercentageChartData"
-      [options]="goalsTypePercentageChartOptions"
+      class="min-w-barChart min-h-barChart w-full text-3xl"
+      [data]="goalsAchievementsChartData"
+      [options]="goalsAchievementsChartOptions"
       [plugins]="chartPlugins"
-      type="pie"
+      type="bar"
     >
     </canvas>
   </div>
@@ -37,8 +37,8 @@
     <canvas
       baseChart
       class="min-w-pieChart text-3xl"
-      [data]="goalsAchievementPercentageChartData"
-      [options]="goalsAchievementPercentageChartOptions"
+      [data]="goalsTypePercentageChartData"
+      [options]="goalsTypePercentageChartOptions"
       [plugins]="chartPlugins"
       type="pie"
     >

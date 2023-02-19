@@ -1,4 +1,4 @@
-<div class="flex flex-col overflow-x-auto gap-5">
+<div class="flex flex-col gap-5">
   <button
     class="py-3 px-5 rounded-3xl text-white bg-primary-700 hover:opacity-80 w-full sm:w-fit"
     (click)="onOpenForm()"
@@ -32,7 +32,7 @@
       </div>
 
       <p class="dark:text-white">
-        Gastos atuais: {{ goal.sumExpenses | currency : "BRL" }}
+        Gastos atuais: {{ getGoalTotalExpenses(goal) | currency : "BRL" }}
       </p>
       <p class="dark:text-white">Limite: {{ goal.value | currency : "BRL" }}</p>
 
@@ -81,11 +81,17 @@
 ></div>
 
 <form
-  class="h-dashboardForm overflow-y-auto flex flex-col gap-6 fixed top-80 sm:top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:text-white bg-white border-white border-2 w-fit shadow-md shadow-gray-300 dark:shadow-gray-700 py-5 px-4 dark:bg-gray-800 sm:px-6"
+  class="h-screen sm:h-dashboardForm w-full sm:w-96 overflow-y-auto flex flex-col gap-6 fixed z-50 top-0 left-0 sm:top-1/2 sm:left-1/2 sm:-translate-y-1/2 sm:-translate-x-1/2 dark:text-white bg-white sm:border-white sm:border-2 sm:shadow-md sm:shadow-gray-300 sm:dark:shadow-gray-700 py-5 px-4 dark:bg-gray-800 sm:px-6 transition-all"
   [formGroup]="form"
   *ngIf="showForm"
   (ngSubmit)="onSubmit()"
 >
+  <button
+    class="flex justify-center items-center self-end text-5xl w-16 h-16 rounded-full p-2 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:opacity-70 mr-8 sm:hidden"
+    (click)="onCloseForm()"
+  >
+    &times;
+  </button>
   <h1 class="text-2xl text-center">
     {{ selectedGoal ? "Editar meta" : "Adicionar meta" }}
   </h1>

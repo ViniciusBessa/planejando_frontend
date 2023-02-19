@@ -46,8 +46,12 @@ export class OverviewComponent implements OnInit {
   }
 
   goalGaugePercentage(goal: Goal): number {
-    const percentage = (goal.sumExpenses / goal.value) * 100;
+    const percentage = (this.getGoalTotalExpenses(goal) / goal.value) * 100;
     return Number(percentage.toFixed(2));
+  }
+
+  getGoalTotalExpenses(goal: Goal): number {
+    return goal.sumExpenses.reduce((initial, { total }) => initial + total, 0);
   }
 
   getExpensesByCategory(category: Category): {

@@ -14,15 +14,15 @@ export class GoalsGraphicsComponent implements OnInit {
   goals: Goal[] = [];
   selectedYear: number = new Date().getFullYear();
 
-  goalsTypePercentageChartData!: ChartData<'pie'>;
+  goalsAchievementsChartData!: ChartData<'bar'>;
 
-  goalsTypePercentageChartOptions: ChartConfiguration['options'] = {
+  goalsAchievementsChartOptions: ChartConfiguration['options'] = {
     responsive: false,
 
     plugins: {
       title: {
         display: true,
-        text: 'Despesas por tipo',
+        text: 'Resultados das metas',
         align: 'center',
       },
       legend: {
@@ -31,24 +31,19 @@ export class GoalsGraphicsComponent implements OnInit {
       datalabels: {
         anchor: 'end',
         align: 'end',
-        formatter: (value, ctx) => {
-          return `${value} (${((value / this.goals.length) * 100).toFixed(
-            1
-          )}%)`;
-        },
       },
     },
   };
 
-  goalsAchievementPercentageChartData!: ChartData<'pie'>;
+  goalsTypePercentageChartData!: ChartData<'pie'>;
 
-  goalsAchievementPercentageChartOptions: ChartConfiguration['options'] = {
+  goalsTypePercentageChartOptions: ChartConfiguration['options'] = {
     responsive: false,
 
     plugins: {
       title: {
         display: true,
-        text: 'Despesas por tipo',
+        text: 'Metas por tipo',
         align: 'center',
       },
       legend: {
@@ -90,15 +85,32 @@ export class GoalsGraphicsComponent implements OnInit {
       ],
     };
 
-    this.goalsAchievementPercentageChartData = {
-      labels: ['Metas alcançadas', 'Metas não alcançadas'],
+    this.goalsAchievementsChartData = {
+      labels: this.months,
       datasets: [
         {
-          data: this.goalsAchievementPercentage,
-          label: this.selectedYear.toString(),
+          data: this.goalsAchievements[0],
+          label: 'Metas alcançadas',
+        },
+        {
+          data: this.goalsAchievements[1],
+          label: 'Metas não alcançadas',
         },
       ],
     };
+  }
+
+  getGoalTotalExpenses(goal: Goal): number {
+    return goal.sumExpenses.reduce((initial, { total }) => initial + total, 0);
+  }
+
+  getMonthsMap(): Map<number, boolean> {
+    const map = new Map<number, boolean>();
+
+    for (let i = 0; i < 12; i++) {
+      map.set(i, false);
+    }
+    return map;
   }
 
   get earliestGoalYear(): number {
@@ -135,26 +147,57 @@ export class GoalsGraphicsComponent implements OnInit {
     for (let goal of this.goals) {
       const goalYear = goal.createdAt.getFullYear();
 
-      // Only adding the goals of the current year
-      if (goalYear === this.selectedYear) {
+      // Only adding the goals of the current and past years
+      if (goalYear <= this.selectedYear) {
         goalsTypes[goal.essentialExpenses ? 0 : 1] += 1;
       }
     }
     return goalsTypes;
   }
 
-  get goalsAchievementPercentage(): number[] {
-    const goalsAchivement = [0, 0];
+  get goalsAchievements(): number[][] {
+    const goalsAchievements = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
 
     for (let goal of this.goals) {
-      const goalYear = goal.createdAt.getFullYear();
+      const goalDate = new Date(
+        goal.createdAt.getFullYear(),
+        goal.createdAt.getMonth()
+      );
+      const goalYear = goalDate.getFullYear();
+      const goalWasAchieved = this.getGoalTotalExpenses(goal) <= goal.value;
 
-      // Only adding the goals of the current year
-      if (goalYear === this.selectedYear) {
-        goalsAchivement[goal.sumExpenses <= goal.value ? 0 : 1] += 1;
+      // If the goal was created after the selected year, just skip it
+      if (goalYear > this.selectedYear) {
+        continue;
+      }
+      const monthsMap = this.getMonthsMap();
+
+      for (let sumExpense of goal.sumExpenses) {
+        goalsAchievements[goalWasAchieved ? 0 : 1][sumExpense.month - 1] += 1;
+        monthsMap.set(sumExpense.month - 1, true);
+      }
+
+      // Checking if any months didn't contain any expenses relevant to the goal
+      for (let [month, hadExpenses] of monthsMap) {
+        const expenseDate = new Date(this.selectedYear, month);
+
+        /* 
+        Just mark the goal has complete if the expense date is after the goal 
+        creation and before the current date
+        */
+        if (
+          !hadExpenses &&
+          expenseDate >= goalDate &&
+          expenseDate <= new Date()
+        ) {
+          goalsAchievements[0][month] += 1;
+        }
       }
     }
-    return goalsAchivement;
+    return goalsAchievements;
   }
 
   get months(): string[] {

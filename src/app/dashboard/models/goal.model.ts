@@ -7,7 +7,7 @@ export interface Goal {
   categoryId: number;
   value: number;
   essentialExpenses: boolean;
-  sumExpenses: number;
+  sumExpenses: { month: number; total: number }[];
 
   createdAt: Date;
   updatedAt: Date;

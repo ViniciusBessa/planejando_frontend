@@ -1,11 +1,11 @@
 <nav
-  class="fixed z-10 top-0 h-16 w-full bg-primary-800 px-4 py-2 flex flex-row justify-between gap-4 text-center md:p-5"
+  class="fixed z-40 top-0 h-16 w-full bg-primary-800 px-4 py-2 flex flex-row justify-between gap-4 text-center md:p-5"
 >
   <button class="flex items-center ml-4 md:hidden" (click)="onToggleNavbar()">
     <ng-icon color="white" name="bootstrapList" size="36"></ng-icon>
   </button>
   <div
-    class="fixed z-50 p-9 left-0 top-0 h-screen bg-primary-800 gap-10 flex flex-col md:h-auto md:w-full md:flex-row md:static md:p-0"
+    class="fixed z-40 p-9 left-0 top-0 h-screen bg-primary-800 gap-10 flex flex-col md:h-auto md:w-full md:flex-row md:static md:p-0"
     [ngClass]="{
       'w-0 p-0': navbarIsHidden,
       'w-screen transition-all': !navbarIsHidden

@@ -169,8 +169,12 @@ export class GoalListComponent implements OnInit {
     );
   }
 
+  getGoalTotalExpenses(goal: Goal): number {
+    return goal.sumExpenses.reduce((initial, { total }) => initial + total, 0);
+  }
+
   gaugePercentage(goal: Goal): number {
-    const percentage = (goal.sumExpenses / goal.value) * 100;
+    const percentage = (this.getGoalTotalExpenses(goal) / goal.value) * 100;
     return Number(percentage.toFixed(2));
   }
 

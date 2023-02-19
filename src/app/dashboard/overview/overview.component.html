@@ -100,7 +100,9 @@
             {{ goal.category.title }}
             {{ goal.essentialExpenses ? "Essencial" : "Não Essencial" }}
           </h2>
-          <p>Gastos atuais: {{ goal.sumExpenses | currency : "BRL" }}</p>
+          <p>
+            Gastos atuais: {{ getGoalTotalExpenses(goal) | currency : "BRL" }}
+          </p>
           <p>Limite: {{ goal.value | currency : "BRL" }}</p>
         </div>
       </div>
