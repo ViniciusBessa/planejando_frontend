@@ -62,6 +62,8 @@ export class GoalListComponent implements OnInit {
       this.isLoading = false;
       this.categories = state.categories;
       this.goals = state.goals;
+
+      setTimeout(() => (this.animationState = undefined), 1000);
     });
 
     this.initForm();
@@ -130,7 +132,7 @@ export class GoalListComponent implements OnInit {
     categoryId: number,
     essentialExpenses?: boolean
   ): void {
-    this.startGoalAnimation(AnimationState.CREATING);
+    this.animationState = AnimationState.CREATING;
 
     this.store.dispatch(
       DashboardActions.createGoalStart({
@@ -147,7 +149,7 @@ export class GoalListComponent implements OnInit {
     essentialExpenses?: boolean,
     newCategoryId?: number
   ): void {
-    this.startGoalAnimation(AnimationState.UPDATING);
+    this.animationState = AnimationState.UPDATING;
 
     this.store.dispatch(
       DashboardActions.updateGoalStart({
@@ -160,7 +162,7 @@ export class GoalListComponent implements OnInit {
   }
 
   onDeleteGoal(id: number): void {
-    this.startGoalAnimation(AnimationState.DELETING);
+    this.animationState = AnimationState.DELETING;
 
     this.store.dispatch(
       DashboardActions.deleteGoalStart({
@@ -176,11 +178,6 @@ export class GoalListComponent implements OnInit {
   gaugePercentage(goal: Goal): number {
     const percentage = (this.getGoalTotalExpenses(goal) / goal.value) * 100;
     return Number(percentage.toFixed(2));
-  }
-
-  private startGoalAnimation(state: AnimationState): void {
-    this.animationState = state;
-    setTimeout(() => (this.animationState = undefined), 1000);
   }
 
   private validCategory(control: AbstractControl): ValidationErrors | null {

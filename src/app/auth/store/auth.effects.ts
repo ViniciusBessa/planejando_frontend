@@ -77,19 +77,20 @@ export class AuthEffects {
     )
   );
 
-  authSuccess = createEffect(() =>
-    this.$actions.pipe(
-      ofType(AuthActions.authSuccess),
-      map((authData) => {
-        localStorage.setItem('token', 'Bearer ' + authData.token);
-        if (authData.redirect && authData.next) {
-          this.router.navigateByUrl(authData.next);
-        } else if (authData.redirect) {
-          this.router.navigate(['/dashboard']);
-        }
-        return DashboardActions.getAllDataStart();
-      })
-    )
+  authSuccess = createEffect(
+    () =>
+      this.$actions.pipe(
+        ofType(AuthActions.authSuccess),
+        map((authData) => {
+          localStorage.setItem('token', 'Bearer ' + authData.token);
+          if (authData.redirect && authData.next) {
+            this.router.navigateByUrl(authData.next);
+          } else if (authData.redirect) {
+            this.router.navigate(['/dashboard']);
+          }
+        })
+      ),
+    { dispatch: false }
   );
 
   authLogout = createEffect(

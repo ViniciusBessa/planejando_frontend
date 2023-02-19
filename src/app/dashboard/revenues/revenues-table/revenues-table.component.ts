@@ -61,6 +61,8 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
     this.store.select('dashboard').subscribe((state) => {
       this.revenues = state.revenues;
       this.tableDataSource.data = this.revenues;
+
+      setTimeout(() => (this.animationState = undefined), 1000);
     });
 
     this.initForm();
@@ -124,7 +126,7 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
   }
 
   onCreateRevenue(value: number, description: string, date?: Date): void {
-    this.startRowAnimation(AnimationState.CREATING);
+    this.animationState = AnimationState.CREATING;
 
     this.store.dispatch(
       DashboardActions.createRevenueStart({
@@ -143,7 +145,7 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
     newDescription?: string,
     newDate?: Date
   ): void {
-    this.startRowAnimation(AnimationState.UPDATING);
+    this.animationState = AnimationState.UPDATING;
 
     this.store.dispatch(
       DashboardActions.updateRevenueStart({
@@ -156,7 +158,7 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteRevenue(id: number): void {
-    this.startRowAnimation(AnimationState.DELETING);
+    this.animationState = AnimationState.DELETING;
 
     this.store.dispatch(
       DashboardActions.deleteRevenueStart({
@@ -186,11 +188,6 @@ export class RevenuesTableComponent implements OnInit, AfterViewInit {
     const sort = this.tableDataSource.sort as MatSort;
     sort.sort({ id: 'date', start: 'desc', disableClear: true });
     this.tableDataSource.sort = sort;
-  }
-
-  private startRowAnimation(state: AnimationState): void {
-    this.animationState = state;
-    setTimeout(() => (this.animationState = undefined), 1000);
   }
 
   get currentAnimationState(): string {

@@ -69,6 +69,8 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
       this.categories = state.categories;
       this.expenses = state.expenses;
       this.tableDataSource.data = this.expenses;
+
+      setTimeout(() => (this.animationState = undefined), 1000);
     });
 
     this.initForm();
@@ -149,7 +151,7 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
     date?: Date,
     isEssential?: boolean
   ): void {
-    this.startRowAnimation(AnimationState.CREATING);
+    this.animationState = AnimationState.CREATING;
 
     this.store.dispatch(
       DashboardActions.createExpenseStart({
@@ -172,7 +174,7 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
     isEssential?: boolean,
     newCategoryId?: number
   ): void {
-    this.startRowAnimation(AnimationState.UPDATING);
+    this.animationState = AnimationState.UPDATING;
 
     this.store.dispatch(
       DashboardActions.updateExpenseStart({
@@ -187,7 +189,7 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteExpense(id: number): void {
-    this.startRowAnimation(AnimationState.DELETING);
+    this.animationState = AnimationState.DELETING;
 
     this.store.dispatch(
       DashboardActions.deleteExpenseStart({
@@ -200,11 +202,6 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
     const sort = this.tableDataSource.sort as MatSort;
     sort.sort({ id: 'date', start: 'desc', disableClear: true });
     this.tableDataSource.sort = sort;
-  }
-
-  private startRowAnimation(state: AnimationState): void {
-    this.animationState = state;
-    setTimeout(() => (this.animationState = undefined), 1000);
   }
 
   private validCategory(control: AbstractControl): ValidationErrors | null {
