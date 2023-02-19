@@ -53,8 +53,19 @@ export class GoalsComponent implements OnInit {
     );
   }
 
-  onSectionSelected(event: any): void {
-    this.selectedSection = event;
+  onSectionSelected(section: DashboardSection): void {
+    this.selectedSection = section;
+  }
+
+  onYearSelected(year: number | null): void {
+    if (!year) {
+      this.startDate = undefined;
+      this.endDate = undefined;
+    } else {
+      this.startDate = new Date(year, 0, 1);
+      this.endDate = new Date(year, 11, 31);
+    }
+    this.onGetGoals();
   }
 
   getGoalTotalExpenses(goal: Goal): number {

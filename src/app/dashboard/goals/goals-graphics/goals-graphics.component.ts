@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { Goal } from '../../models/goal.model';
@@ -10,9 +16,11 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
   templateUrl: './goals-graphics.component.html',
   styleUrls: ['./goals-graphics.component.css'],
 })
-export class GoalsGraphicsComponent implements OnInit {
+export class GoalsGraphicsComponent implements OnInit, OnDestroy {
   goals: Goal[] = [];
   selectedYear: number = new Date().getFullYear();
+
+  @Output() yearSelected = new EventEmitter<number | null>();
 
   goalsAchievementsChartData!: ChartData<'bar'>;
 
@@ -70,6 +78,19 @@ export class GoalsGraphicsComponent implements OnInit {
       this.goals = state.goals;
       this.onUpdateGraphics();
     });
+
+    this.onSelectYear(this.selectedYear);
+  }
+
+  ngOnDestroy(): void {
+    this.onSelectYear(this.selectedYear);
+  }
+
+  onSelectYear(newYear: number | null): void {
+    if (newYear) {
+      this.selectedYear = newYear;
+    }
+    this.yearSelected.emit(newYear);
   }
 
   onUpdateGraphics(): void {
@@ -111,6 +132,10 @@ export class GoalsGraphicsComponent implements OnInit {
       map.set(i, false);
     }
     return map;
+  }
+
+  expenseIsValid(goalDate: Date, expenseDate: Date): boolean {
+    return expenseDate >= goalDate && expenseDate <= new Date();
   }
 
   get earliestGoalYear(): number {
@@ -176,7 +201,11 @@ export class GoalsGraphicsComponent implements OnInit {
       const monthsMap = this.getMonthsMap();
 
       for (let sumExpense of goal.sumExpenses) {
-        goalsAchievements[goalWasAchieved ? 0 : 1][sumExpense.month - 1] += 1;
+        const expenseDate = new Date(this.selectedYear, sumExpense.month - 1);
+
+        if (this.expenseIsValid(goalDate, expenseDate)) {
+          goalsAchievements[goalWasAchieved ? 0 : 1][sumExpense.month - 1] += 1;
+        }
         monthsMap.set(sumExpense.month - 1, true);
       }
 
@@ -188,11 +217,7 @@ export class GoalsGraphicsComponent implements OnInit {
         Just mark the goal has complete if the expense date is after the goal 
         creation and before the current date
         */
-        if (
-          !hadExpenses &&
-          expenseDate >= goalDate &&
-          expenseDate <= new Date()
-        ) {
+        if (!hadExpenses && this.expenseIsValid(goalDate, expenseDate)) {
           goalsAchievements[0][month] += 1;
         }
       }

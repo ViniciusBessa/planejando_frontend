@@ -1,7 +1,14 @@
 <footer
-  class="min-h-footer bg-primary-900 flex flex-col justify-end p-6 text-center sm:px-10 sm:text-start sm:justify-start md:px-28"
+  class="min-h-footer bg-primary-900 flex flex-col justify-end p-6 text-center sm:px-10 sm:text-start sm:justify-start md:px-12"
 >
   <ul class="flex flex-col justify-center items-center gap-12 sm:flex-row">
+    <li>
+      <a [routerLink]="['/inicio']"
+        ><img
+          class="w-56"
+          src="assets/planejando-low-resolution-color-logo.png"
+      /></a>
+    </li>
     <li class="h-fit">
       <a class="no-underline text-white" [routerLink]="['/inicio']">Início</a>
     </li>

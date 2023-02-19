@@ -7,6 +7,7 @@ module.exports = {
       section: "500px",
       main: "80vh",
       footer: "20vh",
+      navbar: "70px",
       userSettings: "600px",
       barChart: "360px",
     },

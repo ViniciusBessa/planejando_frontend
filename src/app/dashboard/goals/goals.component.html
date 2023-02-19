@@ -176,5 +176,8 @@
   </div>
 
   <app-goal-list *ngIf="selectedSection === 'TABLES'"></app-goal-list>
-  <app-goals-graphics *ngIf="selectedSection === 'CHARTS'"></app-goals-graphics>
+  <app-goals-graphics
+    *ngIf="selectedSection === 'CHARTS'"
+    (yearSelected)="onYearSelected($event)"
+  ></app-goals-graphics>
 </section>

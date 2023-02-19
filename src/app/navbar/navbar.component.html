@@ -1,5 +1,5 @@
 <nav
-  class="fixed z-40 top-0 h-16 w-full bg-primary-800 px-4 py-2 flex flex-row justify-between gap-4 text-center md:p-5"
+  class="fixed z-40 top-0 min-h-navbar w-full bg-primary-800 px-4 py-2 flex flex-row justify-between gap-4 text-center md:p-5"
 >
   <button class="flex items-center ml-4 md:hidden" (click)="onToggleNavbar()">
     <ng-icon color="white" name="bootstrapList" size="36"></ng-icon>
@@ -19,9 +19,16 @@
       &times;
     </button>
     <ul
-      class="flex flex-col gap-10 md:flex md:flex-row"
+      class="flex flex-col justify-center items-center gap-10 md:flex md:flex-row"
       [ngClass]="{ hidden: navbarIsHidden }"
     >
+      <li class="block md:hidden lg:block">
+        <a [routerLink]="['/inicio']"
+          ><img
+            class="w-56"
+            src="assets/planejando-low-resolution-color-logo.png"
+        /></a>
+      </li>
       <li>
         <a
           class="nav-link"
@@ -73,7 +80,7 @@
       </li>
     </ul>
     <ul
-      class="flex flex-col mt-auto gap-10 md:ml-auto md:flex md:flex-row md:mt-0"
+      class="flex flex-col justify-center items-center mt-auto gap-10 md:ml-auto md:flex md:flex-row md:mt-0"
       [ngClass]="{ hidden: navbarIsHidden }"
     >
       <li *ngIf="!userIsLoggedIn">
