@@ -2,6 +2,7 @@
   <div
     class="flex flex-col justify-center text-center items-center gap-8"
     appIntersectionObserver
+    [threshold]="0.5"
   >
     <h1 class="text-primary-900 dark:text-primary-500 text-4xl font-bold">
       Conquiste o seu controle financeiro
@@ -10,7 +11,7 @@
       Cadastre uma conta e comece a fazer seu planejamento financeiro
     </p>
     <button
-      class="bg-primary-900 text-white text-md font-bold rounded-md px-6 py-2 hover:opacity-80"
+      class="bg-primary-800 w-64 text-white text-md font-bold rounded-md px-8 py-3 mt-4 md:mt-8 hover:opacity-80"
       [routerLink]="['/auth', 'cadastro']"
     >
       Teste gratuitamente
@@ -54,11 +55,12 @@
   </div>
 </section>
 <section
-  class="bg-white dark:bg-dark dark:border-y-2 dark:border-white min-h-section flex flex-col text-center justify-center items-center gap-8 py-24 px-6 md:px-12 md:flex-row md:text-start md:justify-between"
+  class="bg-white dark:bg-dark dark:border-y-2 dark:border-white min-h-section flex flex-col text-center justify-center items-center gap-8 py-24 px-6 md:px-12 lg:flex-row lg:text-start lg:justify-between"
 >
   <div
-    class="flex flex-col justify-center items-center gap-8 w-1/2 md:justify-start md:items-start"
+    class="flex flex-col justify-center items-center gap-8 w-full lg:w-1/2 lg:justify-start lg:items-start"
     appIntersectionObserver
+    [threshold]="0.6"
   >
     <h1 class="text-primary-800 dark:text-primary-500 text-4xl font-bold">
       Comece a planejar agora mesmo
@@ -68,12 +70,24 @@
       para quem nunca criou um planejamento financeiro antes
     </p>
     <button
-      class="bg-primary-800 w-64 text-white text-md font-bold rounded-md px-8 py-3 mt-16 hover:opacity-80"
+      class="bg-primary-800 w-64 text-white text-md font-bold rounded-md px-8 py-3 lg:mt-8 hover:opacity-80"
       [routerLink]="['/auth', 'cadastro']"
     >
       Crie sua conta
     </button>
   </div>
+  <img
+    class="w-full lg:w-1/2 hidden md:block dark:md:hidden"
+    appIntersectionObserver
+    [threshold]="0.6"
+    src="assets/mockup_light.png"
+  />
+  <img
+    class="w-full lg:w-1/2 hidden dark:md:block"
+    appIntersectionObserver
+    [threshold]="0.6"
+    src="assets/mockup_dark.png"
+  />
 </section>
 <section class="bg-primary-50 dark:bg-dark min-h-section py-24 px-6 md:px-12">
   <div

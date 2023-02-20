@@ -30,138 +30,6 @@ describe('ContactComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not display the alert', () => {
-    const alert = compiled.querySelector('span') as HTMLSpanElement;
-    expect(component.showAlert).toBeFalse();
-    expect(alert).toBeFalsy();
-  });
-
-  it('should display the alert', () => {
-    component.showAlert = true;
-    fixture.detectChanges();
-    const alert = compiled.querySelector('span') as HTMLSpanElement;
-    expect(component.showAlert).toBeTrue();
-    expect(alert).toBeTruthy();
-  });
-
-  it('should fail to submit the form by not providing a name', fakeAsync(() => {
-    spyOn(component, 'onSubmit');
-    const messageForm = component.form;
-
-    // Updating the form fields
-    messageForm.patchValue({
-      email: 'test@email.com',
-      subject: 'A new subject',
-      message: 'Just a message to test the functionality',
-    });
-
-    // Submitting the form
-    const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
-    submitBtn.click();
-    tick();
-    expect(component.onSubmit).not.toHaveBeenCalled();
-    expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeFalse();
-    expect(messageForm.get('email')?.valid).toBeTrue();
-    expect(messageForm.get('subject')?.valid).toBeTrue();
-    expect(messageForm.get('message')?.valid).toBeTrue();
-  }));
-
-  it('should fail to submit the form by providing a name too short', fakeAsync(() => {
-    spyOn(component, 'onSubmit');
-    const messageForm = component.form;
-
-    // Updating the form fields
-    messageForm.patchValue({
-      name: 'Test',
-      email: 'test@email.com',
-      subject: 'A new subject',
-      message: 'Just a message to test the functionality',
-    });
-
-    // Submitting the form
-    const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
-    submitBtn.click();
-    tick();
-    expect(component.onSubmit).not.toHaveBeenCalled();
-    expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeFalse();
-    expect(messageForm.get('email')?.valid).toBeTrue();
-    expect(messageForm.get('subject')?.valid).toBeTrue();
-    expect(messageForm.get('message')?.valid).toBeTrue();
-  }));
-
-  it('should fail to submit the form by providing a name too long', fakeAsync(() => {
-    spyOn(component, 'onSubmit');
-    const messageForm = component.form;
-
-    // Updating the form fields
-    messageForm.patchValue({
-      name: 'TestingUser'.repeat(5),
-      email: 'test@email.com',
-      subject: 'A new subject',
-      message: 'Just a message to test the functionality',
-    });
-
-    // Submitting the form
-    const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
-    submitBtn.click();
-    tick();
-    expect(component.onSubmit).not.toHaveBeenCalled();
-    expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeFalse();
-    expect(messageForm.get('email')?.valid).toBeTrue();
-    expect(messageForm.get('subject')?.valid).toBeTrue();
-    expect(messageForm.get('message')?.valid).toBeTrue();
-  }));
-
-  it('should fail to submit the form by not providing an email', fakeAsync(() => {
-    spyOn(component, 'onSubmit');
-    const messageForm = component.form;
-
-    // Updating the form fields
-    messageForm.patchValue({
-      name: 'TestingUser',
-      subject: 'A new subject',
-      message: 'Just a message to test the functionality',
-    });
-
-    // Submitting the form
-    const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
-    submitBtn.click();
-    tick();
-    expect(component.onSubmit).not.toHaveBeenCalled();
-    expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeFalse();
-    expect(messageForm.get('subject')?.valid).toBeTrue();
-    expect(messageForm.get('message')?.valid).toBeTrue();
-  }));
-
-  it('should fail to submit the form by providing an invalid email', fakeAsync(() => {
-    spyOn(component, 'onSubmit');
-    const messageForm = component.form;
-
-    // Updating the form fields
-    messageForm.patchValue({
-      name: 'TestingUser',
-      email: 'email',
-      subject: 'A new subject',
-      message: 'Just a message to test the functionality',
-    });
-
-    // Submitting the form
-    const submitBtn = compiled.querySelector('button') as HTMLButtonElement;
-    submitBtn.click();
-    tick();
-    expect(component.onSubmit).not.toHaveBeenCalled();
-    expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeFalse();
-    expect(messageForm.get('subject')?.valid).toBeTrue();
-    expect(messageForm.get('message')?.valid).toBeTrue();
-  }));
-
   it('should fail to submit the form by not providing a subject', fakeAsync(() => {
     spyOn(component, 'onSubmit');
     const messageForm = component.form;
@@ -179,8 +47,6 @@ describe('ContactComponent', () => {
     tick();
     expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeTrue();
     expect(messageForm.get('subject')?.valid).toBeFalse();
     expect(messageForm.get('message')?.valid).toBeTrue();
   }));
@@ -203,8 +69,6 @@ describe('ContactComponent', () => {
     tick();
     expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeTrue();
     expect(messageForm.get('subject')?.valid).toBeFalse();
     expect(messageForm.get('message')?.valid).toBeTrue();
   }));
@@ -227,8 +91,6 @@ describe('ContactComponent', () => {
     tick();
     expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeTrue();
     expect(messageForm.get('subject')?.valid).toBeFalse();
     expect(messageForm.get('message')?.valid).toBeTrue();
   }));
@@ -250,8 +112,6 @@ describe('ContactComponent', () => {
     tick();
     expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeTrue();
     expect(messageForm.get('subject')?.valid).toBeTrue();
     expect(messageForm.get('message')?.valid).toBeFalse();
   }));
@@ -274,8 +134,6 @@ describe('ContactComponent', () => {
     tick();
     expect(component.onSubmit).not.toHaveBeenCalled();
     expect(messageForm.valid).toBeFalse();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeTrue();
     expect(messageForm.get('subject')?.valid).toBeTrue();
     expect(messageForm.get('message')?.valid).toBeFalse();
   }));
@@ -301,8 +159,6 @@ describe('ContactComponent', () => {
 
     expect(component.onSubmit).toHaveBeenCalled();
     expect(messageForm.valid).toBeTrue();
-    expect(messageForm.get('name')?.valid).toBeTrue();
-    expect(messageForm.get('email')?.valid).toBeTrue();
     expect(messageForm.get('subject')?.valid).toBeTrue();
     expect(messageForm.get('message')?.valid).toBeTrue();
   }));

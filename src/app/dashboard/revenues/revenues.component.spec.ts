@@ -20,7 +20,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  bootstrapBarChartFill,
   bootstrapCaretDownFill,
+  bootstrapClipboardDataFill,
   bootstrapPencilFill,
   bootstrapSearch,
   bootstrapTrash3Fill,
@@ -37,6 +39,8 @@ import * as fromApp from '../../store/app.reducer';
 
 import { RevenuesComponent } from './revenues.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RevenuesGraphicsComponent } from './revenues-graphics/revenues-graphics.component';
+import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 
 describe('RevenuesComponent', () => {
   let component: RevenuesComponent;
@@ -86,7 +90,12 @@ describe('RevenuesComponent', () => {
     registerLocaleData(localePt);
 
     await TestBed.configureTestingModule({
-      declarations: [RevenuesComponent, RevenuesTableComponent],
+      declarations: [
+        RevenuesComponent,
+        RevenuesTableComponent,
+        RevenuesGraphicsComponent,
+        SidebarComponent,
+      ],
       imports: [
         RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
@@ -97,6 +106,8 @@ describe('RevenuesComponent', () => {
           bootstrapSearch,
           bootstrapPencilFill,
           bootstrapTrash3Fill,
+          bootstrapBarChartFill,
+          bootstrapClipboardDataFill,
         }),
         MatFormFieldModule,
         MatDatepickerModule,
@@ -177,7 +188,9 @@ describe('RevenuesComponent', () => {
 
     const searchInput = compiled.querySelector('input') as HTMLInputElement;
 
-    const searchBtn = compiled.querySelector('button') as HTMLButtonElement;
+    const searchBtn = compiled.querySelectorAll(
+      'button'
+    )[2] as HTMLButtonElement;
     searchBtn.click();
     tick();
 

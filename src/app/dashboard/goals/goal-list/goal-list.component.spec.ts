@@ -23,6 +23,8 @@ import localePt from '@angular/common/locales/pt';
 import { GoalListComponent } from './goal-list.component';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { RouterTestingModule } from '@angular/router/testing';
+import { GoalsGraphicsComponent } from '../goals-graphics/goals-graphics.component';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 
 describe('GoalListComponent', () => {
   let component: GoalListComponent;
@@ -72,7 +74,7 @@ describe('GoalListComponent', () => {
           },
           value: 200,
           essentialExpenses: true,
-          sumExpenses: 0,
+          sumExpenses: [{ month: 1, total: 400 }],
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -89,7 +91,7 @@ describe('GoalListComponent', () => {
           },
           value: 300,
           essentialExpenses: true,
-          sumExpenses: 200,
+          sumExpenses: [{ month: 1, total: 200 }],
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -103,7 +105,11 @@ describe('GoalListComponent', () => {
     registerLocaleData(localePt);
 
     await TestBed.configureTestingModule({
-      declarations: [GoalListComponent],
+      declarations: [
+        GoalListComponent,
+        GoalsGraphicsComponent,
+        SidebarComponent,
+      ],
       imports: [
         RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({

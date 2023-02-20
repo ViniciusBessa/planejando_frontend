@@ -27,6 +27,8 @@ import {
   bootstrapXCircleFill,
   bootstrap123,
   bootstrapCheck2All,
+  bootstrapBarChartFill,
+  bootstrapClipboardDataFill,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import { Store } from '@ngrx/store';
@@ -40,6 +42,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GoalListComponent } from './goal-list/goal-list.component';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 
 describe('GoalsComponent', () => {
   let component: GoalsComponent;
@@ -74,7 +77,7 @@ describe('GoalsComponent', () => {
           },
           value: 200,
           essentialExpenses: true,
-          sumExpenses: 0,
+          sumExpenses: [{ month: 1, total: 400 }],
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -91,7 +94,7 @@ describe('GoalsComponent', () => {
           },
           value: 300,
           essentialExpenses: true,
-          sumExpenses: 200,
+          sumExpenses: [{ month: 1, total: 200 }],
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -105,7 +108,7 @@ describe('GoalsComponent', () => {
     registerLocaleData(localePt);
 
     await TestBed.configureTestingModule({
-      declarations: [GoalsComponent, GoalListComponent],
+      declarations: [GoalsComponent, GoalListComponent, SidebarComponent],
       imports: [
         RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
@@ -116,6 +119,8 @@ describe('GoalsComponent', () => {
           bootstrapCheck2All,
           bootstrapXCircleFill,
           bootstrap123,
+          bootstrapBarChartFill,
+          bootstrapClipboardDataFill,
         }),
         NgxGaugeModule,
         BrowserModule,
@@ -159,7 +164,12 @@ describe('GoalsComponent', () => {
   it('should display the number of goals on progress', () => {
     const goals = initialState.dashboard.goals;
     const goalsInProgress = goals.filter(
-      (goal) => goal.value >= goal.sumExpenses
+      (goal) =>
+        goal.value >=
+        goal.sumExpenses.reduce(
+          (initial, expense) => initial + expense.total,
+          0
+        )
     );
     const goalsAchievedParagraph = compiled.querySelectorAll(
       'p'
@@ -173,7 +183,12 @@ describe('GoalsComponent', () => {
   it('should display the number of goals not achieved', () => {
     const goals = initialState.dashboard.goals;
     const goalsNotAchieved = goals.filter(
-      (goal) => goal.value < goal.sumExpenses
+      (goal) =>
+        goal.value <
+        goal.sumExpenses.reduce(
+          (initial, expense) => initial + expense.total,
+          0
+        )
     );
     const goalsAchievedParagraph = compiled.querySelectorAll(
       'p'

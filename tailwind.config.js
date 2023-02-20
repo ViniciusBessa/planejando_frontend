@@ -7,7 +7,6 @@ module.exports = {
       section: "500px",
       main: "80vh",
       footer: "20vh",
-      navbar: "70px",
       userSettings: "600px",
       barChart: "360px",
     },
@@ -17,6 +16,9 @@ module.exports = {
       pieChart: "200px",
     },
     extend: {
+      top: {
+        navbarHeight: "70px",
+      },
       gridTemplateColumns: {
         overviewGoals: "4fr 5fr",
         overviewGoal: "2fr 5fr",

@@ -25,7 +25,9 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import localePt from '@angular/common/locales/pt';
 import {
+  bootstrapBarChartFill,
   bootstrapCaretDownFill,
+  bootstrapClipboardDataFill,
   bootstrapPencilFill,
   bootstrapSearch,
   bootstrapTrash3Fill,
@@ -35,6 +37,8 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ExpensesGraphicsComponent } from './expenses-graphics/expenses-graphics.component';
+import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 
 describe('ExpensesComponent', () => {
   let component: ExpensesComponent;
@@ -102,7 +106,12 @@ describe('ExpensesComponent', () => {
     registerLocaleData(localePt);
 
     await TestBed.configureTestingModule({
-      declarations: [ExpensesComponent, ExpensesTableComponent],
+      declarations: [
+        ExpensesComponent,
+        ExpensesTableComponent,
+        ExpensesGraphicsComponent,
+        SidebarComponent,
+      ],
       imports: [
         RouterTestingModule.withRoutes([]),
         NgIconsModule.withIcons({
@@ -113,6 +122,8 @@ describe('ExpensesComponent', () => {
           bootstrapSearch,
           bootstrapPencilFill,
           bootstrapTrash3Fill,
+          bootstrapBarChartFill,
+          bootstrapClipboardDataFill,
         }),
         MatFormFieldModule,
         MatDatepickerModule,
@@ -193,7 +204,9 @@ describe('ExpensesComponent', () => {
 
     const searchInput = compiled.querySelector('input') as HTMLInputElement;
 
-    const searchBtn = compiled.querySelector('button') as HTMLButtonElement;
+    const searchBtn = compiled.querySelectorAll(
+      'button'
+    )[2] as HTMLButtonElement;
     searchBtn.click();
     tick();
 

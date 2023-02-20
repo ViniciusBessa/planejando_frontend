@@ -28,6 +28,7 @@ export const dashboardReducer = createReducer(
 
   on(
     DashboardActions.getAllDataStart,
+    DashboardActions.getCategoriesStart,
     DashboardActions.getRevenuesStart,
     DashboardActions.getGoalsStart,
     DashboardActions.getExpensesStart,
@@ -39,15 +40,20 @@ export const dashboardReducer = createReducer(
 
   on(
     DashboardActions.getAllDataSuccess,
-    (state: State, { categories, revenues, expenses, goals }) => ({
+    (state: State, { revenues, expenses, goals }) => ({
       ...state,
-      categories,
       revenues,
       expenses,
       goals,
       loading: false,
     })
   ),
+
+  on(DashboardActions.getCategoriesSuccess, (state: State, { categories }) => ({
+    ...state,
+    categories,
+    loading: false,
+  })),
 
   on(DashboardActions.getRevenuesSuccess, (state: State, { revenues }) => ({
     ...state,

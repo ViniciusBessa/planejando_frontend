@@ -5,7 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -42,6 +42,8 @@ export class ContactComponent implements OnInit {
   form!: FormGroup;
   showAlert: boolean = false;
 
+  @ViewChild('emailAnchor') emailAnchor!: ElementRef;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -50,17 +52,6 @@ export class ContactComponent implements OnInit {
 
   private initForm(): void {
     this.form = new FormGroup({
-      name: new FormControl<string>('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(40),
-      ]),
-
-      email: new FormControl<string>('', [
-        Validators.required,
-        Validators.email,
-      ]),
-
       subject: new FormControl<string>('', [
         Validators.required,
         Validators.minLength(10),
@@ -75,12 +66,13 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      this.showAlert = true;
-      const timeoutRef = setTimeout(() => {
-        this.showAlert = false;
-        clearTimeout(timeoutRef);
-      }, 4000);
-    }
+    if (!this.form.valid) return;
+
+    (this.emailAnchor.nativeElement as HTMLAnchorElement).click();
+  }
+
+  getEmailHref(): string {
+    const { subject, message } = this.form.value;
+    return `mailto:planejando.website@gmail.com?subject=${subject}&body=${message}`;
   }
 }

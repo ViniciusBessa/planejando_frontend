@@ -95,18 +95,6 @@ export class DashboardEffects {
   dashboardGetAllData = createEffect(() =>
     this.$actions.pipe(
       ofType(DashboardActions.getAllDataStart),
-      concatMap(() =>
-        this.http
-          .get<{ categories: Category[] }>(`${environment.apiUrl}/categories`)
-          .pipe(
-            map((response) => {
-              response.categories = response.categories.map((category) =>
-                normalizeCategory(category)
-              );
-              return response;
-            })
-          )
-      ),
       concatMap((response) =>
         this.http
           .get<{ revenues: Revenue[] }>(`${environment.apiUrl}/revenues`)
@@ -143,6 +131,31 @@ export class DashboardEffects {
       ),
       map((response) => DashboardActions.getAllDataSuccess({ ...response })),
       catchError(handleError.bind(this))
+    )
+  );
+
+  getCategories = createEffect(() =>
+    this.$actions.pipe(
+      ofType(DashboardActions.getCategoriesStart),
+      mergeMap(() => {
+        return this.http
+          .get<{ categories: Category[] }>(
+            `${environment.apiUrl}/categories`,
+            {}
+          )
+          .pipe(
+            map((response) => {
+              let categories = response.categories;
+              categories = categories.map((category) =>
+                normalizeCategory(category)
+              );
+              return DashboardActions.getCategoriesSuccess({
+                categories,
+              });
+            }),
+            catchError(handleError.bind(this))
+          );
+      })
     )
   );
 

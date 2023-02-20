@@ -9,10 +9,20 @@ export const getAllDataStart = createAction('[Dashboard] Get All Data Start');
 export const getAllDataSuccess = createAction(
   '[Dashboard] Get All Data Success',
   props<{
-    categories: Category[];
     revenues: Revenue[];
     expenses: Expense[];
     goals: Goal[];
+  }>()
+);
+
+export const getCategoriesStart = createAction(
+  '[Dashboard] Get Categories Start'
+);
+
+export const getCategoriesSuccess = createAction(
+  '[Dashboard] Get Categories Success',
+  props<{
+    categories: Category[];
   }>()
 );
 

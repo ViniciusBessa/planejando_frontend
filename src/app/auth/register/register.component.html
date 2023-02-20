@@ -12,7 +12,7 @@
         >Nome</label
       >
       <div
-        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white bg-white dark:bg-gray-800"
         [ngClass]="{
           'border-red-600 dark:border-red-600':
             !form.get('name')!.valid && form.get('name')!.touched
@@ -64,7 +64,7 @@
         >E-mail</label
       >
       <div
-        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white bg-white dark:bg-gray-800"
         [ngClass]="{
           'border-red-600 dark:border-red-600':
             !form.get('email')!.valid && form.get('email')!.touched
@@ -105,7 +105,7 @@
         >Senha</label
       >
       <div
-        class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        class="flex flex-row rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white bg-white dark:bg-gray-800"
         [ngClass]="{
           'border-red-600 dark:border-red-600':
             !form.get('password')!.valid && form.get('password')!.touched
@@ -158,7 +158,7 @@
     <hr class="w-full" />
     <h1 class="text-center text-xl font-bold">Ou</h1>
     <div
-      class="flex flex-row justify-center items-center gap-8 rounded-md border-2 border-stone-200 cursor-pointer hover:opacity-80 p-3 w-full sm:gap-10 md:w-9/12"
+      class="flex flex-row justify-center items-center gap-8 rounded-md bg-white dark:bg-gray-800 border-2 border-stone-200 cursor-pointer hover:opacity-80 p-3 w-full sm:gap-10 md:w-9/12"
       (click)="onRegisterWithGoogle()"
     >
       <img

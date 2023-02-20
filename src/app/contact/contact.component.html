@@ -12,96 +12,10 @@
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
   >
-    <!--Name Field-->
-    <div class="w-full md:w-10/12">
-      <div
-        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
-        [ngClass]="{
-          'border-red-600 dark:border-red-600':
-            !form.get('name')!.valid && form.get('name')!.touched
-        }"
-      >
-        <input
-          class="outline-none w-full bg-transparent"
-          type="text"
-          placeholder="Nome"
-          formControlName="name"
-        />
-      </div>
-      <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
-        *ngIf="
-          form.get('name')!.touched &&
-          form.get('name')!.errors &&
-          form.get('name')!.errors!['required']
-        "
-      >
-        Por favor, informe um nome
-      </p>
-      <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
-        *ngIf="
-          form.get('name')!.touched &&
-          form.get('name')!.errors &&
-          form.get('name')!.errors!['minlength']
-        "
-      >
-        O nome deve ter pelo menos 8 caracteres
-      </p>
-      <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
-        *ngIf="
-          form.get('name')!.touched &&
-          form.get('name')!.errors &&
-          form.get('name')!.errors!['maxlength']
-        "
-      >
-        O nome só pode ter até 40 caracteres
-      </p>
-    </div>
-
-    <!--Email Field-->
-    <div class="w-full md:w-10/12">
-      <div
-        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
-        [ngClass]="{
-          'border-red-600 dark:border-red-600':
-            !form.get('email')!.valid && form.get('email')!.touched
-        }"
-      >
-        <input
-          class="outline-none w-full bg-transparent"
-          type="email"
-          placeholder="E-mail"
-          formControlName="email"
-        />
-      </div>
-      <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
-        *ngIf="
-          form.get('email')!.touched &&
-          form.get('email')!.errors &&
-          form.get('email')!.errors!['required']
-        "
-      >
-        Por favor, informe um e-mail
-      </p>
-      <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
-        *ngIf="
-          form.get('email')!.touched &&
-          form.get('email')!.errors &&
-          form.get('email')!.errors!['email']
-        "
-      >
-        Por favor, informe um e-mail no formato: email@exemplo.com
-      </p>
-    </div>
-
     <!--Subject Field-->
     <div class="w-full md:w-10/12">
       <div
-        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        class="rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white bg-white dark:bg-gray-800"
         [ngClass]="{
           'border-red-600 dark:border-red-600':
             !form.get('subject')!.valid && form.get('subject')!.touched
@@ -115,7 +29,7 @@
         />
       </div>
       <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        class="text-start text-gray-500 ml-1 mt-1 dark:text-gray-300"
         *ngIf="
           form.get('subject')!.touched &&
           form.get('subject')!.errors &&
@@ -125,7 +39,7 @@
         Por favor, informe o assunto
       </p>
       <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        class="text-start text-gray-500 ml-1 mt-1 dark:text-gray-300"
         *ngIf="
           form.get('subject')!.touched &&
           form.get('subject')!.errors &&
@@ -135,7 +49,7 @@
         O assunto deve ter pelo menos 10 caracteres
       </p>
       <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        class="text-start text-gray-500 ml-1 mt-1 dark:text-gray-300"
         *ngIf="
           form.get('subject')!.touched &&
           form.get('subject')!.errors &&
@@ -149,7 +63,7 @@
     <!--Message-->
     <div class="w-full md:w-10/12">
       <textarea
-        class="w-full bg-transparent rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white"
+        class="w-full min-h-footer bg-transparent rounded-md border-2 border-stone-200 py-1 px-2 dark:border-white bg-white dark:bg-gray-800"
         [ngClass]="{
           'border-red-600 dark:border-red-600':
             !form.get('message')!.valid && form.get('message')!.touched
@@ -158,7 +72,7 @@
         formControlName="message"
       ></textarea>
       <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        class="text-start text-gray-500 ml-1 mt-1 dark:text-gray-300"
         *ngIf="
           form.get('message')!.touched &&
           form.get('message')!.errors &&
@@ -168,7 +82,7 @@
         Por favor, digite a mensagem
       </p>
       <p
-        class="text-gray-500 ml-1 mt-1 dark:text-gray-300"
+        class="text-start text-gray-500 ml-1 mt-1 dark:text-gray-300"
         *ngIf="
           form.get('message')!.touched &&
           form.get('message')!.errors &&
@@ -179,18 +93,11 @@
       </p>
     </div>
     <button
-      class="bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
+      class="bg-primary-900 bg-opacity-30 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
       [disabled]="!form.valid"
-      [ngClass]="{ 'bg-opacity-30': !form.valid }"
     >
       Enviar
     </button>
+    <a href="{{ getEmailHref() }}" hidden #emailAnchor></a>
   </form>
-
-  <span
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 p-3 bg-white dark:bg-dark border-2 border-green-700 text-green-700"
-    [@alert]
-    *ngIf="showAlert"
-    >Mensagem enviada com sucesso!</span
-  >
 </section>

@@ -130,7 +130,7 @@ describe('NavbarComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should navigate to the home page', fakeAsync(
+    it('should navigate to the home page through the logo', fakeAsync(
       inject([Location], (location: Location) => {
         const anchorHome = compiled.querySelectorAll(
           'a'
@@ -142,11 +142,23 @@ describe('NavbarComponent', () => {
       })
     ));
 
+    it('should navigate to the home page', fakeAsync(
+      inject([Location], (location: Location) => {
+        const anchorHome = compiled.querySelectorAll(
+          'a'
+        )[1] as HTMLAnchorElement;
+        anchorHome.click();
+        tick();
+
+        expect(location.path()).toEqual('/inicio');
+      })
+    ));
+
     it('should navigate to the contact page', fakeAsync(
       inject([Location], (location: Location) => {
         const anchorContact = compiled.querySelectorAll(
           'a'
-        )[1] as HTMLAnchorElement;
+        )[2] as HTMLAnchorElement;
         anchorContact.click();
         tick();
 
@@ -158,7 +170,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorDashboard = compiled.querySelectorAll(
           'a'
-        )[2] as HTMLAnchorElement;
+        )[3] as HTMLAnchorElement;
         anchorDashboard.click();
         tick();
 
@@ -170,7 +182,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorGoals = compiled.querySelectorAll(
           'a'
-        )[3] as HTMLAnchorElement;
+        )[4] as HTMLAnchorElement;
         anchorGoals.click();
         tick();
 
@@ -182,7 +194,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorRevenues = compiled.querySelectorAll(
           'a'
-        )[4] as HTMLAnchorElement;
+        )[5] as HTMLAnchorElement;
         anchorRevenues.click();
         tick();
 
@@ -194,7 +206,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorExpenses = compiled.querySelectorAll(
           'a'
-        )[5] as HTMLAnchorElement;
+        )[6] as HTMLAnchorElement;
         anchorExpenses.click();
         tick();
 
@@ -206,7 +218,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorExpenses = compiled.querySelectorAll(
           'a'
-        )[6] as HTMLAnchorElement;
+        )[7] as HTMLAnchorElement;
         anchorExpenses.click();
         tick();
 
@@ -232,7 +244,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorLogin = compiled.querySelectorAll(
           'a'
-        )[7] as HTMLAnchorElement;
+        )[8] as HTMLAnchorElement;
 
         expect(location.path()).not.toEqual('/auth/login');
         expect(anchorLogin).toBeFalsy();
@@ -243,7 +255,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorRegister = compiled.querySelectorAll(
           'a'
-        )[8] as HTMLAnchorElement;
+        )[9] as HTMLAnchorElement;
 
         expect(location.path()).not.toEqual('/auth/register');
         expect(anchorRegister).toBeFalsy();
@@ -330,7 +342,7 @@ describe('NavbarComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should navigate to the home page', fakeAsync(
+    it('should navigate to the home page through the logo', fakeAsync(
       inject([Location], (location: Location) => {
         const anchorHome = compiled.querySelectorAll(
           'a'
@@ -342,11 +354,23 @@ describe('NavbarComponent', () => {
       })
     ));
 
+    it('should navigate to the home page', fakeAsync(
+      inject([Location], (location: Location) => {
+        const anchorHome = compiled.querySelectorAll(
+          'a'
+        )[1] as HTMLAnchorElement;
+        anchorHome.click();
+        tick();
+
+        expect(location.path()).toEqual('/inicio');
+      })
+    ));
+
     it('should navigate to the contact page', fakeAsync(
       inject([Location], (location: Location) => {
         const anchorContact = compiled.querySelectorAll(
           'a'
-        )[1] as HTMLAnchorElement;
+        )[2] as HTMLAnchorElement;
         anchorContact.click();
         tick();
 
@@ -358,7 +382,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorLogin = compiled.querySelectorAll(
           'a'
-        )[2] as HTMLAnchorElement;
+        )[3] as HTMLAnchorElement;
         anchorLogin.click();
         tick();
 
@@ -370,7 +394,7 @@ describe('NavbarComponent', () => {
       inject([Location], (location: Location) => {
         const anchorRegister = compiled.querySelectorAll(
           'a'
-        )[3] as HTMLAnchorElement;
+        )[4] as HTMLAnchorElement;
         anchorRegister.click();
         tick();
 
