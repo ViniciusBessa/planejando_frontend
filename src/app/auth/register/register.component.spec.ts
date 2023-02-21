@@ -212,21 +212,14 @@ describe('RegisterComponent', () => {
 
   it('should successfully register with a Google account', fakeAsync(() => {
     spyOn(component, 'onRegisterWithGoogle').and.callThrough();
-    spyOn(store, 'dispatch');
-    spyOn(googleAuthentication, 'initLogin').and.callFake(
-      async (): Promise<GoogleUserData> => ({
-        info: { name: 'TestingUser', email: 'email@example.com', sub: 'sub' },
-        picture: 'picture',
-      })
-    );
+    spyOn(googleAuthentication, 'initRegister');
 
     const googleLogoIcon = compiled.querySelector('img') as HTMLImageElement;
     googleLogoIcon.click();
     tick();
 
     expect(component.onRegisterWithGoogle).toHaveBeenCalled();
-    expect(googleAuthentication.initLogin).toHaveBeenCalled();
-    expect(store.dispatch).toHaveBeenCalled();
+    expect(googleAuthentication.initRegister).toHaveBeenCalled();
   }));
 
   it('should toggle the password input type to text and then back to password', fakeAsync(() => {

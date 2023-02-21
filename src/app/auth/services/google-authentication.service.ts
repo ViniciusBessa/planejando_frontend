@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { OAuthService, AuthConfig } from 'angular-oauth2-oidc';
 import { environment } from 'src/environments/environment';
@@ -24,7 +25,8 @@ export class GoogleAuthenticationService {
 
   constructor(
     private oauthService: OAuthService,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
+    private router: Router
   ) {
     oauthService.configure(oAuthConfig);
     store.select('auth').subscribe((state) => {
@@ -33,34 +35,52 @@ export class GoogleAuthenticationService {
   }
 
   async loadDocument(): Promise<void> {
-    await this.oauthService.loadDiscoveryDocument();
-    await this.oauthService.tryLoginImplicitFlow();
+    await this.oauthService.loadDiscoveryDocumentAndTryLogin();
+
+    if (this.oauthService.hasValidIdToken()) {
+      if (this.oauthService.state === 'login') {
+        await this.router.navigate(['/auth', 'login']);
+        await this.initLogin();
+      } else if (this.oauthService.state === 'register') {
+        await this.router.navigate(['/auth', 'cadastro']);
+        await this.initRegister();
+      }
+    }
   }
 
-  async initLogin(): Promise<GoogleUserData> {
+  async initLogin(): Promise<void> {
     if (!this.oauthService.hasValidAccessToken()) {
-      this.oauthService.initLoginFlow();
+      this.oauthService.initLoginFlow('login');
     }
+
     const userProfile =
       (await this.oauthService.loadUserProfile()) as GoogleUserData;
-    return userProfile;
+
+    this.store.dispatch(
+      AuthActions.loginStart({
+        email: userProfile.info.email,
+        password: userProfile.info.sub,
+        next: null,
+      })
+    );
   }
 
-  async autoLogin(): Promise<void> {
-    if (!this.oauthService.hasValidAccessToken() || this.userIsLoggedIn) return;
-
-    const userProfile: any = await this.oauthService.loadUserProfile();
-    const email = userProfile.info.email;
-    const password = userProfile.info.sub;
-
-    if (email && password) {
-      this.store.dispatch(
-        AuthActions.loginStart({
-          email,
-          password,
-          next: null,
-        })
-      );
+  async initRegister(): Promise<void> {
+    if (!this.oauthService.hasValidAccessToken()) {
+      this.oauthService.initLoginFlow('register');
     }
+
+    const userProfile =
+      (await this.oauthService.loadUserProfile()) as GoogleUserData;
+
+    this.store.dispatch(
+      AuthActions.registerStart({
+        name: userProfile.info.name,
+        email: userProfile.info.email,
+        password: userProfile.info.sub,
+        profile_image: userProfile.picture,
+        next: null,
+      })
+    );
   }
 }

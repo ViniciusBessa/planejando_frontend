@@ -55,17 +55,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegisterWithGoogle(): Promise<void> {
-    const userData = await this.googleAuthentication.initLogin();
-
-    this.store.dispatch(
-      AuthActions.registerStart({
-        name: userData.info.name,
-        email: userData.info.email,
-        password: userData.info.sub,
-        profile_image: userData.picture,
-        next: null,
-      })
-    );
+    await this.googleAuthentication.initRegister();
   }
 
   get nameMinLength(): string | undefined {

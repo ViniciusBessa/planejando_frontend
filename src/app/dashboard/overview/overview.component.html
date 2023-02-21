@@ -76,7 +76,7 @@
       <h1 class="text-xl font-bold text-center">Metas mensais</h1>
 
       <div
-        class="flex flex-row flex-wrap justify-center items-center gap-8 sm:grid sm:grid-cols-overviewGoal sm:gap-12 text-center sm:text-start p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+        class="flex flex-col justify-center items-center gap-8 sm:grid sm:grid-cols-overviewGoal sm:gap-12 text-center sm:text-start p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
         *ngFor="let goal of firstTwoGoals; let index = index"
         [routerLink]="['/dashboard', 'metas']"
         [queryParams]="{ goalId: index }"

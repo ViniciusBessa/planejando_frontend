@@ -44,14 +44,6 @@ export class LoginComponent implements OnInit {
   }
 
   async onLogInWithGoogle(): Promise<void> {
-    const userData = await this.googleAuthentication.initLogin();
-
-    this.store.dispatch(
-      AuthActions.loginStart({
-        email: userData.info.email,
-        password: userData.info.sub,
-        next: null,
-      })
-    );
+    await this.googleAuthentication.initLogin();
   }
 }

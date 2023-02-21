@@ -45,13 +45,15 @@ export class AppComponent {
     this.onSetTheme(storedTheme);
   }
 
-  async onSetTheme(newTheme: string | null) {
+  async onSetTheme(newTheme: string | null): Promise<void> {
     this.theme = newTheme || 'system';
     localStorage.setItem('theme', this.theme);
   }
 
-  systemThemeIsDark() {
-    const isSystemThemeDark = window.matchMedia('(prefers-color-scheme: dark)');
+  systemThemeIsDark(): boolean {
+    const isSystemThemeDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
     return isSystemThemeDark;
   }
 }

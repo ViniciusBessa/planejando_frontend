@@ -160,13 +160,7 @@ describe('LoginComponent', () => {
 
   it('should successfully log in with a Google account', fakeAsync(() => {
     spyOn(component, 'onLogInWithGoogle').and.callThrough();
-    spyOn(store, 'dispatch');
-    spyOn(googleAuthentication, 'initLogin').and.callFake(
-      async (): Promise<GoogleUserData> => ({
-        info: { name: 'TestingUser', email: 'email@example.com', sub: 'sub' },
-        picture: 'picture',
-      })
-    );
+    spyOn(googleAuthentication, 'initLogin');
 
     const googleLogoIcon = compiled.querySelector('img') as HTMLImageElement;
     googleLogoIcon.click();
@@ -174,7 +168,6 @@ describe('LoginComponent', () => {
 
     expect(component.onLogInWithGoogle).toHaveBeenCalled();
     expect(googleAuthentication.initLogin).toHaveBeenCalled();
-    expect(store.dispatch).toHaveBeenCalled();
   }));
 
   it('should toggle the password input type to text and then back to password', fakeAsync(() => {
