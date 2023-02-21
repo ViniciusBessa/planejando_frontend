@@ -48,6 +48,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { registerLocaleData } from '@angular/common';
+import { MessageAlertComponent } from './message-alert/message-alert.component';
 
 registerLocaleData(localePt);
 
@@ -62,6 +63,7 @@ registerLocaleData(localePt);
     ErrorAlertComponent,
     FeatureComponent,
     UserAccountComponent,
+    MessageAlertComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,6 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { GoogleUserData } from '../services/google-user-data.model';
 import * as fromApp from '../../store/app.reducer';
 import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -39,6 +38,7 @@ describe('LoginComponent', () => {
     userAccount: {
       error: null,
       loading: false,
+      message: null,
     },
     dashboard: {
       categories: [],

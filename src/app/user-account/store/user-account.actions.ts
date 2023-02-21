@@ -27,6 +27,7 @@ export const updateSuccess = createAction(
   props<{
     user: UserData;
     token: string;
+    message: string;
   }>()
 );
 
@@ -36,6 +37,8 @@ export const updateFail = createAction(
 );
 
 export const resetError = createAction('[User Account] Reset Error');
+
+export const resetMessage = createAction('[User Account] Reset Message');
 
 export const deleteAccountStart = createAction(
   '[User Account] Delete Account Start',

@@ -15,6 +15,7 @@ import {
   bootstrapLaptopFill,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
+import { MessageAlertComponent } from './message-alert/message-alert.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -36,6 +37,7 @@ describe('AppComponent', () => {
         NavbarComponent,
         FooterComponent,
         ErrorAlertComponent,
+        MessageAlertComponent,
       ],
       providers: [provideMockStore()],
     }).compileComponents();

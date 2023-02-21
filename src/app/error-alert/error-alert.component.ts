@@ -12,11 +12,12 @@ import { PasswordResetService } from '../auth/services/password-reset.service';
   styleUrls: ['./error-alert.component.css'],
 })
 export class ErrorAlertComponent implements OnInit {
+  errorMessage: string | null = null;
+
   constructor(
     private store: Store<fromApp.AppState>,
     private passwordResetService: PasswordResetService
   ) {}
-  errorMessage: string | null = null;
 
   ngOnInit(): void {
     this.store.select('auth').subscribe((state) => {

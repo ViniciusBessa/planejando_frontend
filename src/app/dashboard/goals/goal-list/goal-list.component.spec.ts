@@ -40,6 +40,7 @@ describe('GoalListComponent', () => {
     userAccount: {
       error: null,
       loading: false,
+      message: null,
     },
     dashboard: {
       categories: [

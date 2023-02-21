@@ -35,7 +35,6 @@ import {
 import { formatCurrency, formatDate } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ExpensesGraphicsComponent } from './expenses-graphics/expenses-graphics.component';
 import { SidebarComponent } from '../shared/sidebar/sidebar.component';
@@ -54,6 +53,7 @@ describe('ExpensesComponent', () => {
     userAccount: {
       error: null,
       loading: false,
+      message: null,
     },
     dashboard: {
       categories: [],

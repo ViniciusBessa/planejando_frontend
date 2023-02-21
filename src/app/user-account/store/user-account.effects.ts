@@ -37,6 +37,7 @@ export class UserAccountEffects {
             map((responseData) =>
               UserAccountActions.updateSuccess({
                 ...responseData,
+                message: 'Nome atualizado com sucesso!',
               })
             ),
             catchError(handleError.bind(this))
@@ -61,6 +62,7 @@ export class UserAccountEffects {
             map((responseData) =>
               UserAccountActions.updateSuccess({
                 ...responseData,
+                message: 'E-mail atualizado com sucesso!',
               })
             ),
             catchError(handleError.bind(this))
@@ -85,6 +87,7 @@ export class UserAccountEffects {
             map((responseData) =>
               UserAccountActions.updateSuccess({
                 ...responseData,
+                message: 'Senha atualizada com sucesso!',
               })
             ),
             catchError(handleError.bind(this))

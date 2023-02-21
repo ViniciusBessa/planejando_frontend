@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import {
   ComponentFixture,
   fakeAsync,
@@ -6,26 +7,25 @@ import {
 } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-
-import { ErrorAlertComponent } from './error-alert.component';
 import * as fromApp from '../store/app.reducer';
-import { HttpClientModule } from '@angular/common/http';
 
-describe('ErrorAlertComponent', () => {
-  describe('Error occurred', () => {
-    let component: ErrorAlertComponent;
-    let fixture: ComponentFixture<ErrorAlertComponent>;
+import { MessageAlertComponent } from './message-alert.component';
+
+describe('MessageAlertComponent', () => {
+  describe('Message was dispatched', () => {
+    let component: MessageAlertComponent;
+    let fixture: ComponentFixture<MessageAlertComponent>;
     let compiled: HTMLElement;
     let initialState: fromApp.AppState = {
       auth: {
         user: null,
-        error: new Error('An error occurred'),
+        error: null,
         loading: false,
       },
       userAccount: {
         error: null,
         loading: false,
-        message: null,
+        message: 'The password was updated!',
       },
       dashboard: {
         categories: [],
@@ -39,12 +39,12 @@ describe('ErrorAlertComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [ErrorAlertComponent],
+        declarations: [MessageAlertComponent],
         imports: [StoreModule.forRoot(), HttpClientModule],
         providers: [provideMockStore({ initialState })],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(ErrorAlertComponent);
+      fixture = TestBed.createComponent(MessageAlertComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
       compiled = fixture.nativeElement;
@@ -54,16 +54,16 @@ describe('ErrorAlertComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should display the error message', () => {
+    it('should display the message', () => {
       const message = compiled.querySelector('p') as HTMLParagraphElement;
       expect(message).toBeTruthy();
-      expect(message.innerText).toContain('An error occurred');
+      expect(message.innerText).toContain('The password was updated!');
     });
 
-    it('should hide the error message after 8 seconds', fakeAsync(() => {
+    it('should hide the message after 8 seconds', fakeAsync(() => {
       let message = compiled.querySelector('p') as HTMLParagraphElement;
       expect(message).toBeTruthy();
-      expect(message.innerText).toEqual(component.errorMessage!);
+      expect(message.innerText).toEqual(component.message!);
 
       // Waiting 8 seconds to continue the test
       tick(8000);
@@ -72,14 +72,14 @@ describe('ErrorAlertComponent', () => {
       fixture.whenStable().then(() => {
         message = compiled.querySelector('p') as HTMLParagraphElement;
         expect(message).toBeFalsy();
-        expect(component.errorMessage).toBeFalsy();
+        expect(component.message).toBeFalsy();
       });
     }));
   });
 
-  describe('No Error occurred', () => {
-    let component: ErrorAlertComponent;
-    let fixture: ComponentFixture<ErrorAlertComponent>;
+  describe('No message was dispatched', () => {
+    let component: MessageAlertComponent;
+    let fixture: ComponentFixture<MessageAlertComponent>;
     let compiled: HTMLElement;
     let initialState: fromApp.AppState = {
       auth: {
@@ -104,12 +104,12 @@ describe('ErrorAlertComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [ErrorAlertComponent],
+        declarations: [MessageAlertComponent],
         imports: [StoreModule.forRoot(), HttpClientModule],
         providers: [provideMockStore({ initialState })],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(ErrorAlertComponent);
+      fixture = TestBed.createComponent(MessageAlertComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
       compiled = fixture.nativeElement;
@@ -119,10 +119,10 @@ describe('ErrorAlertComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should not display the error message', () => {
+    it('should not display the message', () => {
       const message = compiled.querySelector('p') as HTMLParagraphElement;
       expect(message).toBeFalsy();
-      expect(component.errorMessage).toBeFalsy();
+      expect(component.message).toBeFalsy();
     });
   });
 });

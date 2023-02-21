@@ -30,6 +30,7 @@ describe('LogoutRequiredGuard', () => {
       userAccount: {
         error: null,
         loading: false,
+        message: null,
       },
       dashboard: {
         categories: [],
@@ -89,6 +90,7 @@ describe('LogoutRequiredGuard', () => {
       userAccount: {
         error: null,
         loading: false,
+        message: null,
       },
       dashboard: {
         categories: [],

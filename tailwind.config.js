@@ -47,9 +47,9 @@ module.exports = {
       },
       keyframes: {
         fadeIn: {
-          "0%": { top: "8px", opacity: "0%" },
-          "20%, 60%": { top: "36px", opacity: "100%" },
-          "100%": { top: "36px", opacity: "0%" },
+          "0%": { top: "12px", opacity: "0%" },
+          "20%, 60%": { top: "48px", opacity: "100%" },
+          "100%": { top: "48px", opacity: "0%" },
         },
         loadingRespiration: {
           "0%": { backgroundColor: "#CFD4DA" },

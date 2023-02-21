@@ -35,6 +35,7 @@ describe('PasswordResetComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+        message: null,
       },
       dashboard: {
         categories: [],
@@ -170,6 +171,7 @@ describe('PasswordResetComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+        message: null,
       },
       dashboard: {
         categories: [],
@@ -320,6 +322,7 @@ describe('PasswordResetComponent', () => {
       userAccount: {
         error: null,
         loading: false,
+        message: null,
       },
       dashboard: {
         categories: [],
