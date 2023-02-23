@@ -22,7 +22,7 @@ import {
 } from '@ng-icons/bootstrap-icons';
 
 import { NavbarComponent } from './navbar.component';
-import * as fromAuth from '../store/app.reducer';
+import * as fromApp from '../store/app.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NgIconsModule } from '@ng-icons/core';
 import { LoginComponent } from '../auth/login/login.component';
@@ -37,7 +37,7 @@ describe('NavbarComponent', () => {
     let fixture: ComponentFixture<NavbarComponent>;
     let compiled: HTMLElement;
     let store: Store;
-    let initialState: fromAuth.AppState = {
+    let initialState: fromApp.AppState = {
       auth: {
         user: {
           id: 1,
@@ -279,7 +279,7 @@ describe('NavbarComponent', () => {
     let component: NavbarComponent;
     let fixture: ComponentFixture<NavbarComponent>;
     let compiled: HTMLElement;
-    let initialState: fromAuth.AppState = {
+    let initialState: fromApp.AppState = {
       auth: {
         user: null,
         error: null,

@@ -16,8 +16,37 @@ import {
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import { MessageAlertComponent } from './message-alert/message-alert.component';
+import * as fromApp from './store/app.reducer';
 
 describe('AppComponent', () => {
+  let initialState: fromApp.AppState = {
+    auth: {
+      user: {
+        id: 1,
+        name: 'TestingUser',
+        email: 'email@example.com',
+        role: 'USER',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      error: null,
+      loading: false,
+    },
+    userAccount: {
+      error: null,
+      loading: false,
+      message: null,
+    },
+    dashboard: {
+      categories: [],
+      revenues: [],
+      expenses: [],
+      goals: [],
+      loading: false,
+      error: null,
+    },
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -39,7 +68,7 @@ describe('AppComponent', () => {
         ErrorAlertComponent,
         MessageAlertComponent,
       ],
-      providers: [provideMockStore()],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
   });
 

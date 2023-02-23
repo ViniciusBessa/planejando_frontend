@@ -3,9 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NgChartsModule } from 'ng2-charts';
+import localePt from '@angular/common/locales/pt';
 import * as fromApp from '../../../store/app.reducer';
 
 import { RevenuesGraphicsComponent } from './revenues-graphics.component';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
 
 describe('RevenuesGraphicsComponent', () => {
   let component: RevenuesGraphicsComponent;
@@ -53,10 +56,15 @@ describe('RevenuesGraphicsComponent', () => {
   };
 
   beforeEach(async () => {
+    registerLocaleData(localePt);
+
     await TestBed.configureTestingModule({
       declarations: [RevenuesGraphicsComponent],
       imports: [FormsModule, NgChartsModule],
-      providers: [provideMockStore({ initialState })],
+      providers: [
+        provideMockStore({ initialState }),
+        { provide: LOCALE_ID, useValue: 'pt-BR' },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RevenuesGraphicsComponent);

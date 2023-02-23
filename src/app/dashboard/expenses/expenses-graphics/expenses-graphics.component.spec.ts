@@ -1,7 +1,10 @@
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
+import localePt from '@angular/common/locales/pt';
 import { NgChartsModule } from 'ng2-charts';
 import * as fromApp from '../../../store/app.reducer';
 
@@ -71,10 +74,15 @@ describe('ExpensesGraphicsComponent', () => {
   };
 
   beforeEach(async () => {
+    registerLocaleData(localePt);
+
     await TestBed.configureTestingModule({
       declarations: [ExpensesGraphicsComponent],
       imports: [FormsModule, NgChartsModule],
-      providers: [provideMockStore({ initialState })],
+      providers: [
+        provideMockStore({ initialState }),
+        { provide: LOCALE_ID, useValue: 'pt-BR' },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExpensesGraphicsComponent);
