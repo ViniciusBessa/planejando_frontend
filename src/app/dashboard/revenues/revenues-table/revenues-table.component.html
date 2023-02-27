@@ -1,5 +1,6 @@
 <button
   class="py-3 px-5 mb-6 rounded-3xl text-white bg-primary-700 hover:opacity-80 w-full sm:w-fit"
+  aria-label="Botão para mostrar o formulário de criação de receita"
   (click)="onOpenForm()"
 >
   Adicionar receita
@@ -45,6 +46,7 @@
           <div class="flex flex-row gap-4 py-2">
             <button
               class="flex justify-center items-center w-9 h-9 p-2 bg-white text-white rounded-lg hover:bg-green-600 transition-all group"
+              aria-label="Botão para editar essa receita"
               (click)="onSelectRevenue(index)"
               title="Editar receita"
             >
@@ -56,6 +58,7 @@
             </button>
             <button
               class="flex justify-center items-center w-9 h-9 p-2 bg-white text-white rounded-lg hover:bg-red-600 transition-all group"
+              aria-label="Botão para deletar essa receita"
               (click)="onDeleteRevenue(element.id)"
               title="Deletar receita"
             >
@@ -99,7 +102,8 @@
   (ngSubmit)="onSubmit()"
 >
   <button
-    class="flex justify-center items-center self-end text-5xl w-16 h-16 rounded-full p-2 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:opacity-70 mr-8 sm:hidden"
+    class="flex justify-center items-center self-end text-5xl w-16 h-16 rounded-full p-2 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:opacity-70 sm:hidden"
+    aria-label="Botão para fechar o formulário"
     (click)="onCloseForm()"
   >
     &times;
@@ -197,6 +201,11 @@
   </div>
   <button
     class="h-11 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-lg text-white w-full p-2 disabled:bg-opacity-60 enabled:hover:opacity-80 transition-all"
+    [ariaLabel]="
+      selectedRevenue
+        ? 'Botão para atualizar a receita'
+        : 'Botão para criar a receita'
+    "
   >
     {{ selectedRevenue ? "Atualizar" : "Criar" }}
   </button>

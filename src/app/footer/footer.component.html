@@ -7,6 +7,7 @@
         ><img
           class="w-56"
           src="assets/planejando-low-resolution-color-logo.png"
+          alt="Logotipo do site"
       /></a>
     </li>
     <li class="h-fit">
@@ -17,12 +18,14 @@
         >Fale conosco</a
       >
     </li>
-    <button
-      class="text-white bg-orange-500 font-bold p-4 mb-10 rounded hover:opacity-90 sm:mb-0 sm:ml-auto"
-      [routerLink]="['/auth', 'cadastro']"
-    >
-      Cadastrar gratuitamente
-    </button>
+    <li class="h-fit">
+      <button
+        class="text-white bg-green-700 p-4 mb-10 rounded hover:opacity-90 sm:mb-0 sm:ml-auto"
+        [routerLink]="['/auth', 'cadastro']"
+      >
+        Cadastrar gratuitamente
+      </button>
+    </li>
   </ul>
   <p class="text-white text-center">©Planejando - 2023</p>
 </footer>

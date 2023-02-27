@@ -3,6 +3,7 @@
 >
   <button
     class="flex justify-center items-center h-full sm:h-fit py-5 px-8 hover:bg-gray-600 relative hover:after:scale-100 after:scale-0 after:transition-all after:rounded-md after:bg-gray-800 after:px-4 after:py-2 after:text-sm after:content-['Relatório'] after:absolute after:left-1/2 after:-translate-x-1/2 after:top-20 sm:after:top-1/2 sm:after:-translate-y-1/2 sm:after:-translate-x-0 sm:after:left-20 transition-all"
+    aria-label="Botão para selecionar a seção das tabelas"
     (click)="onSelectSection('TABLES')"
   >
     <ng-icon name="bootstrapClipboardDataFill" size="20"></ng-icon>
@@ -10,6 +11,7 @@
 
   <button
     class="flex justify-center items-center h-full sm:h-fit py-5 px-8 hover:bg-gray-600 relative hover:after:scale-100 after:scale-0 after:transition-all after:rounded-md after:bg-gray-800 after:px-4 after:py-2 after:text-sm after:content-['Gráficos'] after:absolute after:left-1/2 after:-translate-x-1/2 after:top-20 sm:after:top-1/2 sm:after:-translate-y-1/2 sm:after:-translate-x-0 sm:after:left-20 transition-all"
+    aria-label="Botão para selecionar a seção dos gráficos"
     (click)="onSelectSection('CHARTS')"
   >
     <ng-icon name="bootstrapBarChartFill" size="20"></ng-icon>

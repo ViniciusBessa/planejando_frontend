@@ -93,7 +93,8 @@
       </p>
     </div>
     <button
-      class="bg-primary-900 bg-opacity-30 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
+      class="bg-primary-900 disabled:bg-opacity-30 rounded-xl font-bold text-lg text-white w-full p-2 md:w-10/12 hover:opacity-80 transition-all"
+      aria-label="Botão para enviar o e-mail"
       [disabled]="!form.valid"
     >
       Enviar

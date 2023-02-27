@@ -97,6 +97,7 @@
         </div>
         <button
           class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          aria-label="Botão para atualizar o nome"
           [disabled]="loading || user.name === nameForm.get('name')!.value"
         >
           <span *ngIf="!loading">Atualizar o nome</span>
@@ -155,6 +156,7 @@
         </div>
         <button
           class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          aria-label="Botão para atualizar o e-mail"
           [disabled]="loading || user.email === emailForm.get('email')!.value"
         >
           <span *ngIf="!loading">Atualizar o e-mail</span>
@@ -218,6 +220,7 @@
         </div>
         <button
           class="h-9 flex justify-center items-center bg-red-600 dark:bg-red-800 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          aria-label="Botão para deletar a conta"
           [disabled]="loading"
         >
           <span *ngIf="!loading">Deletar a conta</span>
@@ -347,6 +350,7 @@
         </div>
         <button
           class="h-9 flex justify-center items-center bg-primary-900 rounded-xl font-bold text-md text-white w-full p-1 disabled:bg-opacity-30 enabled:cursor-pointer enabled:hover:opacity-80 transition-all"
+          aria-label="Botão para confirmar a alteração da senha"
           [disabled]="loading"
         >
           <span *ngIf="!loading">Confirmar</span>
