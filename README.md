@@ -12,7 +12,7 @@ Para iniciar a aplicação em um ambiente de desenvolvedor, use o comando:
 ng serve
 ```
 
-Já para iniciar a aplicação na produção, utilize o comando npm build, e envie a pasta dist para a hospedagem.
+Já para iniciar a aplicação na produção, utilize o comando npm build, e envie a pasta dist para o servidor onde ele será hospedado.
 
 ## Testando a aplicação
 Para executar os testes, utilize o seguinte comando:
